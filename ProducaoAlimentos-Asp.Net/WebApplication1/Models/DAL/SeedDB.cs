@@ -148,11 +148,21 @@ namespace WebApplication1.Models.DAL
             context.SaveChanges();
 
             // Inicializando dados na tabela EstoqueInsumos
-            List<EstoqueInsumo> estoqueInsumo = new List<EstoqueInsumo>()
+            List<EstoqueInsumo> estoqueInsumos = new List<EstoqueInsumo>()
                  {
                      new EstoqueInsumo(){ InsumoID = 3, QtdeTotalEstoque = 10, CustoTotalEstoque = 25 }
                  };
-            context.EstoqueInsumos.AddRange(estoqueInsumo);
+            context.EstoqueInsumos.AddRange(estoqueInsumos);
+            base.Seed(context);
+            context.SaveChanges();
+
+            //Inicializando dados na tabela EstoqueProdutos
+            List<EstoqueProduto> estoqueProdutos = new List<EstoqueProduto>()
+            {
+                new EstoqueProduto(){ ProdutoID = 1, QtdeTotalEstoque = 10, CustoTotalEstoque = 100 }
+
+            };
+            context.EstoqueProdutos.AddRange(estoqueProdutos);
             base.Seed(context);
             context.SaveChanges();
 

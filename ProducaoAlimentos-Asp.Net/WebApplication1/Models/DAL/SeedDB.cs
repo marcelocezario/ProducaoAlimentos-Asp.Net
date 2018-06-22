@@ -18,22 +18,22 @@ namespace WebApplication1.Models.DAL
             context.UnidadesDeMedida.AddRange(unidadesDeMedida);
             base.Seed(context);
             context.SaveChanges();
-//
-//            List<Insumo> insumos = new List<Insumo>()
-//            {
-//                new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
-//                new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
-//                new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
-//                new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
-//                new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
-//                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
-//                new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
-//                new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
-//                new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
-//            };
-//            context.Insumos.AddRange(insumos);
-//            base.Seed(context);
-//            context.SaveChanges();
+
+            List<Insumo> insumos = new List<Insumo>()
+            {
+                new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
+                new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
+                new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
+            };
+            context.Insumos.AddRange(insumos);
+            base.Seed(context);
+            context.SaveChanges();
 //
 //            List<Produto> produtos = new List<Produto>()
 //            {

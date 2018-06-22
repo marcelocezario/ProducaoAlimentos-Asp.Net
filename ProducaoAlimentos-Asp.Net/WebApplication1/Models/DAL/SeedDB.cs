@@ -8,58 +8,28 @@ namespace WebApplication1.Models.DAL
     {
         protected override void Seed(Contexto context)
         {
-            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
+            // Inicializando dados na tabela Cidades
+            List<Cidade> cidades = new List<Cidade>()
             {
-                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
+                new Cidade(){ Nome = "Curitiba", EstadoID = 16 },
+                new Cidade(){ Nome = "São José dos Pinhais", EstadoID = 16 },
+                new Cidade(){ Nome = "Florianópolis", EstadoID = 24 },
             };
-            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
+            context.Cidades.AddRange(cidades);
             base.Seed(context);
             context.SaveChanges();
 
-            List<Insumo> insumos = new List<Insumo>()
+            // Inicializando dados na tabela Enderecos
+            List<Endereco> enderecos = new List<Endereco>()
             {
-                new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
-                new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
-                new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
+                new Endereco(){ Logradouro = "Rua Senador Accioly Filho", Numero = 511, Complemento = "Universidade Positivo", Bairro = "Cidade Industrial", Cep = "81310-000", CidadeID = 1},
+                new Endereco(){ Logradouro = "Rua Aleatória", Numero = 10, Complemento = "", Bairro = "Centro", Cep = "83000-000", CidadeID = 2},
             };
-            context.Insumos.AddRange(insumos);
+            context.Enderecos.AddRange(enderecos);
             base.Seed(context);
             context.SaveChanges();
-//
-//            List<Produto> produtos = new List<Produto>()
-//            {
-//                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
-//                {
-//                    new InsumoComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
-//                    new InsumoComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
-//                    new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
-//                    new InsumoComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
-//                }
-//            }
-//        };
-//            context.Produtos.AddRange(produtos);
-//            base.Seed(context);
-//            context.SaveChanges();
-//
-//
-//            List<EstoqueInsumo> estoqueInsumo = new List<EstoqueInsumo>()
-//            {
-//                new EstoqueInsumo(){ InsumoID = 3, QtdeTotalEstoque = 0, CustoTotalEstoque = 0 }
-//            };
-//            context.EstoqueInsumos.AddRange(estoqueInsumo);
-//            base.Seed(context);
-//            context.SaveChanges();
-//
-//
+
+            // Inicializando dados na tabela Estados
             List<Estado> estados = new List<Estado>()
             {
                 new Estado(){ Nome = "Acre", Sigla = "AC" },
@@ -94,25 +64,24 @@ namespace WebApplication1.Models.DAL
             base.Seed(context);
             context.SaveChanges();
 
-            List<Cidade> cidades = new List<Cidade>()
+            // Inicializando dados na tabela Insumos
+            List<Insumo> insumos = new List<Insumo>()
             {
-                new Cidade(){ Nome = "Curitiba", EstadoID = 16 },
-                new Cidade(){ Nome = "São José dos Pinhais", EstadoID = 16 },
-                new Cidade(){ Nome = "Florianópolis", EstadoID = 24 },
+                new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
+                new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
+                new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
+                new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
             };
-            context.Cidades.AddRange(cidades);
+            context.Insumos.AddRange(insumos);
             base.Seed(context);
             context.SaveChanges();
 
-            List<Endereco> enderecos = new List<Endereco>()
-            {
-                new Endereco(){ Logradouro = "Rua Senador Accioly Filho", Numero = 511, Complemento = "Universidade Positivo", Bairro = "Cidade Industrial", Cep = "81310-000", CidadeID = 1},
-                new Endereco(){ Logradouro = "Rua Aleatória", Numero = 10, Complemento = "", Bairro = "Centro", Cep = "83000-000", CidadeID = 2},
-            };
-            context.Enderecos.AddRange(enderecos);
-            base.Seed(context);
-            context.SaveChanges();
-
+            // Inicializando dados na tabela Marcas
             List<Marca> marcas = new List<Marca>()
             {
                 new Marca(){ Nome = "Nestle"},
@@ -122,6 +91,45 @@ namespace WebApplication1.Models.DAL
             context.Marcas.AddRange(marcas);
             base.Seed(context);
             context.SaveChanges();
+
+            // Inicializando dados na tabela UnidadesDeMedida
+            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
+            {
+                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
+            };
+            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
+            base.Seed(context);
+            context.SaveChanges();
+
+            //
+            //            List<Produto> produtos = new List<Produto>()
+            //            {
+            //                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
+            //                {
+            //                    new InsumoComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
+            //                    new InsumoComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
+            //                    new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
+            //                    new InsumoComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
+            //                }
+            //            }
+            //        };
+            //            context.Produtos.AddRange(produtos);
+            //            base.Seed(context);
+            //            context.SaveChanges();
+            //
+            //
+            //            List<EstoqueInsumo> estoqueInsumo = new List<EstoqueInsumo>()
+            //            {
+            //                new EstoqueInsumo(){ InsumoID = 3, QtdeTotalEstoque = 0, CustoTotalEstoque = 0 }
+            //            };
+            //            context.EstoqueInsumos.AddRange(estoqueInsumo);
+            //            base.Seed(context);
+            //            context.SaveChanges();
+            //
+
         }
     }
 }

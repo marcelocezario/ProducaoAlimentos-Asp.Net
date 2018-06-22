@@ -25,7 +25,7 @@ namespace WebApplication1.Models.DAL
 //        public DbSet<MovimentacaoEstoqueInsumo> MovimentacoesEstoqueInsumos { get; set; }
 //        public DbSet<MovimentacaoEstoqueProduto> MovimentacoesEstoqueProdutos { get; set; }
 //        public DbSet<Produto> Produtos { get; set; }
-//        public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
+        public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
 //        public DbSet<Venda> Vendas { get; set; }
     }
 }

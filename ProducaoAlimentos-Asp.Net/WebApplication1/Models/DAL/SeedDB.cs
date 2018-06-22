@@ -8,17 +8,16 @@ namespace WebApplication1.Models.DAL
     {
         protected override void Seed(Contexto context)
         {
-//            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
-//            {
-//                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
-//                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
-//                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
-//                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
-//            };
-//
-//            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
-//            base.Seed(context);
-//            context.SaveChanges();
+            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
+            {
+                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
+            };
+            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
+            base.Seed(context);
+            context.SaveChanges();
 //
 //            List<Insumo> insumos = new List<Insumo>()
 //            {

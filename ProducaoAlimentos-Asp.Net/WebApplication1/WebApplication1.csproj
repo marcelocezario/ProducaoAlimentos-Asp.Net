@@ -195,6 +195,7 @@
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\UnidadesDeMedidaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -289,6 +290,7 @@
     <Content Include="Views\Estados\Index.cshtml" />
     <Content Include="Views\Cidades\Index.cshtml" />
     <Content Include="Views\Enderecos\Index.cshtml" />
+    <Content Include="Views\UnidadesDeMedida\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

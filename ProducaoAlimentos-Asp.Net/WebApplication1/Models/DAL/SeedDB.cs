@@ -156,16 +156,23 @@ namespace WebApplication1.Models.DAL
             base.Seed(context);
             context.SaveChanges();
 
-            //Inicializando dados na tabela EstoqueProdutos
+            // Inicializando dados na tabela EstoqueProdutos
             List<EstoqueProduto> estoqueProdutos = new List<EstoqueProduto>()
             {
                 new EstoqueProduto(){ ProdutoID = 1, QtdeTotalEstoque = 10, CustoTotalEstoque = 100 }
-
             };
             context.EstoqueProdutos.AddRange(estoqueProdutos);
             base.Seed(context);
             context.SaveChanges();
 
+            // Inicializando dados na tabela LotesInsumos
+            List<LoteInsumo> lotesInsumos = new List<LoteInsumo>()
+            {
+                new LoteInsumo(){ DataCompra = new System.DateTime(2018,06,15), QtdeInicial = 15, QtdeDisponivel = 10, CustoMedio = 2.5 , CustoTotalInicial = 37.5, Validade = new System.DateTime(2018,06,30) , InsumoID = 3, MarcaID = 1, FornecedorID = 1 }
+            };
+            context.LotesInsumos.AddRange(lotesInsumos);
+            base.Seed(context);
+            context.SaveChanges();
 
         }
     }

@@ -8,59 +8,59 @@ namespace WebApplication1.Models.DAL
     {
         protected override void Seed(Contexto context)
         {
-            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
-            {
-                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
-            };
-
-            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
-            base.Seed(context);
-            context.SaveChanges();
-
-            List<Insumo> insumos = new List<Insumo>()
-            {
-                new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
-                new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
-                new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
-            };
-            context.Insumos.AddRange(insumos);
-            base.Seed(context);
-            context.SaveChanges();
-
-            List<Produto> produtos = new List<Produto>()
-            {
-                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
-                {
-                    new InsumoComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
-                    new InsumoComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
-                    new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
-                    new InsumoComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
-                }
-            }
-        };
-            context.Produtos.AddRange(produtos);
-            base.Seed(context);
-            context.SaveChanges();
-
-
-            List<EstoqueInsumo> estoqueInsumo = new List<EstoqueInsumo>()
-            {
-                new EstoqueInsumo(){ InsumoID = 3, QtdeTotalEstoque = 0, CustoTotalEstoque = 0 }
-            };
-            context.EstoqueInsumos.AddRange(estoqueInsumo);
-            base.Seed(context);
-            context.SaveChanges();
-
-
+//            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
+//            {
+//                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
+//                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
+//                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
+//                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
+//            };
+//
+//            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
+//            base.Seed(context);
+//            context.SaveChanges();
+//
+//            List<Insumo> insumos = new List<Insumo>()
+//            {
+//                new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
+//                new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
+//                new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
+//                new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
+//                new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
+//                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
+//                new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
+//                new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
+//                new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
+//            };
+//            context.Insumos.AddRange(insumos);
+//            base.Seed(context);
+//            context.SaveChanges();
+//
+//            List<Produto> produtos = new List<Produto>()
+//            {
+//                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
+//                {
+//                    new InsumoComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
+//                    new InsumoComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
+//                    new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
+//                    new InsumoComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
+//                }
+//            }
+//        };
+//            context.Produtos.AddRange(produtos);
+//            base.Seed(context);
+//            context.SaveChanges();
+//
+//
+//            List<EstoqueInsumo> estoqueInsumo = new List<EstoqueInsumo>()
+//            {
+//                new EstoqueInsumo(){ InsumoID = 3, QtdeTotalEstoque = 0, CustoTotalEstoque = 0 }
+//            };
+//            context.EstoqueInsumos.AddRange(estoqueInsumo);
+//            base.Seed(context);
+//            context.SaveChanges();
+//
+//
             List<Estado> estados = new List<Estado>()
             {
                 new Estado(){ Nome = "Acre", Sigla = "AC" },

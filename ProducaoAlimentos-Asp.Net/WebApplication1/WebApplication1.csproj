@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\EnderecosController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
+    <Compile Include="Controllers\EstoqueInsumosController.cs" />
     <Compile Include="Controllers\FornecedoresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsumosComposicaoProdutosController.cs" />
@@ -303,6 +304,7 @@
     <Content Include="Views\InsumosComposicaoProdutos\Index.cshtml" />
     <Content Include="Views\Produtos\Index.cshtml" />
     <Content Include="Views\Fornecedores\Index.cshtml" />
+    <Content Include="Views\EstoqueInsumos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

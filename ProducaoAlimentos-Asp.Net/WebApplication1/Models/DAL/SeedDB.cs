@@ -104,6 +104,15 @@ namespace WebApplication1.Models.DAL
             context.Cidades.AddRange(cidades);
             base.Seed(context);
             context.SaveChanges();
+
+            List<Endereco> enderecos = new List<Endereco>()
+            {
+                new Endereco(){ Logradouro = "Rua Senador Accioly Filho", Numero = 511, Complemento = "Universidade Positivo", Bairro = "Cidade Industrial", Cep = "81310-000", CidadeID = 1},
+                new Endereco(){ Logradouro = "Rua Aleatória", Numero = 10, Complemento = "", Bairro = "Centro", Cep = "83000-000", CidadeID = 2},
+            };
+            context.Enderecos.AddRange(enderecos);
+            base.Seed(context);
+            context.SaveChanges();
         }
     }
 }

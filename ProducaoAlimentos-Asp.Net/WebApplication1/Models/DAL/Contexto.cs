@@ -11,7 +11,7 @@ namespace WebApplication1.Models.DAL
 
         public DbSet<Cidade> Cidades { get; set; }
 //        public DbSet<Cliente> Clientes { get; set; }
-//        public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Estado> Estados { get; set; }
 //        public DbSet<EstoqueInsumo> EstoqueInsumos { get; set; }
 //        public DbSet<EstoqueProduto> EstoqueProdutos { get; set; }

@@ -207,6 +207,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Insumo.cs" />
     <Compile Include="Models\InsumoComposicaoProduto.cs" />
+    <Compile Include="Models\LoteInsumo.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Marca.cs" />
     <Compile Include="Models\Pessoa.cs" />

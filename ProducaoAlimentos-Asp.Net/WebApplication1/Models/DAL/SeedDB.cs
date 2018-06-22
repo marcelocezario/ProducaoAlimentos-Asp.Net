@@ -112,6 +112,16 @@ namespace WebApplication1.Models.DAL
             context.Enderecos.AddRange(enderecos);
             base.Seed(context);
             context.SaveChanges();
+
+            List<Marca> marcas = new List<Marca>()
+            {
+                new Marca(){ Nome = "Nestle"},
+                new Marca(){ Nome = "Tirol"},
+                new Marca(){ Nome = "Venturelli"}
+            };
+            context.Marcas.AddRange(marcas);
+            base.Seed(context);
+            context.SaveChanges();
         }
     }
 }

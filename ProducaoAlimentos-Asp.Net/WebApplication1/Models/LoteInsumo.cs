@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
-    public class LoteInsumo
+    public class LoteInsumo : Lote
     {
-        public int LoteInsumoID { get; set; }
         public DateTime DataCompra { get; set; }
 
         [ForeignKey("_Insumo")]

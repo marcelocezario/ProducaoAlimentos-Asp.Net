@@ -215,6 +215,7 @@
     <Compile Include="Models\Marca.cs" />
     <Compile Include="Models\MovimentacaoEstoque.cs" />
     <Compile Include="Models\MovimentacaoEstoqueInsumo.cs" />
+    <Compile Include="Models\MovimentacaoEstoqueProduto.cs" />
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\UnidadeDeMedida.cs" />

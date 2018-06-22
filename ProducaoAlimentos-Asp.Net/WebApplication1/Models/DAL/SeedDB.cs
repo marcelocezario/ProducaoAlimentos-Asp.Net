@@ -8,27 +8,6 @@ namespace WebApplication1.Models.DAL
     {
         protected override void Seed(Contexto context)
         {
-            // Inicializando dados na tabela Cidades
-            List<Cidade> cidades = new List<Cidade>()
-            {
-                new Cidade(){ Nome = "Curitiba", EstadoID = 16 },
-                new Cidade(){ Nome = "São José dos Pinhais", EstadoID = 16 },
-                new Cidade(){ Nome = "Florianópolis", EstadoID = 24 },
-            };
-            context.Cidades.AddRange(cidades);
-            base.Seed(context);
-            context.SaveChanges();
-
-            // Inicializando dados na tabela Enderecos
-            List<Endereco> enderecos = new List<Endereco>()
-            {
-                new Endereco(){ Logradouro = "Rua Senador Accioly Filho", Numero = 511, Complemento = "Universidade Positivo", Bairro = "Cidade Industrial", Cep = "81310-000", CidadeID = 1},
-                new Endereco(){ Logradouro = "Rua Aleatória", Numero = 10, Complemento = "", Bairro = "Centro", Cep = "83000-000", CidadeID = 2},
-            };
-            context.Enderecos.AddRange(enderecos);
-            base.Seed(context);
-            context.SaveChanges();
-
             // Inicializando dados na tabela Estados
             List<Estado> estados = new List<Estado>()
             {
@@ -64,6 +43,50 @@ namespace WebApplication1.Models.DAL
             base.Seed(context);
             context.SaveChanges();
 
+            // Inicializando dados na tabela Cidades
+            List<Cidade> cidades = new List<Cidade>()
+            {
+                new Cidade(){ Nome = "Curitiba", EstadoID = 16 },
+                new Cidade(){ Nome = "São José dos Pinhais", EstadoID = 16 },
+                new Cidade(){ Nome = "Florianópolis", EstadoID = 24 },
+            };
+            context.Cidades.AddRange(cidades);
+            base.Seed(context);
+            context.SaveChanges();
+
+            // Inicializando dados na tabela Enderecos
+            List<Endereco> enderecos = new List<Endereco>()
+            {
+                new Endereco(){ Logradouro = "Rua Senador Accioly Filho", Numero = 511, Complemento = "Universidade Positivo", Bairro = "Cidade Industrial", Cep = "81310-000", CidadeID = 1},
+                new Endereco(){ Logradouro = "Rua Aleatória", Numero = 10, Complemento = "", Bairro = "Centro", Cep = "83000-000", CidadeID = 2},
+            };
+            context.Enderecos.AddRange(enderecos);
+            base.Seed(context);
+            context.SaveChanges();
+
+            // Inicializando dados na tabela UnidadesDeMedida
+            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
+            {
+                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
+                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
+            };
+            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
+            base.Seed(context);
+            context.SaveChanges();
+
+            // Inicializando dados na tabela Clientes
+            List<Cliente> clientes = new List<Cliente>()
+            {
+                new Cliente(){ Nome = "Antonio da Silva", Cpf_Cnpj = "164.842.566-67", Telefone = "99999-9999", Email = "antonio@gmail.com", EnderecoID = 1},
+                new Cliente(){ Nome = "Siclano José dos Santos", Cpf_Cnpj = "394.824.178-36", Telefone = "3000-0000", Email = "siclano@hotmail.com", EnderecoID = 2},
+            };
+            context.Clientes.AddRange(clientes);
+            base.Seed(context);
+            context.SaveChanges();
+
+
             // Inicializando dados na tabela Insumos
             List<Insumo> insumos = new List<Insumo>()
             {
@@ -92,17 +115,7 @@ namespace WebApplication1.Models.DAL
             base.Seed(context);
             context.SaveChanges();
 
-            // Inicializando dados na tabela UnidadesDeMedida
-            List<UnidadeDeMedida> unidadesDeMedida = new List<UnidadeDeMedida>()
-            {
-                new UnidadeDeMedida(){ Nome = "Centimetro", Sigla = "cm", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Litro", Sigla = "l", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Quilo", Sigla = "kg", Fracionavel = true},
-                new UnidadeDeMedida(){ Nome = "Unidade", Sigla = "un", Fracionavel = false}
-            };
-            context.UnidadesDeMedida.AddRange(unidadesDeMedida);
-            base.Seed(context);
-            context.SaveChanges();
+
 
             //
             //            List<Produto> produtos = new List<Produto>()

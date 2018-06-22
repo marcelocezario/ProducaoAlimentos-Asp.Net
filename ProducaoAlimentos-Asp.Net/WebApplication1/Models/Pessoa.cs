@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Models
 {
-    public class Pessoa
+    public abstract class Pessoa
     {
         public int ID { get; set; }
         public string Nome { get; set; }
@@ -10,7 +10,7 @@ namespace WebApplication1.Models
         public string Telefone { get; set; }
         public string Email { get; set; }
 
-        [ForeignKey(_Endereco)]
+        [ForeignKey("_Endereco")]
         public int EnderecoID { get; set; }
         public virtual Endereco _Endereco { get; set; }
     }

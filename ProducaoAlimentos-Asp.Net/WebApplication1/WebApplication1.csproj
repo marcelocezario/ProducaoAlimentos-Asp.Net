@@ -199,6 +199,7 @@
     <Compile Include="Models\Cidade.cs" />
     <Compile Include="Models\Endereco.cs" />
     <Compile Include="Models\Estado.cs" />
+    <Compile Include="Models\Fornecedor.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Insumo.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

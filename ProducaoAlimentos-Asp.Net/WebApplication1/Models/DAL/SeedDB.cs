@@ -90,6 +90,7 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela Insumos
             List<Insumo> insumos = new List<Insumo>()
             {
+                new Insumo(){ Nome = "Açúcar", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
@@ -115,23 +116,27 @@ namespace WebApplication1.Models.DAL
             base.Seed(context);
             context.SaveChanges();
 
-
-
-            //
-            //            List<Produto> produtos = new List<Produto>()
-            //            {
-            //                new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
-            //                {
-            //                    new InsumoComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.6},
-            //                    new InsumoComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 0.3},
-            //                    new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 1},
-            //                    new InsumoComposicaoProduto(){ InsumoID = 8, QtdeInsumo = 0.01}
-            //                }
-            //            }
-            //        };
-            //            context.Produtos.AddRange(produtos);
-            //            base.Seed(context);
-            //            context.SaveChanges();
+            // Inicializando dados na tabela Produtos
+            List<Produto> produtos = new List<Produto>()
+                        {
+                            new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
+                            {
+                                new InsumoComposicaoProduto(){ InsumoID = 3, QtdeInsumo = 0.6},
+                                new InsumoComposicaoProduto(){ InsumoID = 5, QtdeInsumo = 0.3},
+                                new InsumoComposicaoProduto(){ InsumoID = 10, QtdeInsumo = 1},
+                                new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 0.01}
+                            } },
+                            new Produto() {Nome = "Bolo", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
+                            {
+                                new InsumoComposicaoProduto(){ InsumoID = 10, QtdeInsumo = 10 },
+                                new InsumoComposicaoProduto(){ InsumoID = 5, QtdeInsumo = 0.15},
+                                new InsumoComposicaoProduto(){ InsumoID = 1, QtdeInsumo = 0.15},
+                                new InsumoComposicaoProduto(){InsumoID = 8, QtdeInsumo = 0.395}
+                            } },
+                            };
+            context.Produtos.AddRange(produtos);
+            base.Seed(context);
+            context.SaveChanges();
             //
             //
             //            List<EstoqueInsumo> estoqueInsumo = new List<EstoqueInsumo>()

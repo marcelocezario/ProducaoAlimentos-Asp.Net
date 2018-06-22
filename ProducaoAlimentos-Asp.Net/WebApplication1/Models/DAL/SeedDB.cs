@@ -86,6 +86,15 @@ namespace WebApplication1.Models.DAL
             base.Seed(context);
             context.SaveChanges();
 
+            // Inicializando dados na tabela Fornecedores
+            List<Fornecedor> fornecedores = new List<Fornecedor>()
+            {
+                new Fornecedor(){ Nome = "Alimentos Distribuição Ltda", Cpf_Cnpj = "66.752.485/0001-88", Telefone = "0800-777-7777", Email = "pedidos@alimentos.com.br", EnderecoID = 2},
+                new Fornecedor(){ Nome = "Delivery Center S.A", Cpf_Cnpj = "30.636.422/0001-19", Telefone = "3131-3131", Email = "contato_delivery@hotmail.com", EnderecoID = 1},
+            };
+            context.Fornecedores.AddRange(fornecedores);
+            base.Seed(context);
+            context.SaveChanges();
 
             // Inicializando dados na tabela Insumos
             List<Insumo> insumos = new List<Insumo>()

@@ -6,15 +6,16 @@ using WebApplication1.Models.DAL;
 
 namespace WebApplication1.Controllers
 {
-    public class EstadosController : Controller
+    public class CidadesController : Controller
     {
         Contexto contexto = new Contexto();
-        
-        // GET: Estados
+
+        // GET: Cidades
         public ActionResult Index()
         {
-            List<Estado> estados = contexto.Estados.ToList();
-            return View(estados);
+            List<Cidade> cidades = contexto.Cidades.ToList();
+
+            return View(cidades);
         }
     }
 }

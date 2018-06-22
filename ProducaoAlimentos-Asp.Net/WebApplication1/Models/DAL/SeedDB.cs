@@ -94,6 +94,16 @@ namespace WebApplication1.Models.DAL
             context.Estados.AddRange(estados);
             base.Seed(context);
             context.SaveChanges();
+
+            List<Cidade> cidades = new List<Cidade>()
+            {
+                new Cidade(){ Nome = "Curitiba", EstadoID = 16 },
+                new Cidade(){ Nome = "São José dos Pinhais", EstadoID = 16 },
+                new Cidade(){ Nome = "Florianópolis", EstadoID = 24 },
+            };
+            context.Cidades.AddRange(cidades);
+            base.Seed(context);
+            context.SaveChanges();
         }
     }
 }

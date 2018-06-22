@@ -9,7 +9,7 @@ namespace WebApplication1.Models.DAL
             Database.SetInitializer(new SeedDB());
         }
 
-//        public DbSet<Cidade> Cidades { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
 //        public DbSet<Cliente> Clientes { get; set; }
 //        public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Estado> Estados { get; set; }

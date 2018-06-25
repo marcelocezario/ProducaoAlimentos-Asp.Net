@@ -21,15 +21,14 @@ namespace WebApplication1.Models.DAL
 //        public DbSet<ItemVenda> ItensVenda { get; set; }
         public DbSet<LoteInsumo> LotesInsumos { get; set; }
         public DbSet<LoteInsumoProducao> LotesInsumosProducao { get; set; }
-//        public DbSet<LoteProduto> LotesProdutos { get; set; }
+        public DbSet<LoteProduto> LotesProdutos { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<MovimentacaoEstoqueInsumo> MovimentacoesEstoqueInsumos { get; set; }
-//        public DbSet<MovimentacaoEstoqueProduto> MovimentacoesEstoqueProdutos { get; set; }
+        public DbSet<MovimentacaoEstoqueProduto> MovimentacoesEstoqueProdutos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
 
 
-        public DbSet<LoteProduto> LotesProdutos { get; set; }
         //        public DbSet<Venda> Vendas { get; set; }
     }
 }

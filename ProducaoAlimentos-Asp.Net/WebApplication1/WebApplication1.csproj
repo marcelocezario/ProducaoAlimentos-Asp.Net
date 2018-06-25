@@ -206,6 +206,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
     <Compile Include="Controllers\MovimentacoesEstoqueInsumosController.cs" />
+    <Compile Include="Controllers\MovimentacoesEstoqueProdutosController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\UnidadesDeMedidaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -315,6 +316,7 @@
     <Content Include="Views\MovimentacoesEstoqueInsumos\Index.cshtml" />
     <Content Include="Views\LotesInsumosProducao\Index.cshtml" />
     <Content Include="Views\LotesProdutos\Index.cshtml" />
+    <Content Include="Views\MovimentacoesEstoqueProdutos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

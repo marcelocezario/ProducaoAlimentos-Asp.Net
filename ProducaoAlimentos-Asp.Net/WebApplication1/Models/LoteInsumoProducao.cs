@@ -9,7 +9,7 @@ namespace WebApplication1.Models
         public double CustoInsumo { get; set; }
 
         [ForeignKey("_LoteInsumo")]
-        public int InsumoID { get; set; }
-        public virtual Insumo _Insumo { get; set; }
+        public int LoteInsumoID { get; set; }
+        public virtual LoteInsumo _LoteInsumo { get; set; }
     }
 }

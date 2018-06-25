@@ -27,6 +27,10 @@ namespace WebApplication1.Models.DAL
 //        public DbSet<MovimentacaoEstoqueProduto> MovimentacoesEstoqueProdutos { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
-//        public DbSet<Venda> Vendas { get; set; }
+
+        public System.Data.Entity.DbSet<WebApplication1.Models.LoteInsumoProducao> LoteInsumoProducaos { get; set; }
+
+        public System.Data.Entity.DbSet<WebApplication1.Models.LoteProduto> LoteProdutoes { get; set; }
+        //        public DbSet<Venda> Vendas { get; set; }
     }
 }

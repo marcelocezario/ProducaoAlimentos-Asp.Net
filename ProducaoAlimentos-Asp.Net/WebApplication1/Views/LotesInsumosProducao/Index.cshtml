@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebApplication1.Models.LoteInsumoProducao>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model._LoteInsumo.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QtdeInsumo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustoInsumo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item._LoteInsumo.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QtdeInsumo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustoInsumo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LoteInsumoProducaoID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LoteInsumoProducaoID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LoteInsumoProducaoID })
+        </td>
+    </tr>
+}
+
+</table>

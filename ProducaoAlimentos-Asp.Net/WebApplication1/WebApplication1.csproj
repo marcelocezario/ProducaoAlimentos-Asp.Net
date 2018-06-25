@@ -200,6 +200,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InsumosComposicaoProdutosController.cs" />
     <Compile Include="Controllers\InsumosController.cs" />
+    <Compile Include="Controllers\ItensVendasController.cs" />
     <Compile Include="Controllers\LotesInsumosController.cs" />
     <Compile Include="Controllers\LotesInsumosProducaoController.cs" />
     <Compile Include="Controllers\LotesProdutosController.cs" />
@@ -317,6 +318,7 @@
     <Content Include="Views\LotesInsumosProducao\Index.cshtml" />
     <Content Include="Views\LotesProdutos\Index.cshtml" />
     <Content Include="Views\MovimentacoesEstoqueProdutos\Index.cshtml" />
+    <Content Include="Views\ItensVendas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

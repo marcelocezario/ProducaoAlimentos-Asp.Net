@@ -174,6 +174,15 @@ namespace WebApplication1.Models.DAL
             base.Seed(context);
             context.SaveChanges();
 
+            // Inicializando dados na tabela MovimentacoesEstoqueInsumos
+            List<MovimentacaoEstoqueInsumo> movimentacoesEstoqueInsumos = new List<MovimentacaoEstoqueInsumo>()
+            {
+                new MovimentacaoEstoqueInsumo(){ DataMovimentacao = new System.DateTime(2018,06,25), Qtde = -5, LoteInsumoID = 1 }
+            };
+            context.MovimentacoesEstoqueInsumos.AddRange(movimentacoesEstoqueInsumos);
+            base.Seed(context);
+            context.SaveChanges();
+
         }
     }
 }

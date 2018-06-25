@@ -20,7 +20,7 @@ namespace WebApplication1.Models.DAL
         public DbSet<InsumoComposicaoProduto> InsumosComposicaoProdutos { get; set; }
 //        public DbSet<ItemVenda> ItensVenda { get; set; }
         public DbSet<LoteInsumo> LotesInsumos { get; set; }
-//        public DbSet<LoteInsumoProducao> LotesInsumosProducao { get; set; }
+        public DbSet<LoteInsumoProducao> LotesInsumosProducao { get; set; }
 //        public DbSet<LoteProduto> LotesProdutos { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<MovimentacaoEstoqueInsumo> MovimentacoesEstoqueInsumos { get; set; }
@@ -28,9 +28,8 @@ namespace WebApplication1.Models.DAL
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
 
-        public System.Data.Entity.DbSet<WebApplication1.Models.LoteInsumoProducao> LoteInsumoProducaos { get; set; }
 
-        public System.Data.Entity.DbSet<WebApplication1.Models.LoteProduto> LoteProdutoes { get; set; }
+        public DbSet<LoteProduto> LotesProdutos { get; set; }
         //        public DbSet<Venda> Vendas { get; set; }
     }
 }

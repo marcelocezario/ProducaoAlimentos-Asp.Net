@@ -20,6 +20,7 @@ namespace WebApplication1.Models.DAL
         public DbSet<InsumoComposicaoProduto> InsumosComposicaoProdutos { get; set; }
 //        public DbSet<ItemVenda> ItensVenda { get; set; }
         public DbSet<LoteInsumo> LotesInsumos { get; set; }
+//        public DbSet<LoteInsumoProducao> LotesInsumosProducao { get; set; }
 //        public DbSet<LoteProduto> LotesProdutos { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<MovimentacaoEstoqueInsumo> MovimentacoesEstoqueInsumos { get; set; }

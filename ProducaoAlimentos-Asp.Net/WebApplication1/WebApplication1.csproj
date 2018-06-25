@@ -210,6 +210,7 @@
     <Compile Include="Controllers\MovimentacoesEstoqueProdutosController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Controllers\UnidadesDeMedidaController.cs" />
+    <Compile Include="Controllers\VendasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -319,6 +320,7 @@
     <Content Include="Views\LotesProdutos\Index.cshtml" />
     <Content Include="Views\MovimentacoesEstoqueProdutos\Index.cshtml" />
     <Content Include="Views\ItensVendas\Index.cshtml" />
+    <Content Include="Views\Vendas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

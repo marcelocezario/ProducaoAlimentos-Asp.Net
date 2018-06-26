@@ -57,8 +57,10 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela Enderecos
             List<Endereco> enderecos = new List<Endereco>()
             {
-                new Endereco(){ Logradouro = "Rua Senador Accioly Filho", Numero = 511, Complemento = "Universidade Positivo", Bairro = "Cidade Industrial", Cep = "81310-000", CidadeID = 1},
-                new Endereco(){ Logradouro = "Rua Aleatória", Numero = 10, Complemento = "", Bairro = "Centro", Cep = "83000-000", CidadeID = 2},
+                new Endereco(){ Logradouro = "Rua Senador Accioly Filho", Numero = 511, Complemento = "Universidade Positivo",
+                    Bairro = "Cidade Industrial", Cep = "81310-000", CidadeID = 1},
+                new Endereco(){ Logradouro = "Rua Aleatória", Numero = 10, Complemento = "",
+                    Bairro = "Centro", Cep = "83000-000", CidadeID = 2},
             };
             context.Enderecos.AddRange(enderecos);
             base.Seed(context);
@@ -79,8 +81,10 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela Clientes
             List<Cliente> clientes = new List<Cliente>()
             {
-                new Cliente(){ Nome = "Antonio da Silva", Cpf_Cnpj = "164.842.566-67", Telefone = "99999-9999", Email = "antonio@gmail.com", EnderecoID = 1},
-                new Cliente(){ Nome = "Siclano José dos Santos", Cpf_Cnpj = "394.824.178-36", Telefone = "3000-0000", Email = "siclano@hotmail.com", EnderecoID = 2},
+                new Cliente(){ Nome = "Antonio da Silva", Cpf_Cnpj = "164.842.566-67",
+                    Telefone = "99999-9999",Email = "antonio@gmail.com", EnderecoID = 1},
+                new Cliente(){ Nome = "Siclano José dos Santos", Cpf_Cnpj = "394.824.178-36",
+                    Telefone = "3000-0000", Email = "siclano@hotmail.com", EnderecoID = 2},
             };
             context.Clientes.AddRange(clientes);
             base.Seed(context);
@@ -89,8 +93,10 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela Fornecedores
             List<Fornecedor> fornecedores = new List<Fornecedor>()
             {
-                new Fornecedor(){ Nome = "Alimentos Distribuição Ltda", Cpf_Cnpj = "66.752.485/0001-88", Telefone = "0800-777-7777", Email = "pedidos@alimentos.com.br", EnderecoID = 2},
-                new Fornecedor(){ Nome = "Delivery Center S.A", Cpf_Cnpj = "30.636.422/0001-19", Telefone = "3131-3131", Email = "contato_delivery@hotmail.com", EnderecoID = 1},
+                new Fornecedor(){ Nome = "Alimentos Distribuição Ltda", Cpf_Cnpj = "66.752.485/0001-88",
+                    Telefone = "0800-777-7777", Email = "pedidos@alimentos.com.br", EnderecoID = 2},
+                new Fornecedor(){ Nome = "Delivery Center S.A", Cpf_Cnpj = "30.636.422/0001-19",
+                    Telefone = "3131-3131", Email = "contato_delivery@hotmail.com", EnderecoID = 1},
             };
             context.Fornecedores.AddRange(fornecedores);
             base.Seed(context);
@@ -134,14 +140,21 @@ namespace WebApplication1.Models.DAL
                                 new InsumoComposicaoProduto(){ InsumoID = 5, QtdeInsumo = 0.3},
                                 new InsumoComposicaoProduto(){ InsumoID = 10, QtdeInsumo = 1},
                                 new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 0.01}
-                            } },
+                            }
+                            },
                             new Produto() {Nome = "Bolo", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
                             {
                                 new InsumoComposicaoProduto(){ InsumoID = 10, QtdeInsumo = 10 },
                                 new InsumoComposicaoProduto(){ InsumoID = 5, QtdeInsumo = 0.15},
                                 new InsumoComposicaoProduto(){ InsumoID = 1, QtdeInsumo = 0.15},
                                 new InsumoComposicaoProduto(){InsumoID = 8, QtdeInsumo = 0.395}
-                            } },
+                            }
+                            },
+                            new Produto(){Nome = "Batata", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
+                            {
+                                new InsumoComposicaoProduto(){ InsumoID = 3, QtdeInsumo = 1}
+                            }
+                            }
                             };
             context.Produtos.AddRange(produtos);
             base.Seed(context);
@@ -159,7 +172,7 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela EstoqueProdutos
             List<EstoqueProduto> estoqueProdutos = new List<EstoqueProduto>()
             {
-                new EstoqueProduto(){ ProdutoID = 1, QtdeTotalEstoque = 10, CustoTotalEstoque = 100 }
+                new EstoqueProduto(){ ProdutoID = 1, QtdeTotalEstoque = 3, CustoTotalEstoque = 7.5 }
             };
             context.EstoqueProdutos.AddRange(estoqueProdutos);
             base.Seed(context);
@@ -168,7 +181,8 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela LotesInsumos
             List<LoteInsumo> lotesInsumos = new List<LoteInsumo>()
             {
-                new LoteInsumo(){ DataCompra = new System.DateTime(2018,06,15), QtdeInicial = 15, QtdeDisponivel = 10, CustoMedio = 2.5 , CustoTotalInicial = 37.5, Validade = new System.DateTime(2018,06,30) , InsumoID = 3, MarcaID = 1, FornecedorID = 1 }
+                new LoteInsumo(){ DataCompra = new System.DateTime(2018,06,15), QtdeInicial = 15, QtdeDisponivel = 10, CustoMedio = 2.5,
+                    CustoTotalInicial = 37.5, Validade = new System.DateTime(2018,06,30) , InsumoID = 3, MarcaID = 1, FornecedorID = 1 }
             };
             context.LotesInsumos.AddRange(lotesInsumos);
             base.Seed(context);
@@ -177,12 +191,52 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela MovimentacoesEstoqueInsumos
             List<MovimentacaoEstoqueInsumo> movimentacoesEstoqueInsumos = new List<MovimentacaoEstoqueInsumo>()
             {
+                new MovimentacaoEstoqueInsumo(){ DataMovimentacao = new System.DateTime(2018,06,15), Qtde = 15, ValorMovimentacao = 37.5,  LoteInsumoID = 1 },
                 new MovimentacaoEstoqueInsumo(){ DataMovimentacao = new System.DateTime(2018,06,25), Qtde = -5, ValorMovimentacao = 12.5,  LoteInsumoID = 1 }
             };
             context.MovimentacoesEstoqueInsumos.AddRange(movimentacoesEstoqueInsumos);
             base.Seed(context);
             context.SaveChanges();
 
+            // Inicializando dados na tabela LotesProdutos
+            List<LoteProduto> lotesProdutos = new List<LoteProduto>()
+            {
+                new LoteProduto()
+                {
+                    DataProducao = new System.DateTime(2018,06,25), ValorVendaUnitario = 4, QtdeInicial = 5, QtdeDisponivel = 5,
+                    CustoMedio = 2.5, CustoTotalInicial = 12.5, Validade = new System.DateTime(2018,07,05), _ItensInsumoProducao = new List<LoteInsumoProducao>
+                    {
+                        new LoteInsumoProducao() {QtdeInsumo = 5, CustoInsumo = 12.5, LoteInsumoID = 1}
+                    }
+                }
+            };
+            context.LotesProdutos.AddRange(lotesProdutos);
+            base.Seed(context);
+            context.SaveChanges();
+
+            // Inicializando dados na tabela MovimentacoesEstoqueProdutos
+            List<MovimentacaoEstoqueProduto> movimentacoesEstoqueProdutos = new List<MovimentacaoEstoqueProduto>()
+            {
+                new MovimentacaoEstoqueProduto(){ DataMovimentacao = new System.DateTime(2018,06,25), Qtde = 5, ValorMovimentacao = 12.5, LoteProdutoID = 1}
+            };
+            context.MovimentacoesEstoqueProdutos.AddRange(movimentacoesEstoqueProdutos);
+            base.Seed(context);
+            context.SaveChanges();
+
+            // Inicializando dados na tabela Vendas
+            List<Venda> vendas = new List<Venda>()
+            {
+                new Venda()
+                {
+                     DataVenda = new System.DateTime(2018,06,30), ValorTotalVenda = 8, _ItensVenda = new List<ItemVenda>
+                     {
+                         new ItemVenda { ValorUnitarioItem = 4, ValorTotalItem = 8, QtdeProduto = 2, LoteProdutoID = 1}
+                     }
+                }
+            };
+            context.Vendas.AddRange(vendas);
+            base.Seed(context);
+            context.SaveChanges();
         }
     }
 }

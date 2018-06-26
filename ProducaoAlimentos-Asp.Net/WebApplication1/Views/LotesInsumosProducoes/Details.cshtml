@@ -1,0 +1,42 @@
+﻿@model WebApplication1.Models.LoteInsumoProducao
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LoteInsumoProducao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteInsumo.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteInsumo.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtdeInsumo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtdeInsumo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustoInsumo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustoInsumo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.LoteInsumoProducaoID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

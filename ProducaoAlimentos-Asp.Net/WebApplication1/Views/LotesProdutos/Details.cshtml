@@ -1,0 +1,74 @@
+﻿@model WebApplication1.Models.LoteProduto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>LoteProduto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DataProducao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataProducao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorVendaUnitario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorVendaUnitario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtdeInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtdeInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QtdeDisponivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QtdeDisponivel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustoMedio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustoMedio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustoTotalInicial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustoTotalInicial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Validade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Validade)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,34 @@
+﻿@model WebApplication1.Models.Venda
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Venda</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorTotalVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorTotalVenda)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataVenda)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.VendaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

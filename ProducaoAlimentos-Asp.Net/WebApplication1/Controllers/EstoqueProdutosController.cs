@@ -1,5 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Models.DAL;
@@ -8,14 +13,121 @@ namespace WebApplication1.Controllers
 {
     public class EstoqueProdutosController : Controller
     {
-        Contexto contexto = new Contexto();
+        private Contexto db = new Contexto();
 
         // GET: EstoqueProdutos
         public ActionResult Index()
         {
-            List<EstoqueProduto> estoqueProdutos = contexto.EstoqueProdutos.ToList();
+            var estoqueProdutos = db.EstoqueProdutos.Include(e => e._Produto);
+            return View(estoqueProdutos.ToList());
+        }
 
-            return View(estoqueProdutos);
+        // GET: EstoqueProdutos/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            EstoqueProduto estoqueProduto = db.EstoqueProdutos.Find(id);
+            if (estoqueProduto == null)
+            {
+                return HttpNotFound();
+            }
+            return View(estoqueProduto);
+        }
+
+        // GET: EstoqueProdutos/Create
+        public ActionResult Create()
+        {
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
+            return View();
+        }
+
+        // POST: EstoqueProdutos/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "ID,ProdutoID,QtdeTotalEstoque,CustoTotalEstoque")] EstoqueProduto estoqueProduto)
+        {
+            if (ModelState.IsValid)
+            {
+                db.EstoqueProdutos.Add(estoqueProduto);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", estoqueProduto.ProdutoID);
+            return View(estoqueProduto);
+        }
+
+        // GET: EstoqueProdutos/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            EstoqueProduto estoqueProduto = db.EstoqueProdutos.Find(id);
+            if (estoqueProduto == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", estoqueProduto.ProdutoID);
+            return View(estoqueProduto);
+        }
+
+        // POST: EstoqueProdutos/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,ProdutoID,QtdeTotalEstoque,CustoTotalEstoque")] EstoqueProduto estoqueProduto)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(estoqueProduto).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", estoqueProduto.ProdutoID);
+            return View(estoqueProduto);
+        }
+
+        // GET: EstoqueProdutos/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            EstoqueProduto estoqueProduto = db.EstoqueProdutos.Find(id);
+            if (estoqueProduto == null)
+            {
+                return HttpNotFound();
+            }
+            return View(estoqueProduto);
+        }
+
+        // POST: EstoqueProdutos/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            EstoqueProduto estoqueProduto = db.EstoqueProdutos.Find(id);
+            db.EstoqueProdutos.Remove(estoqueProduto);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

@@ -203,7 +203,7 @@ namespace WebApplication1.Models.DAL
             {
                 new LoteProduto()
                 {
-                    DataProducao = new System.DateTime(2018,06,25), ValorVendaUnitario = 4, QtdeInicial = 5, QtdeDisponivel = 5,
+                    DataProducao = new System.DateTime(2018,06,25), ValorVendaUnitario = 4, ProdutoID = 3 , QtdeInicial = 5, QtdeDisponivel = 5,
                     CustoMedio = 2.5, CustoTotalInicial = 12.5, Validade = new System.DateTime(2018,07,05), _ItensInsumoProducao = new List<LoteInsumoProducao>
                     {
                         new LoteInsumoProducao() {QtdeInsumo = 5, CustoInsumo = 12.5, LoteInsumoID = 1}

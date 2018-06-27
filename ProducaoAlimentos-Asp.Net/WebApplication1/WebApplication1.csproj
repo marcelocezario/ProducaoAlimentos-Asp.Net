@@ -377,11 +377,6 @@
     <Content Include="Views\LotesInsumosProducoes\Details.cshtml" />
     <Content Include="Views\LotesInsumosProducoes\Edit.cshtml" />
     <Content Include="Views\LotesInsumosProducoes\Index.cshtml" />
-    <Content Include="Views\LotesProdutos\Create.cshtml" />
-    <Content Include="Views\LotesProdutos\Delete.cshtml" />
-    <Content Include="Views\LotesProdutos\Details.cshtml" />
-    <Content Include="Views\LotesProdutos\Edit.cshtml" />
-    <Content Include="Views\LotesProdutos\Index.cshtml" />
     <Content Include="Views\MovimentacoesEstoqueProdutos\Create.cshtml" />
     <Content Include="Views\MovimentacoesEstoqueProdutos\Delete.cshtml" />
     <Content Include="Views\MovimentacoesEstoqueProdutos\Details.cshtml" />
@@ -397,6 +392,11 @@
     <Content Include="Views\Vendas\Details.cshtml" />
     <Content Include="Views\Vendas\Edit.cshtml" />
     <Content Include="Views\Vendas\Index.cshtml" />
+    <Content Include="Views\LotesProdutos\Create.cshtml" />
+    <Content Include="Views\LotesProdutos\Delete.cshtml" />
+    <Content Include="Views\LotesProdutos\Details.cshtml" />
+    <Content Include="Views\LotesProdutos\Edit.cshtml" />
+    <Content Include="Views\LotesProdutos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

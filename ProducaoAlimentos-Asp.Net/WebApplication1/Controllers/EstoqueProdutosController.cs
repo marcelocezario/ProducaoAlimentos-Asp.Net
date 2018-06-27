@@ -129,5 +129,45 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public EstoqueProduto BuscarEstoqueProdutoPorNome(string nomeProduto)
+        {
+            var ep = from x in db.EstoqueProdutos.ToList()
+                     where x._Produto.Nome.Equals(nomeProduto)
+                     select x;
+            if (ep != null)
+                return ep.FirstOrDefault();
+            else
+                return null;
+        }
+
+        public void RegistrarEstoqueProduto(MovimentacaoEstoqueProduto mep)
+        {
+            LotesProdutosController lpc = new LotesProdutosController();
+            LoteProduto loteProduto = lpc.BuscarLoteProdutoPorID(mep.LoteProdutoID);
+
+            EstoqueProduto estoqueProduto = BuscarEstoqueProdutoPorNome(loteProduto._Produto.Nome);
+
+            if (estoqueProduto != null)
+            {
+                estoqueProduto.QtdeTotalEstoque += mep.Qtde;
+                estoqueProduto.CustoTotalEstoque += mep.ValorMovimentacao;
+
+                db.Entry(estoqueProduto).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                estoqueProduto = new EstoqueProduto();
+
+                estoqueProduto.QtdeTotalEstoque = mep.Qtde;
+                estoqueProduto.CustoTotalEstoque = mep.ValorMovimentacao;
+                estoqueProduto.ProdutoID = loteProduto.ProdutoID;
+
+                db.EstoqueProdutos.Add(estoqueProduto);
+                db.SaveChanges();
+            }
+        }
+
     }
 }

@@ -129,5 +129,25 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public void RegistrarMovimentacaoEstoque(DateTime dataMovimentacao, double qtde, double valorMedio, LoteProduto loteProduto)
+        {
+            MovimentacaoEstoqueProduto mep = new MovimentacaoEstoqueProduto();
+
+            mep.DataMovimentacao = dataMovimentacao;
+            mep.Qtde = qtde;
+            mep.ValorMovimentacao = valorMedio * qtde;
+            mep.LoteProdutoID = loteProduto.ID;
+
+            if (qtde < 0)
+                mep.ValorMovimentacao *= -1;
+
+            EstoqueProdutosController epc = new EstoqueProdutosController();
+            epc.RegistrarEstoqueProduto(mep);
+
+            db.MovimentacoesEstoqueProdutos.Add(mep);
+            db.SaveChanges();
+        }
+
     }
 }

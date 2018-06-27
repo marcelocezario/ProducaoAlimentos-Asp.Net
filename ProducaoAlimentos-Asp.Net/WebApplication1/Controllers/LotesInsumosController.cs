@@ -55,8 +55,8 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.LotesInsumos.Add(loteInsumo);
-                db.SaveChanges();
+                RegistrarLoteInsumo(loteInsumo);
+
                 return RedirectToAction("Index");
             }
 
@@ -136,6 +136,20 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public LoteInsumo BuscarLoteInsumoPorID(int idLoteInsumo)
+        {
+            return db.LotesInsumos.Find(idLoteInsumo);
+        }
+
+        public void RegistrarLoteInsumo(LoteInsumo loteInsumo)
+        {
+            db.LotesInsumos.Add(loteInsumo);
+            db.SaveChanges();
+
+            MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
+            meic.RegistrarMovimentacaoEstoque(loteInsumo.DataCompra, loteInsumo.QtdeInicial, loteInsumo.CustoTotalInicial, loteInsumo);
         }
     }
 }

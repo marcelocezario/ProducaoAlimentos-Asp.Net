@@ -129,5 +129,10 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public Insumo BuscarInsumoPorId (int idInsumo)
+        {
+            return db.Insumos.Find(idInsumo);
+        }
     }
 }

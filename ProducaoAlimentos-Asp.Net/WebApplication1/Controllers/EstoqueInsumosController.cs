@@ -129,5 +129,44 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public EstoqueInsumo BuscarEstoqueInsumoPorNome(string nomeInsumo)
+        {
+            var ei = from x in db.EstoqueInsumos.ToList()
+                     where x._Insumo.Nome.Equals(nomeInsumo)
+                     select x;
+            if (ei != null)
+                return ei.FirstOrDefault();
+            else
+                return null;
+        }
+
+        public void RegistrarEstoqueInsumo(MovimentacaoEstoqueInsumo mei)
+        {
+            LotesInsumosController lic = new LotesInsumosController();
+            LoteInsumo loteInsumo = lic.BuscarLoteInsumoPorID(mei.LoteInsumoID);
+
+            EstoqueInsumo estoqueInsumo = BuscarEstoqueInsumoPorNome(loteInsumo._Insumo.Nome);
+
+            if (estoqueInsumo != null)
+            {
+                estoqueInsumo.QtdeTotalEstoque += mei.Qtde;
+                estoqueInsumo.CustoTotalEstoque += mei.ValorMovimentacao;
+
+                db.Entry(estoqueInsumo).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                estoqueInsumo = new EstoqueInsumo();
+
+                estoqueInsumo.QtdeTotalEstoque = mei.Qtde;
+                estoqueInsumo.CustoTotalEstoque = mei.ValorMovimentacao;
+                estoqueInsumo.InsumoID = mei._LoteInsumo.InsumoID;
+
+                db.EstoqueInsumos.Add(estoqueInsumo);
+                db.SaveChanges();
+            }
+        }
     }
 }

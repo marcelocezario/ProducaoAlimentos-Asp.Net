@@ -129,5 +129,21 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public void RegistrarMovimentacaoEstoque (DateTime dataMovimentacao, double qtde, double valorMovimentacao, LoteInsumo loteInsumo)
+        {
+            MovimentacaoEstoqueInsumo mei = new MovimentacaoEstoqueInsumo();
+
+            mei.DataMovimentacao = dataMovimentacao;
+            mei.Qtde = qtde;
+            mei.ValorMovimentacao = valorMovimentacao;
+            mei.LoteInsumoID = loteInsumo.ID;
+
+            EstoqueInsumosController eic = new EstoqueInsumosController();
+            eic.RegistrarEstoqueInsumo(mei);
+
+            db.MovimentacoesEstoqueInsumos.Add(mei);
+            db.SaveChanges();
+        }
     }
 }

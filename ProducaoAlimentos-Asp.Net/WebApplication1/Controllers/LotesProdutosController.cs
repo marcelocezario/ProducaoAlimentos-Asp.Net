@@ -53,8 +53,8 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.LotesProdutos.Add(loteProduto);
-                db.SaveChanges();
+                NovoLoteProduto(loteProduto);
+
                 return RedirectToAction("Index");
             }
 
@@ -138,26 +138,43 @@ namespace WebApplication1.Controllers
         public void NovoLoteProduto(LoteProduto loteProduto)
         {
             loteProduto.QtdeDisponivel = loteProduto.QtdeInicial;
-            loteProduto.CustoMedio = loteProduto.CustoTotalInicial / loteProduto.QtdeInicial;
+
+            double custoTotal = 0;
+
+            foreach (LoteInsumoProducao item in loteProduto._ItensInsumoProducao)
+            {
+                custoTotal += item.CustoTotalInsumo;
+            }
+
+            loteProduto.CustoMedio = custoTotal / loteProduto.QtdeInicial;
 
             db.LotesProdutos.Add(loteProduto);
             db.SaveChanges();
+
+            LotesProdutosController lpc = new LotesProdutosController();
+            loteProduto = lpc.BuscarLoteProdutoPorID(loteProduto.ID);
+
+            LotesInsumosController lic = new LotesInsumosController();
+            foreach (var lip in loteProduto._ItensInsumoProducao)
+            {
+                lic.BaixarLoteInsumo(lip._LoteInsumo, lip.QtdeInsumo, loteProduto.DataProducao);
+            }
 
             MovimentacoesEstoqueProdutosController meip = new MovimentacoesEstoqueProdutosController();
             meip.RegistrarMovimentacaoEstoque(loteProduto.DataProducao, loteProduto.QtdeInicial, loteProduto.CustoMedio, loteProduto);
         }
 
-        public void BaixarLoteInsumo(LoteInsumo loteInsumo, double qtde, DateTime dataMovimentacao)
+        public void BaixarLoteProduto(LoteProduto loteProduto, double qtde, DateTime dataMovimentacao)
         {
             qtde *= -1;
 
-            loteInsumo.QtdeDisponivel += qtde;
+            loteProduto.QtdeDisponivel += qtde;
 
-            db.Entry(loteInsumo).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(loteProduto).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
 
-            MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
-            meic.RegistrarMovimentacaoEstoque(dataMovimentacao, qtde, loteInsumo.CustoMedio, loteInsumo);
+            MovimentacoesEstoqueProdutosController mepc = new MovimentacoesEstoqueProdutosController();
+            mepc.RegistrarMovimentacaoEstoque(dataMovimentacao, qtde, loteProduto.CustoMedio, loteProduto);
         }
     }
 }

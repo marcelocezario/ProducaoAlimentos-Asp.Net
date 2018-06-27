@@ -6,7 +6,7 @@ namespace WebApplication1.Models
     {
         public int LoteInsumoProducaoID { get; set; }
         public double QtdeInsumo { get; set; }
-        public double CustoInsumo { get; set; }
+        public double CustoTotalInsumo { get; set; }
 
         [ForeignKey("_LoteInsumo")]
         public int LoteInsumoID { get; set; }

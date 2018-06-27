@@ -130,14 +130,17 @@ namespace WebApplication1.Controllers
             base.Dispose(disposing);
         }
 
-        public void RegistrarMovimentacaoEstoque (DateTime dataMovimentacao, double qtde, double valorMovimentacao, LoteInsumo loteInsumo)
+        public void RegistrarMovimentacaoEstoque (DateTime dataMovimentacao, double qtde, double valorMedio, LoteInsumo loteInsumo)
         {
             MovimentacaoEstoqueInsumo mei = new MovimentacaoEstoqueInsumo();
 
             mei.DataMovimentacao = dataMovimentacao;
             mei.Qtde = qtde;
-            mei.ValorMovimentacao = valorMovimentacao;
+            mei.ValorMovimentacao = valorMedio * qtde;
             mei.LoteInsumoID = loteInsumo.ID;
+
+            if (qtde < 0)
+                mei.ValorMovimentacao *= -1;
 
             EstoqueInsumosController eic = new EstoqueInsumosController();
             eic.RegistrarEstoqueInsumo(mei);

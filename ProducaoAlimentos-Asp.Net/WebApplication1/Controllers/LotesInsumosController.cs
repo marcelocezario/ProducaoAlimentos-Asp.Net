@@ -145,11 +145,14 @@ namespace WebApplication1.Controllers
 
         public void RegistrarLoteInsumo(LoteInsumo loteInsumo)
         {
+            loteInsumo.QtdeDisponivel = loteInsumo.QtdeInicial;
+            loteInsumo.CustoMedio = loteInsumo.CustoTotalInicial / loteInsumo.QtdeInicial;
+
             db.LotesInsumos.Add(loteInsumo);
             db.SaveChanges();
 
             MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
-            meic.RegistrarMovimentacaoEstoque(loteInsumo.DataCompra, loteInsumo.QtdeInicial, loteInsumo.CustoTotalInicial, loteInsumo);
+            meic.RegistrarMovimentacaoEstoque(loteInsumo.DataCompra, loteInsumo.QtdeInicial, loteInsumo.CustoMedio, loteInsumo);
         }
     }
 }

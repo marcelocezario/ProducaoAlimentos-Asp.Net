@@ -162,7 +162,7 @@ namespace WebApplication1.Controllers
 
                 estoqueInsumo.QtdeTotalEstoque = mei.Qtde;
                 estoqueInsumo.CustoTotalEstoque = mei.ValorMovimentacao;
-                estoqueInsumo.InsumoID = mei._LoteInsumo.InsumoID;
+                estoqueInsumo.InsumoID = loteInsumo.InsumoID;
 
                 db.EstoqueInsumos.Add(estoqueInsumo);
                 db.SaveChanges();

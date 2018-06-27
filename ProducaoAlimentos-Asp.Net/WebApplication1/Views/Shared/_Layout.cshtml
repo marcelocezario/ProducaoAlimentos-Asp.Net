@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<!--https://getbootstrap.com/docs/3.3/components/#nav-->
+
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
@@ -18,13 +20,44 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nome do aplicativo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Produção Alimentos", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Início", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Vendas", "Index", "Vendas")</li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Insumos", "Index", "Insumos")</li>
+                            <li>@Html.ActionLink("Produtos", "Index", "Produtos")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Marcas", "Index", "Marcas")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Cidades", "Index", "Cidades")</li>
+                            <li>@Html.ActionLink("Estados", "Index", "Estados")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Clientes", "Index", "Clientes")</li>
+                            <li>@Html.ActionLink("Fornecedores", "Index", "Fornecedores")</li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Estoque<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Insumos", "Index", "EstoqueInsumos")</li>
+                            <li>@Html.ActionLink("Produtos", "Index", "EstoqueProdutos")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Registrar Compra Insumos", "Create", "LotesInsumos")</li>
+                            <li role="separator" class="divider"></li>
+                            <li>@Html.ActionLink("Registrar Produção", "Create", "LotesProdutos")</li>
+
+
+
+                        </ul>
+                    </li>
+
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

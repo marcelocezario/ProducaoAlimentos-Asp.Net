@@ -47,8 +47,8 @@ namespace WebApplication1.Models.DAL
             List<Cidade> cidades = new List<Cidade>()
             {
                 new Cidade(){ Nome = "Curitiba", EstadoID = 16 },
-                new Cidade(){ Nome = "São José dos Pinhais", EstadoID = 16 },
                 new Cidade(){ Nome = "Florianópolis", EstadoID = 24 },
+                new Cidade(){ Nome = "São José dos Pinhais", EstadoID = 16 },
             };
             context.Cidades.AddRange(cidades);
             base.Seed(context);
@@ -105,14 +105,8 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela Insumos
             List<Insumo> insumos = new List<Insumo>()
             {
-                new Insumo(){ Nome = "Açúcar", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Arroz", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Batata", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Creme de Leite", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Farinha de Trigo", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Feijão", UnidadeDeMedidaID = 3},
-                new Insumo(){ Nome = "Leite", UnidadeDeMedidaID = 2},
-                new Insumo(){ Nome = "Leite Condensado", UnidadeDeMedidaID = 3},
                 new Insumo(){ Nome = "Óleo", UnidadeDeMedidaID = 2},
                 new Insumo(){ Nome = "Ovo", UnidadeDeMedidaID = 4},
             };
@@ -136,23 +130,15 @@ namespace WebApplication1.Models.DAL
                         {
                             new Produto(){ Nome = "Nhoque", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
                             {
-                                new InsumoComposicaoProduto(){ InsumoID = 3, QtdeInsumo = 0.6},
-                                new InsumoComposicaoProduto(){ InsumoID = 5, QtdeInsumo = 0.3},
-                                new InsumoComposicaoProduto(){ InsumoID = 10, QtdeInsumo = 1},
-                                new InsumoComposicaoProduto(){ InsumoID = 9, QtdeInsumo = 0.01}
+                                new InsumoComposicaoProduto(){ InsumoID = 1, QtdeInsumo = 0.6},
+                                new InsumoComposicaoProduto(){ InsumoID = 2, QtdeInsumo = 0.3},
+                                new InsumoComposicaoProduto(){ InsumoID = 3, QtdeInsumo = 0.01},
+                                new InsumoComposicaoProduto(){ InsumoID = 4, QtdeInsumo = 1}
                             }
                             },
-                            new Produto() {Nome = "Bolo", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
+                            new Produto(){ Nome = "Batata", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
                             {
-                                new InsumoComposicaoProduto(){ InsumoID = 10, QtdeInsumo = 10 },
-                                new InsumoComposicaoProduto(){ InsumoID = 5, QtdeInsumo = 0.15},
-                                new InsumoComposicaoProduto(){ InsumoID = 1, QtdeInsumo = 0.15},
-                                new InsumoComposicaoProduto(){InsumoID = 8, QtdeInsumo = 0.395}
-                            }
-                            },
-                            new Produto(){Nome = "Batata", UnidadeDeMedidaID = 3, _ComposicaoProduto = new List<InsumoComposicaoProduto>()
-                            {
-                                new InsumoComposicaoProduto(){ InsumoID = 3, QtdeInsumo = 1}
+                                new InsumoComposicaoProduto(){ InsumoID = 1, QtdeInsumo = 1}
                             }
                             }
                             };
@@ -163,7 +149,7 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela EstoqueInsumos
             List<EstoqueInsumo> estoqueInsumos = new List<EstoqueInsumo>()
                  {
-                     new EstoqueInsumo(){ InsumoID = 3, QtdeTotalEstoque = 10, CustoTotalEstoque = 25 }
+                     new EstoqueInsumo(){ InsumoID = 1, QtdeTotalEstoque = 10, CustoTotalEstoque = 30 }
                  };
             context.EstoqueInsumos.AddRange(estoqueInsumos);
             base.Seed(context);
@@ -172,7 +158,7 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela EstoqueProdutos
             List<EstoqueProduto> estoqueProdutos = new List<EstoqueProduto>()
             {
-                new EstoqueProduto(){ ProdutoID = 1, QtdeTotalEstoque = 3, CustoTotalEstoque = 7.5 }
+                new EstoqueProduto(){ ProdutoID = 2, QtdeTotalEstoque = 3, CustoTotalEstoque = 9 }
             };
             context.EstoqueProdutos.AddRange(estoqueProdutos);
             base.Seed(context);
@@ -181,8 +167,8 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela LotesInsumos
             List<LoteInsumo> lotesInsumos = new List<LoteInsumo>()
             {
-                new LoteInsumo(){ DataCompra = new System.DateTime(2018,06,15), QtdeInicial = 15, QtdeDisponivel = 10, CustoMedio = 2.5,
-                    CustoTotalInicial = 37.5, Validade = new System.DateTime(2018,06,30) , InsumoID = 3, MarcaID = 1, FornecedorID = 1 }
+                new LoteInsumo(){ DataCompra = new System.DateTime(2018,06,15), QtdeInicial = 15, QtdeDisponivel = 10, CustoMedio = 3,
+                    CustoTotalInicial = 45, Validade = new System.DateTime(2018,06,30) , InsumoID = 1, MarcaID = 1, FornecedorID = 1 }
             };
             context.LotesInsumos.AddRange(lotesInsumos);
             base.Seed(context);
@@ -191,8 +177,8 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela MovimentacoesEstoqueInsumos
             List<MovimentacaoEstoqueInsumo> movimentacoesEstoqueInsumos = new List<MovimentacaoEstoqueInsumo>()
             {
-                new MovimentacaoEstoqueInsumo(){ DataMovimentacao = new System.DateTime(2018,06,15), Qtde = 15, ValorMovimentacao = 37.5,  LoteInsumoID = 1 },
-                new MovimentacaoEstoqueInsumo(){ DataMovimentacao = new System.DateTime(2018,06,25), Qtde = -5, ValorMovimentacao = 12.5,  LoteInsumoID = 1 }
+                new MovimentacaoEstoqueInsumo(){ DataMovimentacao = new System.DateTime(2018,06,15), Qtde = 15, ValorMovimentacao = 45,  LoteInsumoID = 1 },
+                new MovimentacaoEstoqueInsumo(){ DataMovimentacao = new System.DateTime(2018,06,25), Qtde = -5, ValorMovimentacao = 15,  LoteInsumoID = 1 }
             };
             context.MovimentacoesEstoqueInsumos.AddRange(movimentacoesEstoqueInsumos);
             base.Seed(context);
@@ -203,10 +189,10 @@ namespace WebApplication1.Models.DAL
             {
                 new LoteProduto()
                 {
-                    DataProducao = new System.DateTime(2018,06,25), ValorVendaUnitario = 4, ProdutoID = 3 , QtdeInicial = 5, QtdeDisponivel = 5,
-                    CustoMedio = 2.5, CustoTotalInicial = 12.5, Validade = new System.DateTime(2018,07,05), _ItensInsumoProducao = new List<LoteInsumoProducao>
+                    DataProducao = new System.DateTime(2018,06,25), ValorVendaUnitario = 4, ProdutoID = 2 , QtdeInicial = 5, QtdeDisponivel = 3,
+                    CustoMedio = 3, CustoTotalInicial = 15, Validade = new System.DateTime(2018,07,05), _ItensInsumoProducao = new List<LoteInsumoProducao>
                     {
-                        new LoteInsumoProducao() {QtdeInsumo = 5, CustoInsumo = 12.5, LoteInsumoID = 1}
+                        new LoteInsumoProducao() { QtdeInsumo = 5, CustoInsumo = 15, LoteInsumoID = 1}
                     }
                 }
             };
@@ -217,7 +203,8 @@ namespace WebApplication1.Models.DAL
             // Inicializando dados na tabela MovimentacoesEstoqueProdutos
             List<MovimentacaoEstoqueProduto> movimentacoesEstoqueProdutos = new List<MovimentacaoEstoqueProduto>()
             {
-                new MovimentacaoEstoqueProduto(){ DataMovimentacao = new System.DateTime(2018,06,25), Qtde = 5, ValorMovimentacao = 12.5, LoteProdutoID = 1}
+                new MovimentacaoEstoqueProduto(){ DataMovimentacao = new System.DateTime(2018,06,25), Qtde = 5, ValorMovimentacao = 15, LoteProdutoID = 1},
+                new MovimentacaoEstoqueProduto(){ DataMovimentacao = new System.DateTime(2018,06,30), Qtde = -2, ValorMovimentacao = 6, LoteProdutoID = 1}
             };
             context.MovimentacoesEstoqueProdutos.AddRange(movimentacoesEstoqueProdutos);
             base.Seed(context);

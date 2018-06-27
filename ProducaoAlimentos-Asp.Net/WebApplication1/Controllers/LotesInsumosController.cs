@@ -55,7 +55,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                RegistrarLoteInsumo(loteInsumo);
+                NovoLoteInsumo(loteInsumo);
 
                 return RedirectToAction("Index");
             }
@@ -143,7 +143,7 @@ namespace WebApplication1.Controllers
             return db.LotesInsumos.Find(idLoteInsumo);
         }
 
-        public void RegistrarLoteInsumo(LoteInsumo loteInsumo)
+        public void NovoLoteInsumo(LoteInsumo loteInsumo)
         {
             loteInsumo.QtdeDisponivel = loteInsumo.QtdeInicial;
             loteInsumo.CustoMedio = loteInsumo.CustoTotalInicial / loteInsumo.QtdeInicial;
@@ -153,6 +153,19 @@ namespace WebApplication1.Controllers
 
             MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
             meic.RegistrarMovimentacaoEstoque(loteInsumo.DataCompra, loteInsumo.QtdeInicial, loteInsumo.CustoMedio, loteInsumo);
+        }
+
+        public void BaixarLoteInsumo(LoteInsumo loteInsumo, double qtde, DateTime dataMovimentacao)
+        {
+            qtde *= -1;
+
+            loteInsumo.QtdeDisponivel += qtde;
+
+            db.Entry(loteInsumo).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+
+            MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
+            meic.RegistrarMovimentacaoEstoque(dataMovimentacao, qtde, loteInsumo.CustoMedio, loteInsumo);
         }
     }
 }

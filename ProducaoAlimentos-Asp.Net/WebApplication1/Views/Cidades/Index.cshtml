@@ -15,10 +15,10 @@
             @Html.DisplayNameFor(model => model.CidadeID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model._Estado.Nome)
+            @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayNameFor(model => model._Estado.Nome)
         </th>
         <th></th>
     </tr>
@@ -29,10 +29,10 @@
             @Html.DisplayFor(modelItem => item.CidadeID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item._Estado.Nome)
+            @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Nome)
+            @Html.DisplayFor(modelItem => item._Estado.Nome)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.CidadeID }) |

@@ -16,10 +16,27 @@ namespace WebApplication1.Controllers
         private Contexto db = new Contexto();
 
         // GET: InsumosComposicaoProdutos
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            var insumosComposicaoProdutos = db.InsumosComposicaoProdutos.Include(i => i._Insumo).Include(i => i._Produto);
-            return View(insumosComposicaoProdutos.ToList());
+            if (id != null)
+            {
+                var cp = (from x in db.InsumosComposicaoProdutos
+                          where x.ProdutoID == id
+                          orderby x._Produto.Nome, x._Insumo.Nome
+                          select x).ToList();
+                if (cp.Count() == 0)
+                    return HttpNotFound();
+                return View(cp);
+            }
+            else
+            {
+                var cp = (from x in db.InsumosComposicaoProdutos
+                         orderby x._Produto.Nome, x._Insumo.Nome
+                         select x).ToList();
+                return View(cp);
+            }
+            //            var insumosComposicaoProdutos = db.InsumosComposicaoProdutos.Include(i => i._Insumo).Include(i => i._Produto);
+            //            return View(insumosComposicaoProdutos.ToList());
         }
 
         // GET: InsumosComposicaoProdutos/Details/5
@@ -42,10 +59,9 @@ namespace WebApplication1.Controllers
         {
             if (id == null)
             {
-//                ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
-//                ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
-//                return View();
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
+                ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
+                return View();
             }
             Produto produto = db.Produtos.Find(id);
             if (produto == null)
@@ -72,7 +88,7 @@ namespace WebApplication1.Controllers
             {
                 db.InsumosComposicaoProdutos.Add(insumoComposicaoProduto);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", new { @id = insumoComposicaoProduto.ProdutoID });
             }
 
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);

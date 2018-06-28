@@ -55,15 +55,15 @@ namespace WebApplication1.Controllers
         }
 
         // GET: InsumosComposicaoProdutos/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? idProduto)
         {
-            if (id == null)
+            if (idProduto == null)
             {
                 ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
                 ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
                 return View();
             }
-            Produto produto = db.Produtos.Find(id);
+            Produto produto = db.Produtos.Find(idProduto);
             if (produto == null)
             {
                 return HttpNotFound();

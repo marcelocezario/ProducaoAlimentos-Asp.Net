@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
                 db.Produtos.Add(produto);
                 db.SaveChanges();
 
-                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = produto.ProdutoID });
+                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @idProduto = produto.ProdutoID });
             }
 
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", produto.UnidadeDeMedidaID);

@@ -18,8 +18,13 @@ namespace WebApplication1.Controllers
         // GET: Cidades
         public ActionResult Index()
         {
-            var cidades = db.Cidades.Include(c => c._Estado);
-            return View(cidades.ToList());
+            //            var cidades = db.Cidades.Include(c => c._Estado);
+            var cidades = (from x in db.Cidades
+                           orderby x.Nome
+                           select x).ToList();
+
+
+            return View(cidades);
         }
 
         // GET: Cidades/Details/5

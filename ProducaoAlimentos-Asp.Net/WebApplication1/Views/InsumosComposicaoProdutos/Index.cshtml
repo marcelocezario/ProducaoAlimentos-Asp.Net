@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model._Insumo.Nome)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model._Produto.Nome)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.QtdeInsumo)
         </th>
         <th></th>
@@ -24,6 +27,9 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item._Insumo.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._Produto.Nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.QtdeInsumo)

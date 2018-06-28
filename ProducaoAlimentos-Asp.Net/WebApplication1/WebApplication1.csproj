@@ -342,11 +342,6 @@
     <Content Include="Views\Marcas\Details.cshtml" />
     <Content Include="Views\Marcas\Edit.cshtml" />
     <Content Include="Views\Marcas\Index.cshtml" />
-    <Content Include="Views\InsumosComposicaoProdutos\Create.cshtml" />
-    <Content Include="Views\InsumosComposicaoProdutos\Delete.cshtml" />
-    <Content Include="Views\InsumosComposicaoProdutos\Details.cshtml" />
-    <Content Include="Views\InsumosComposicaoProdutos\Edit.cshtml" />
-    <Content Include="Views\InsumosComposicaoProdutos\Index.cshtml" />
     <Content Include="Views\Produtos\Create.cshtml" />
     <Content Include="Views\Produtos\Delete.cshtml" />
     <Content Include="Views\Produtos\Details.cshtml" />
@@ -397,6 +392,11 @@
     <Content Include="Views\LotesProdutos\Details.cshtml" />
     <Content Include="Views\LotesProdutos\Edit.cshtml" />
     <Content Include="Views\LotesProdutos\Index.cshtml" />
+    <Content Include="Views\InsumosComposicaoProdutos\Create.cshtml" />
+    <Content Include="Views\InsumosComposicaoProdutos\Delete.cshtml" />
+    <Content Include="Views\InsumosComposicaoProdutos\Details.cshtml" />
+    <Content Include="Views\InsumosComposicaoProdutos\Edit.cshtml" />
+    <Content Include="Views\InsumosComposicaoProdutos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

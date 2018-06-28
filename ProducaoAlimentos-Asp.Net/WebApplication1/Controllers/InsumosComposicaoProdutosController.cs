@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
         // GET: InsumosComposicaoProdutos
         public ActionResult Index()
         {
-            var insumosComposicaoProdutos = db.InsumosComposicaoProdutos.Include(i => i._Insumo);
+            var insumosComposicaoProdutos = db.InsumosComposicaoProdutos.Include(i => i._Insumo).Include(i => i._Produto);
             return View(insumosComposicaoProdutos.ToList());
         }
 
@@ -41,6 +41,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
             return View();
         }
 
@@ -49,7 +50,7 @@ namespace WebApplication1.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InsumoComposicaoProdutoID,QtdeInsumo,InsumoID")] InsumoComposicaoProduto insumoComposicaoProduto)
+        public ActionResult Create([Bind(Include = "InsumoComposicaoProdutoID,QtdeInsumo,InsumoID,ProdutoID")] InsumoComposicaoProduto insumoComposicaoProduto)
         {
             if (ModelState.IsValid)
             {
@@ -59,6 +60,7 @@ namespace WebApplication1.Controllers
             }
 
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
             return View(insumoComposicaoProduto);
         }
 
@@ -75,6 +77,7 @@ namespace WebApplication1.Controllers
                 return HttpNotFound();
             }
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
             return View(insumoComposicaoProduto);
         }
 
@@ -83,7 +86,7 @@ namespace WebApplication1.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InsumoComposicaoProdutoID,QtdeInsumo,InsumoID")] InsumoComposicaoProduto insumoComposicaoProduto)
+        public ActionResult Edit([Bind(Include = "InsumoComposicaoProdutoID,QtdeInsumo,InsumoID,ProdutoID")] InsumoComposicaoProduto insumoComposicaoProduto)
         {
             if (ModelState.IsValid)
             {
@@ -92,6 +95,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
+            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
             return View(insumoComposicaoProduto);
         }
 

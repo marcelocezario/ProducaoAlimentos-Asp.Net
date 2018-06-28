@@ -10,5 +10,8 @@ namespace WebApplication1.Models
         [ForeignKey("_Insumo")]
         public int InsumoID { get; set; }
         public virtual Insumo _Insumo { get; set; }
+
+        public int? ProdutoID { get; set; }
+        public virtual Produto _Produto { get; set; }
     }
 }

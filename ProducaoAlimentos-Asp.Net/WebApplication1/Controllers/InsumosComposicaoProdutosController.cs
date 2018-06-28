@@ -38,10 +38,26 @@ namespace WebApplication1.Controllers
         }
 
         // GET: InsumosComposicaoProdutos/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+//                ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
+//                ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
+//                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Produto produto = db.Produtos.Find(id);
+            if (produto == null)
+            {
+                return HttpNotFound();
+            }
+
+            List<Produto> produtos = new List<Produto>();
+            produtos.Add(produto);
+
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
-            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
+            ViewBag.ProdutoID = new SelectList(produtos, "ProdutoID", "Nome");
             return View();
         }
 

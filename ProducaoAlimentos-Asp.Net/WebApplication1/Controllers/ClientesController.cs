@@ -11,6 +11,7 @@ using WebApplication1.Models.DAL;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         private Contexto db = new Contexto();

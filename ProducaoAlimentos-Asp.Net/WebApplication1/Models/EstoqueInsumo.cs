@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Models
 {
-    [Table("Insumos")]
+    [Table("EstoqueInsumos")]
     public class EstoqueInsumo : Estoque
     {
         [ForeignKey("_Insumo")]

@@ -18,11 +18,7 @@ namespace WebApplication1.Controllers
         // GET: Cidades
         public ActionResult Index()
         {
-            //            var cidades = db.Cidades.Include(c => c._Estado);
-            var cidades = (from x in db.Cidades
-                           orderby x.Nome
-                           select x).ToList();
-
+            var cidades = db.Cidades.OrderBy(c => c.Nome).ToList();
 
             return View(cidades);
         }

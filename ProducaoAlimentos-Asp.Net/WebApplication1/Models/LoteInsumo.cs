@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
+    [Table("LotesInsumos")]
     public class LoteInsumo : Lote
     {
         public DateTime DataCompra { get; set; }

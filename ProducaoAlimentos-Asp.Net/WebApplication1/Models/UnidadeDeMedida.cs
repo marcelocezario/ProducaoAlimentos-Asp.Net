@@ -1,5 +1,8 @@
-﻿namespace WebApplication1.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace WebApplication1.Models
 {
+    [Table("Unidades de Medida")]
     public class UnidadeDeMedida
     {
         public int UnidadeDeMedidaID { get; set; }

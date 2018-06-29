@@ -2,6 +2,7 @@
 
 namespace WebApplication1.Models
 {
+    [Table("Endereços")]
     public class Endereco
     {
         public int EnderecoID { get; set; }

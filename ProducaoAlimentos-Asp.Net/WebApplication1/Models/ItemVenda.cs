@@ -2,6 +2,7 @@
 
 namespace WebApplication1.Models
 {
+    [Table("ItensVendas")]
     public class ItemVenda
     {
         public int ItemVendaID { get; set; }

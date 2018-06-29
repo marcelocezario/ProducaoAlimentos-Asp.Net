@@ -2,6 +2,7 @@
 
 namespace WebApplication1.Models
 {
+    [Table("MovimentacoesEstoqueProdutos")]
     public class MovimentacaoEstoqueProduto : MovimentacaoEstoque
     {
         [ForeignKey("_LoteProduto")]

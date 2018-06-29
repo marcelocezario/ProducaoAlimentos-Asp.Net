@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
+    [Table("Produtos")]
     public class Produto
     {
         public int ProdutoID { get; set; }

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
+    [Table("LotesProdutos")]
     public class LoteProduto : Lote
     {
         public DateTime DataProducao { get; set; }

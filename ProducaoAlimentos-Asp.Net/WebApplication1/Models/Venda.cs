@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
+    [Table("Vendas")]
     public class Venda
     {
         public int VendaID { get; set; }

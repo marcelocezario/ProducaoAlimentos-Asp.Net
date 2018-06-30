@@ -1,16 +1,49 @@
 ﻿@model WebApplication1.Models.Produto
 
+
 @{
     ViewBag.Title = "Create";
 }
 
+<script>
+    $(document).ready(function () {
+
+        $("#btnAddComposicao").click(function () {
+            // Variavel para verificar se não há repetição na lista
+            var chkRptComposicao = false;
+
+            $('#lstComposicao li').each(function () {
+                haveSomeLi = true;
+                var current = $(this).text();
+                if (current == $("#InsumoID option:selected").text()) {
+                    chkRptComposicao = true;
+                }
+            });
+
+            if (!chkRptComposicao) {
+                $("#lstComposicao").append("<li>" + $("#InsumoID option:selected").text() + "<input type='checkbox' name='chkComposicao' id='chkComposicao' class='chkComposicao' checked='checked' value'" + $("#InsumoID option:selected").val() + "'></li>");
+            } else {
+                alert("Insumo já inserido");
+            }
+        });
+
+        $('#lstComposicao').on('click', "li", function () {
+            $(this).remove();
+            return false;
+        });
+    });
+
+</script>
+
+
+
 <h2>Novo Produto</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Produto</h4>
         <hr />
@@ -31,6 +64,35 @@
             </div>
         </div>
 
+
+        <!-- Criando InsumoComposicaoProduto-->
+
+        <div class="form-group">
+            @Html.LabelFor(model => model._ComposicaoProduto, "Selecione um insumo", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("InsumoID", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-10">
+                <button type="button" class="btn btn-info" id="btnAddComposicao">Adicionar insumo a composição</button>
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+        <ul id="lstComposicao"></ul>
+
+
+
+
+
+
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -39,9 +101,9 @@
     </div>
 }
 
-    <div>
-        @Html.ActionLink("Voltar para lista", "Index")
-    </div>
+<div>
+    @Html.ActionLink("Voltar para lista", "Index")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

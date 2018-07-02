@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
@@ -6,6 +7,7 @@ namespace WebApplication1.Models
     public class Marca
     {
         public int MarcaID { get; set; }
+        [Display(Name = "Marca")]
         public string Nome { get; set; }
     }
 }

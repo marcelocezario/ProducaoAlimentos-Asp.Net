@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
@@ -6,6 +7,7 @@ namespace WebApplication1.Models
     public class Insumo
     {
         public int InsumoID { get; set; }
+        [Display(Name = "Insumo")]
         public string Nome { get; set; }
         
         [ForeignKey("_UnidadeDeMedida")]

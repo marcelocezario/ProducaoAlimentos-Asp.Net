@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
@@ -7,9 +8,11 @@ namespace WebApplication1.Models
     public class Produto
     {
         public int ProdutoID { get; set; }
+        [Display(Name = "Produto")]
         public string Nome { get; set; }
 
         [ForeignKey("_UnidadeDeMedida")]
+        [Display(Name = "Unidade de medida")]
         public int UnidadeDeMedidaID { get; set; }
         public virtual UnidadeDeMedida _UnidadeDeMedida { get; set; }
 

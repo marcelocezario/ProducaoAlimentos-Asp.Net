@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace WebApplication1.Models.DAL
 {
@@ -28,5 +29,10 @@ namespace WebApplication1.Models.DAL
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<UnidadeDeMedida> UnidadesDeMedida { get; set; }
         public DbSet<Venda> Vendas { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
     }
 }

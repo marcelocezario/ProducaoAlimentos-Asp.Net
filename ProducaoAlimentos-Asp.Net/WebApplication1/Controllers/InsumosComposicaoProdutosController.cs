@@ -35,8 +35,6 @@ namespace WebApplication1.Controllers
                          select x).ToList();
                 return View(cp);
             }
-            //            var insumosComposicaoProdutos = db.InsumosComposicaoProdutos.Include(i => i._Insumo).Include(i => i._Produto);
-            //            return View(insumosComposicaoProdutos.ToList());
         }
 
         // GET: InsumosComposicaoProdutos/Details/5
@@ -55,15 +53,16 @@ namespace WebApplication1.Controllers
         }
 
         // GET: InsumosComposicaoProdutos/Create
-        public ActionResult Create(int? idProduto)
+        public ActionResult Create(int? id)
         {
-            if (idProduto == null)
+            if (id == null)
             {
                 ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
                 ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
             }
-            Produto produto = db.Produtos.Find(idProduto);
+            Produto produto = db.Produtos.Find(id);
             if (produto == null)
             {
                 return HttpNotFound();
@@ -74,7 +73,7 @@ namespace WebApplication1.Controllers
 
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
             ViewBag.ProdutoID = new SelectList(produtos, "ProdutoID", "Nome");
-            return View();
+            return PartialView();
         }
 
         // POST: InsumosComposicaoProdutos/Create
@@ -88,12 +87,14 @@ namespace WebApplication1.Controllers
             {
                 db.InsumosComposicaoProdutos.Add(insumoComposicaoProduto);
                 db.SaveChanges();
-                return RedirectToAction("Create", new { @id = insumoComposicaoProduto.ProdutoID });
+                return RedirectToAction("Edit", "Produtos", new { @id = insumoComposicaoProduto.ProdutoID });
+
             }
 
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
             ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
-            return View(insumoComposicaoProduto);
+            return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = insumoComposicaoProduto.ProdutoID });
+
         }
 
         // GET: InsumosComposicaoProdutos/Edit/5

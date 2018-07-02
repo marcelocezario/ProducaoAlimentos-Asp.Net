@@ -52,28 +52,15 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProdutoID,Nome,UnidadeDeMedidaID,InsumoID")] Produto produto)
         {
-            //            var lstComposicao = Request.Form["chkComposicao"];
-            //
-            //            if (!string.IsNullOrEmpty(lstComposicao))
-            //            {
-            //                int[] splComposicao = lstComposicao.Split(',').Select(Int32.Parse).ToArray();
-            //
-            //                if (splComposicao.Count() > 0)
-            //                {
-            //                    var ComposicaoProdutos = db.InsumosComposicaoProdutos.Where(w => splComposicao.Contains(w.InsumoComposicaoProdutoID)).ToList();
-            //
-            //                    produto._ComposicaoProduto.AddRange(ComposicaoProdutos);
-            //                }
-            //            }
-
             if (ModelState.IsValid)
             {
                 db.Produtos.Add(produto);
                 db.SaveChanges();
 
-             //                return RedirectToAction("Index");
+                //                return RedirectToAction("Index");
+                                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = produto.ProdutoID });
+                //return RedirectToAction("Edit", "Produtos", new { @id = produto.ProdutoID });
 
-                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @idProduto = produto.ProdutoID });
             }
 
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", produto.UnidadeDeMedidaID);
@@ -109,10 +96,13 @@ namespace WebApplication1.Controllers
             {
                 db.Entry(produto).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+//                return RedirectToAction("Index");
+                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = produto.ProdutoID });
+
             }
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", produto.UnidadeDeMedidaID);
-            return View(produto);
+                        return View(produto);
+
         }
 
         // GET: Produtos/Delete/5

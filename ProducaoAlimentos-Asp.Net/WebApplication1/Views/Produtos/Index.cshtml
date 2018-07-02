@@ -30,7 +30,7 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ProdutoID }, new { @class= "btn btn-default"} ) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.ProdutoID }, new { @class= "btn btn-default"} )
                 <a href="#" class="btn btn-default btnDetails" data-value="@item.ProdutoID">Detalhes</a>
                 @Html.ActionLink("Excluir", "Delete", new { id = item.ProdutoID }, new { @class= "btn btn-default"})
             </td>

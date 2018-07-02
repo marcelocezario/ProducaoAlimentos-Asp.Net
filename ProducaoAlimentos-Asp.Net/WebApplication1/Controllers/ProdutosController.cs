@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(produto);
+            return PartialView(produto);
         }
 
         // GET: Produtos/Create

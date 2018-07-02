@@ -20,20 +20,56 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ProdutoID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.ProdutoID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.ProdutoID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ProdutoID }, new { @class= "btn btn-default"} ) |
+                <a href="#" class="btn btn-default btnDetails" data-value="@item.ProdutoID">Detalhes</a>
+                @Html.ActionLink("Excluir", "Delete", new { id = item.ProdutoID }, new { @class= "btn btn-default"})
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div id="conteudoModal"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var ProdutoID = $(this).data("value");
+
+                $("#conteudoModal").load("/Produtos/Details/" + ProdutoID,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+    </script>
+}
+

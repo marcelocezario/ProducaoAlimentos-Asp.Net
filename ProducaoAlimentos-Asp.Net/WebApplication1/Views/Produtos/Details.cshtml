@@ -27,8 +27,19 @@
         </dd>
 
     </dl>
+
+    <h3>Insumos Composição</h3>
+    <ul>
+        @foreach (var item in Model._ComposicaoProduto)
+        {
+        <li>
+            @item.QtdeInsumo
+            @item._Insumo._UnidadeDeMedida.Sigla
+            @item._Insumo.Nome
+
+        </li>
+        }
+
+
+    </ul>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ProdutoID }) |
-    @Html.ActionLink("Voltar para lista", "Index")
-</p>

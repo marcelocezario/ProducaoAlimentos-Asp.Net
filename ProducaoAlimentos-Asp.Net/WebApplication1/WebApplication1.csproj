@@ -315,10 +315,7 @@
     <Content Include="Views\Cidades\Edit.cshtml" />
     <Content Include="Views\Cidades\Index.cshtml" />
     <Content Include="Views\Enderecos\Create.cshtml" />
-    <Content Include="Views\Enderecos\Delete.cshtml" />
-    <Content Include="Views\Enderecos\Details.cshtml" />
     <Content Include="Views\Enderecos\Edit.cshtml" />
-    <Content Include="Views\Enderecos\Index.cshtml" />
     <Content Include="Views\UnidadesDeMedida\Create.cshtml" />
     <Content Include="Views\UnidadesDeMedida\Delete.cshtml" />
     <Content Include="Views\UnidadesDeMedida\Details.cshtml" />

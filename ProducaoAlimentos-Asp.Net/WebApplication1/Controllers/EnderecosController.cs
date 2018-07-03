@@ -35,16 +35,13 @@ namespace WebApplication1.Controllers
             return View(endereco);
         }
 
-        // GET: Enderecos/Create
+/*
         public ActionResult Create()
         {
             ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
             return View();
         }
-
-        // POST: Enderecos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+*/
         [HttpPost]
         [ValidateAntiForgeryToken]
 //        public ActionResult Create([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
@@ -54,16 +51,11 @@ namespace WebApplication1.Controllers
             {
                 db.Enderecos.Add(endereco);
                 db.SaveChanges();
-                //                return RedirectToAction("Index");
                 return endereco;
             }
-
-            //            ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
-            //            return View(endereco);
             return null;
         }
 
-        // GET: Enderecos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,9 +71,6 @@ namespace WebApplication1.Controllers
             return PartialView(endereco);
         }
 
-        // POST: Enderecos/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
@@ -90,13 +79,12 @@ namespace WebApplication1.Controllers
             {
                 db.Entry(endereco).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
             ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
             return PartialView(endereco);
         }
 
-        // GET: Enderecos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -111,7 +99,6 @@ namespace WebApplication1.Controllers
             return View(endereco);
         }
 
-        // POST: Enderecos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -119,7 +106,7 @@ namespace WebApplication1.Controllers
             Endereco endereco = db.Enderecos.Find(id);
             db.Enderecos.Remove(endereco);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

@@ -14,8 +14,7 @@ namespace WebApplication1.Controllers
     public class InsumosComposicaoProdutosController : Controller
     {
         private Contexto db = new Contexto();
-
-        // GET: InsumosComposicaoProdutos
+/*
         public ActionResult Index(int? id)
         {
             if (id != null)
@@ -37,7 +36,6 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // GET: InsumosComposicaoProdutos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -51,8 +49,7 @@ namespace WebApplication1.Controllers
             }
             return View(insumoComposicaoProduto);
         }
-
-        // GET: InsumosComposicaoProdutos/Create
+*/
         public ActionResult Create(int? id)
         {
             if (id == null)
@@ -76,9 +73,6 @@ namespace WebApplication1.Controllers
             return PartialView();
         }
 
-        // POST: InsumosComposicaoProdutos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "InsumoComposicaoProdutoID,QtdeInsumo,InsumoID,ProdutoID")] InsumoComposicaoProduto insumoComposicaoProduto)
@@ -88,15 +82,12 @@ namespace WebApplication1.Controllers
                 db.InsumosComposicaoProdutos.Add(insumoComposicaoProduto);
                 db.SaveChanges();
                 return RedirectToAction("Edit", "Produtos", new { @id = insumoComposicaoProduto.ProdutoID });
-
             }
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
             ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
             return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = insumoComposicaoProduto.ProdutoID });
-
         }
 
-        // GET: InsumosComposicaoProdutos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -116,9 +107,6 @@ namespace WebApplication1.Controllers
             return PartialView(insumoComposicaoProduto);
         }
 
-        // POST: InsumosComposicaoProdutos/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "InsumoComposicaoProdutoID,QtdeInsumo,InsumoID,ProdutoID")] InsumoComposicaoProduto insumoComposicaoProduto)
@@ -131,10 +119,9 @@ namespace WebApplication1.Controllers
             }
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
             ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
-            return View(insumoComposicaoProduto);
+            return PartialView(insumoComposicaoProduto);
         }
 
-        // GET: InsumosComposicaoProdutos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -149,7 +136,6 @@ namespace WebApplication1.Controllers
             return PartialView(insumoComposicaoProduto);
         }
 
-        // POST: InsumosComposicaoProdutos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -392,9 +392,7 @@
     <Content Include="Views\LotesProdutos\Edit.cshtml" />
     <Content Include="Views\LotesProdutos\Index.cshtml" />
     <Content Include="Views\InsumosComposicaoProdutos\Delete.cshtml" />
-    <Content Include="Views\InsumosComposicaoProdutos\Details.cshtml" />
     <Content Include="Views\InsumosComposicaoProdutos\Edit.cshtml" />
-    <Content Include="Views\InsumosComposicaoProdutos\Index.cshtml" />
     <Content Include="Views\InsumosComposicaoProdutos\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>

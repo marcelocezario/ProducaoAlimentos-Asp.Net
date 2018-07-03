@@ -70,6 +70,20 @@
             });
         });
 
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var InsumoID = $(this).data("value");
+
+                $("#conteudoModal").load("/Produtos/Details/" + InsumoID,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
     </script>
 }
 

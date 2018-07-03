@@ -20,20 +20,63 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.InsumoID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.InsumoID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.InsumoID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                <a href="#" class="btn btn-default btnEdit" data-value="@item.InsumoID">Editar</a>
+                <a href="#" class="btn btn-default btnDetails" data-value="@item.InsumoID">Detalhes</a>
+                @Html.ActionLink("Excluir", "Delete", new { id = item.InsumoID }, new { @class = "btn btn-default btnteste" })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div id="conteudoModal"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var InsumoID = $(this).data("value");
+
+                $("#conteudoModal").load("/Insumos/Details/" + InsumoID,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnteste").click(function () {
+                $('#myModal').modal("show");
+
+            });
+        });
+
+
+    </script>
+}

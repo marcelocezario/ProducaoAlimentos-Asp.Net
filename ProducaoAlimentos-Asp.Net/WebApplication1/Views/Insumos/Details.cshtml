@@ -7,15 +7,15 @@
 <h2>Detalhes Insumo</h2>
 
 <div>
-    <h4>Insumo</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model._UnidadeDeMedida.Nome)
+            @Html.DisplayNameFor(model => model.InsumoID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._UnidadeDeMedida.Nome)
+            @Html.DisplayFor(model => model.InsumoID)
         </dd>
 
         <dt>
@@ -26,9 +26,14 @@
             @Html.DisplayFor(model => model.Nome)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model._UnidadeDeMedida.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._UnidadeDeMedida.Nome) (@Html.DisplayFor(model => model._UnidadeDeMedida.Sigla))
+        </dd>
+
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.InsumoID }) |
-    @Html.ActionLink("Voltar para lista", "Index")
-</p>

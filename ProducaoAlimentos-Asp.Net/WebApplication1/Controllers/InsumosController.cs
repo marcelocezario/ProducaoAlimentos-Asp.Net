@@ -34,7 +34,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(insumo);
+            return PartialView(insumo);
         }
 
         // GET: Insumos/Create

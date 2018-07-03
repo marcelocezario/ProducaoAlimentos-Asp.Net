@@ -7,6 +7,7 @@ namespace WebApplication1.Models
     public class Insumo
     {
         [Required]
+        [Display(Name = "Id")]
         public int InsumoID { get; set; }
         [Display(Name = "Insumo")]
         public string Nome { get; set; }

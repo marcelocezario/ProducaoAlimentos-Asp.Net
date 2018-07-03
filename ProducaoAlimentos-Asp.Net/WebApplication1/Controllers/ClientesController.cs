@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Models.DAL;
+using WebApplication1.Models.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -16,14 +17,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: Clientes
         public ActionResult Index()
         {
-            var clientes = db.Clientes.Include(c => c._Endereco);
-            return View(clientes.ToList());
+            var clientes = db.Clientes.OrderBy(c => c.Nome).ToList();
+            return View(clientes);
         }
 
-        // GET: Clientes/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -35,35 +34,53 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return PartialView(cliente);
         }
 
-        // GET: Clientes/Create
         public ActionResult Create()
         {
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro");
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
             return View();
         }
 
-        // POST: Clientes/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,EnderecoID")] Cliente cliente)
+        //public ActionResult Create([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,_Endereco")] Cliente cliente)
+        public ActionResult Create([Bind(Include = "ID,ClienteNome,ClienteCpf_Cnpj,ClienteTelefone,ClienteEmail,EnderecoLogradouro,EnderecoNumero,EnderecoComplemento,EnderecoBairro,EnderecoCep,EnderecoCidadeID")] ClienteViewModel clienteViewModel)
         {
-            if (ModelState.IsValid)
+            Endereco endereco = new Endereco
             {
-                db.Clientes.Add(cliente);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                Logradouro = clienteViewModel.EnderecoLogradouro,
+                Numero = clienteViewModel.EnderecoNumero,
+                Complemento = clienteViewModel.EnderecoComplemento,
+                Bairro = clienteViewModel.EnderecoBairro,
+                Cep = clienteViewModel.EnderecoCep,
+                CidadeID = clienteViewModel.EnderecoCidadeID
+            };
 
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro", cliente.EnderecoID);
-            return View(cliente);
+            EnderecosController ec = new EnderecosController();
+            endereco = ec.Create(endereco);
+            if (endereco != null)
+            {
+                Cliente cliente = new Cliente
+                {
+                    Nome = clienteViewModel.ClienteNome,
+                    Cpf_Cnpj = clienteViewModel.ClienteCpf_Cnpj,
+                    Telefone = clienteViewModel.ClienteTelefone,
+                    Email = clienteViewModel.ClienteEmail,
+                    EnderecoID = endereco.EnderecoID
+                };
+                if (ModelState.IsValid)
+                {
+                    db.Clientes.Add(cliente);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
+            return View(clienteViewModel);
         }
 
-        // GET: Clientes/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,13 +92,15 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro", cliente.EnderecoID);
-            return View(cliente);
+            List<Endereco> enderecos = new List<Endereco>();
+            Endereco endereco = db.Enderecos.Find(cliente.EnderecoID);
+
+            enderecos.Add(endereco);
+
+            ViewBag.EnderecoID = new SelectList(enderecos, "EnderecoID", "_Cidade.Nome", cliente._Endereco._Cidade.Nome);
+            return PartialView(cliente);
         }
 
-        // POST: Clientes/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,EnderecoID")] Cliente cliente)
@@ -92,11 +111,10 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro", cliente.EnderecoID);
-            return View(cliente);
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
+            return PartialView(cliente);
         }
 
-        // GET: Clientes/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,10 +126,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+            return PartialView(cliente);
         }
 
-        // POST: Clientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

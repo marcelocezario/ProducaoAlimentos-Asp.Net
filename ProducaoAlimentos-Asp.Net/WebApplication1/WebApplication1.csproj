@@ -242,6 +242,7 @@
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Models\UnidadeDeMedida.cs" />
     <Compile Include="Models\Venda.cs" />
+    <Compile Include="Models\ViewModel\ClienteViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

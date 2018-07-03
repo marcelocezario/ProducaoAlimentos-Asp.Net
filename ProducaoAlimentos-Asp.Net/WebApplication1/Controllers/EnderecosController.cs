@@ -49,17 +49,20 @@ namespace WebApplication1.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
+//        public ActionResult Create([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
+        public Endereco Create([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
         {
             if (ModelState.IsValid)
             {
                 db.Enderecos.Add(endereco);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //                return RedirectToAction("Index");
+                return endereco;
             }
 
-            ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
-            return View(endereco);
+            //            ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
+            //            return View(endereco);
+            return null;
         }
 
         // GET: Enderecos/Edit/5
@@ -75,7 +78,7 @@ namespace WebApplication1.Controllers
                 return HttpNotFound();
             }
             ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
-            return View(endereco);
+            return PartialView(endereco);
         }
 
         // POST: Enderecos/Edit/5
@@ -92,7 +95,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
-            return View(endereco);
+            return PartialView(endereco);
         }
 
         // GET: Enderecos/Delete/5

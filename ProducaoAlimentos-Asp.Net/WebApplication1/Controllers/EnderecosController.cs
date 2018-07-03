@@ -15,14 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: Enderecos
         public ActionResult Index()
         {
             var enderecos = db.Enderecos.Include(e => e._Cidade);
             return View(enderecos.ToList());
         }
 
-        // GET: Enderecos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)

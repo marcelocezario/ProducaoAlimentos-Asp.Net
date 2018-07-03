@@ -15,13 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: Marcas
         public ActionResult Index()
         {
-            return View(db.Marcas.ToList());
+            var marcas = db.Marcas.OrderBy(m => m.Nome).ToList();
+            return View(marcas);
         }
 
-        // GET: Marcas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,18 +32,14 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(marca);
+            return PartialView(marca);
         }
 
-        // GET: Marcas/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Marcas/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MarcaID,Nome")] Marca marca)
@@ -55,11 +50,9 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(marca);
+            return PartialView(marca);
         }
 
-        // GET: Marcas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,12 +64,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(marca);
+            return PartialView(marca);
         }
 
-        // POST: Marcas/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MarcaID,Nome")] Marca marca)
@@ -90,7 +80,6 @@ namespace WebApplication1.Controllers
             return View(marca);
         }
 
-        // GET: Marcas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,10 +91,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(marca);
+            return PartialView(marca);
         }
 
-        // POST: Marcas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

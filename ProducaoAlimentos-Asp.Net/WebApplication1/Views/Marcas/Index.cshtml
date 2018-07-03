@@ -12,22 +12,91 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.MarcaID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.MarcaID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.MarcaID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.MarcaID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MarcaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                <a href="#" class="btnEdit" data-value="@item.MarcaID">Editar</a> |
+                <a href="#" class="btnDetails" data-value="@item.MarcaID">Detalhes</a> |
+                <a href="#" class="btnDelete" data-value="@item.MarcaID">Excluir</a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div id="conteudoModal"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Marcas/Edit/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Marcas/Details/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Marcas/Delete/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+
+    </script>
+}

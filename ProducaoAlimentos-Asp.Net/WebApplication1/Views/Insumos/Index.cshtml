@@ -66,9 +66,9 @@
 
             $(".btnEdit").click(function () {
 
-                var InsumoID = $(this).data("value");
+                var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Insumos/Edit/" + InsumoID,
+                $("#conteudoModal").load("/Insumos/Edit/" + id,
                     function () {
                         $('#myModal').modal("show");
 
@@ -80,9 +80,9 @@
 
             $(".btnDetails").click(function () {
 
-                var InsumoID = $(this).data("value");
+                var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Insumos/Details/" + InsumoID,
+                $("#conteudoModal").load("/Insumos/Details/" + id,
                     function () {
                         $('#myModal').modal("show");
 
@@ -94,9 +94,9 @@
 
             $(".btnDelete").click(function () {
 
-                var InsumoID = $(this).data("value");
+                var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Insumos/Delete/" + InsumoID,
+                $("#conteudoModal").load("/Insumos/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
 

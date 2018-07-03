@@ -15,13 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: Estados
         public ActionResult Index()
         {
-            return View(db.Estados.ToList());
+            var estados = db.Estados.OrderBy(e => e.Nome).ToList();
+            return View(estados);
         }
 
-        // GET: Estados/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,18 +32,14 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(estado);
+            return PartialView(estado);
         }
 
-        // GET: Estados/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Estados/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "EstadoID,Nome,Sigla")] Estado estado)
@@ -59,7 +54,6 @@ namespace WebApplication1.Controllers
             return View(estado);
         }
 
-        // GET: Estados/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,12 +65,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(estado);
+            return PartialView(estado);
         }
 
-        // POST: Estados/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "EstadoID,Nome,Sigla")] Estado estado)
@@ -87,10 +78,9 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(estado);
+            return PartialView(estado);
         }
 
-        // GET: Estados/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,10 +92,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(estado);
+            return PartialView(estado);
         }
 
-        // POST: Estados/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.EstadoID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
@@ -20,8 +23,12 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstadoID)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
@@ -29,11 +36,73 @@
             @Html.DisplayFor(modelItem => item.Sigla)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.EstadoID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.EstadoID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.EstadoID })
+            <a href="#" class="btnEdit" data-value="@item.EstadoID">Editar</a> |
+            <a href="#" class="btnDetails" data-value="@item.EstadoID">Detalhes</a> |
+            <a href="#" class="btnDelete" data-value="@item.EstadoID">Excluir</a>
         </td>
     </tr>
-}
+    }
 
 </table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div id="conteudoModal"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Estados/Edit/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Estados/Details/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Estados/Delete/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+
+    </script>
+}

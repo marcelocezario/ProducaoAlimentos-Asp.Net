@@ -36,7 +36,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome");
+            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida.OrderBy(um => um.Nome).ToList(), "UnidadeDeMedidaID", "Nome");
             return View();
         }
 
@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
+            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida.OrderBy(um=> um.Nome).ToList(), "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
             return View(insumo);
         }
 
@@ -65,7 +65,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
+            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida.OrderBy(um => um.Nome).ToList(), "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
             return PartialView(insumo);
         }
 
@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
+            ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida.OrderBy(um => um.Nome).ToList(), "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
             return PartialView(insumo);
         }
 

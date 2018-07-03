@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
@@ -10,6 +11,7 @@ namespace WebApplication1.Models
         public string Telefone { get; set; }
         public string Email { get; set; }
 
+        [Required]
         [ForeignKey("_Endereco")]
         public int EnderecoID { get; set; }
         public virtual Endereco _Endereco { get; set; }

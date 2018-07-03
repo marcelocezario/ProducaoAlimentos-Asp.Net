@@ -11,6 +11,7 @@ namespace WebApplication1.Models
         [Display(Name = "Produto")]
         public string Nome { get; set; }
 
+        [Required]
         [ForeignKey("_UnidadeDeMedida")]
         [Display(Name = "Unidade de medida")]
         public int UnidadeDeMedidaID { get; set; }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
@@ -10,6 +11,7 @@ namespace WebApplication1.Models
         public double ValorTotalItem { get; set; }
         public double QtdeProduto { get; set; }
 
+        [Required]
         [ForeignKey("_LoteProduto")]
         public int LoteProdutoID { get; set; }
         public virtual LoteProduto _LoteProduto { get; set; }

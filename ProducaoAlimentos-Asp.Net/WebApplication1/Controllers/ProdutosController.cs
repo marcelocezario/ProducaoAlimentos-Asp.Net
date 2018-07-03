@@ -58,8 +58,8 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
 
                 //                return RedirectToAction("Index");
-                                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = produto.ProdutoID });
-                //return RedirectToAction("Edit", "Produtos", new { @id = produto.ProdutoID });
+                //                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = produto.ProdutoID });
+                return RedirectToAction("Edit", "Produtos", new { @id = produto.ProdutoID });
 
             }
 
@@ -96,13 +96,10 @@ namespace WebApplication1.Controllers
             {
                 db.Entry(produto).State = EntityState.Modified;
                 db.SaveChanges();
-//                return RedirectToAction("Index");
-                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = produto.ProdutoID });
-
+                return RedirectToAction("Index", "Produtos", new { @id = produto.ProdutoID });
             }
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", produto.UnidadeDeMedidaID);
                         return View(produto);
-
         }
 
         // GET: Produtos/Delete/5

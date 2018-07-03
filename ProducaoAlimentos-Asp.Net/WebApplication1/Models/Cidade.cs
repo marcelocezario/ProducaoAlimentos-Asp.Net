@@ -11,6 +11,7 @@ namespace WebApplication1.Models
         [Display(Name = "Cidade")]
         public string Nome { get; set; }
 
+        [Required]
         [ForeignKey("_Estado")]
         public int EstadoID { get; set; }
         public virtual Estado _Estado { get; set; }

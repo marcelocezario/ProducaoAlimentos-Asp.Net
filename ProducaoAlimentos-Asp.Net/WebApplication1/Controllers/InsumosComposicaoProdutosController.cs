@@ -90,7 +90,6 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Edit", "Produtos", new { @id = insumoComposicaoProduto.ProdutoID });
 
             }
-
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
             ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
             return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = insumoComposicaoProduto.ProdutoID });
@@ -109,9 +108,12 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            List<Produto> produtos = new List<Produto>();
+            produtos.Add(insumoComposicaoProduto._Produto);
+
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
-            ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
-            return View(insumoComposicaoProduto);
+            ViewBag.ProdutoID = new SelectList(produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
+            return PartialView(insumoComposicaoProduto);
         }
 
         // POST: InsumosComposicaoProdutos/Edit/5
@@ -125,7 +127,7 @@ namespace WebApplication1.Controllers
             {
                 db.Entry(insumoComposicaoProduto).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "Produtos", new { @id = insumoComposicaoProduto.ProdutoID });
             }
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);
             ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", insumoComposicaoProduto.ProdutoID);
@@ -144,7 +146,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(insumoComposicaoProduto);
+            return PartialView(insumoComposicaoProduto);
         }
 
         // POST: InsumosComposicaoProdutos/Delete/5
@@ -153,9 +155,12 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             InsumoComposicaoProduto insumoComposicaoProduto = db.InsumosComposicaoProdutos.Find(id);
+
+            int produtoID = insumoComposicaoProduto.ProdutoID;
+
             db.InsumosComposicaoProdutos.Remove(insumoComposicaoProduto);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit", "Produtos", new { @id = insumoComposicaoProduto.ProdutoID });
         }
 
         protected override void Dispose(bool disposing)

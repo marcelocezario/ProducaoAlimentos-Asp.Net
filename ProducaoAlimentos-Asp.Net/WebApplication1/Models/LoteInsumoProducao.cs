@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
@@ -9,6 +10,7 @@ namespace WebApplication1.Models
         public double QtdeInsumo { get; set; }
         public double CustoTotalInsumo { get; set; }
 
+        [Required]
         [ForeignKey("_LoteInsumo")]
         public int LoteInsumoID { get; set; }
         public virtual LoteInsumo _LoteInsumo { get; set; }

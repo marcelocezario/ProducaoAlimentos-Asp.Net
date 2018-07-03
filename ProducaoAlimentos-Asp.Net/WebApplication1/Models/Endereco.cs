@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
 {
@@ -12,6 +13,7 @@ namespace WebApplication1.Models
         public string Bairro { get; set; }
         public string Cep { get; set; }
 
+        [Required]
         [ForeignKey("_Cidade")]
         public int CidadeID { get; set; }
         public virtual Cidade _Cidade { get; set; }

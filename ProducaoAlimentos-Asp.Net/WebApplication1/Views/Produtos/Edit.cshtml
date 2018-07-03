@@ -46,12 +46,13 @@
 <ul>
     @foreach (var item in Model._ComposicaoProduto)
     {
-        <li>
-            @item.QtdeInsumo
-            @item._Insumo._UnidadeDeMedida.Sigla
-            @item._Insumo.Nome
-
-        </li>
+    <li>
+        @item.QtdeInsumo
+        @item._Insumo._UnidadeDeMedida.Sigla
+        @item._Insumo.Nome
+        <a href="#" class="btnEdit" data-value="@item.InsumoComposicaoProdutoID">Editar</a>|
+        <a href="#" class="btnDelete" data-value="@item.InsumoComposicaoProdutoID">Delete</a>
+    </li>
     }
 
 </ul>
@@ -77,18 +78,35 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
             $(".btnCreate").click(function () {
-
                 var ProdutoID = $(this).data("value");
-
                 $("#conteudoModal").load("/InsumosComposicaoProdutos/Create/" + ProdutoID,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
+
+        $(document).ready(function () {
+            $(".btnEdit").click(function () {
+                var InsumoComposicaoProdutoID = $(this).data("value");
+                $("#conteudoModal").load("/InsumosComposicaoProdutos/Edit/" + InsumoComposicaoProdutoID,
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+            $(".btnDelete").click(function () {
+                var InsumoComposicaoProdutoID = $(this).data("value");
+                $("#conteudoModal").load("/InsumosComposicaoProdutos/Delete/" + InsumoComposicaoProdutoID,
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
 
     </script>
 }

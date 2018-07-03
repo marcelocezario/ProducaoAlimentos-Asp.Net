@@ -11,12 +11,14 @@
     <h4>Produto</h4>
     <hr />
     <dl class="dl-horizontal">
+        <h5>Produto</h5>
+
         <dt>
-            @Html.DisplayNameFor(model => model._UnidadeDeMedida.Nome)
+            @Html.DisplayNameFor(model => model.ProdutoID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._UnidadeDeMedida.Nome)
+            @Html.DisplayFor(model => model.ProdutoID)
         </dd>
 
         <dt>
@@ -26,6 +28,28 @@
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._UnidadeDeMedida.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._UnidadeDeMedida.Nome) (@Html.DisplayFor(model => model._UnidadeDeMedida.Sigla))
+        </dd>
+        <hr />
+        <h5>Composição</h5>
+        <ul>
+            @foreach (var item in Model._ComposicaoProduto)
+        {
+            <li>
+                @item.QtdeInsumo
+                @item._Insumo._UnidadeDeMedida.Sigla
+                @item._Insumo.Nome
+
+            </li>
+    }
+        </ul>
+
+
 
     </dl>
 

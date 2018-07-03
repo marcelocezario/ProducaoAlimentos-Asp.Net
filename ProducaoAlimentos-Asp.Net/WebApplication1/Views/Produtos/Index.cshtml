@@ -12,10 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model._UnidadeDeMedida.Nome)
+            @Html.DisplayNameFor(model => model.ProdutoID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model._UnidadeDeMedida.Nome)
         </th>
         <th></th>
     </tr>
@@ -24,15 +27,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome)
+                @Html.DisplayFor(modelItem => item.ProdutoID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Edit", new { id = item.ProdutoID }, new { @class= "btn btn-default"} )
-                <a href="#" class="btn btn-default btnDetails" data-value="@item.ProdutoID">Detalhes</a>
-                @Html.ActionLink("Excluir", "Delete", new { id = item.ProdutoID }, new { @class= "btn btn-default"})
+                @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome) (@Html.DisplayFor(modelItem => item._UnidadeDeMedida.Sigla))
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ProdutoID }) |
+                <a href="#" class="btnDetails" data-value="@item.ProdutoID">Detalhes</a> |
+                <a href="#" class="btnDelete" data-value="@item.ProdutoID">Excluir</a>
             </td>
         </tr>
     }
@@ -74,9 +80,9 @@
 
             $(".btnDelete").click(function () {
 
-                var InsumoID = $(this).data("value");
+                var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Produtos/Details/" + InsumoID,
+                $("#conteudoModal").load("/Produtos/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
 
@@ -86,4 +92,3 @@
 
     </script>
 }
-

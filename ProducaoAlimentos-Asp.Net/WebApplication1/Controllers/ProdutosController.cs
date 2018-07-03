@@ -15,14 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: Produtos
         public ActionResult Index()
         {
-            var produtos = db.Produtos.Include(p => p._UnidadeDeMedida);
-            return View(produtos.ToList());
+            var produtos = db.Produtos.OrderBy(p => p.Nome).ToList();
+            return View(produtos);
         }
 
-        // GET: Produtos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,7 +35,6 @@ namespace WebApplication1.Controllers
             return PartialView(produto);
         }
 
-        // GET: Produtos/Create
         public ActionResult Create()
         {
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome");
@@ -45,9 +42,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        // POST: Produtos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProdutoID,Nome,UnidadeDeMedidaID,InsumoID")] Produto produto)
@@ -56,20 +50,14 @@ namespace WebApplication1.Controllers
             {
                 db.Produtos.Add(produto);
                 db.SaveChanges();
-
-                //                return RedirectToAction("Index");
-                //                return RedirectToAction("Create", "InsumosComposicaoProdutos", new { @id = produto.ProdutoID });
                 return RedirectToAction("Edit", "Produtos", new { @id = produto.ProdutoID });
-
             }
-
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", produto.UnidadeDeMedidaID);
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
 
             return View(produto);
         }
 
-        // GET: Produtos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -85,9 +73,6 @@ namespace WebApplication1.Controllers
             return View(produto);
         }
 
-        // POST: Produtos/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ProdutoID,Nome,UnidadeDeMedidaID")] Produto produto)
@@ -99,10 +84,9 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index", "Produtos", new { @id = produto.ProdutoID });
             }
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", produto.UnidadeDeMedidaID);
-                        return View(produto);
+            return View(produto);
         }
 
-        // GET: Produtos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -114,10 +98,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(produto);
+            return PartialView(produto);
         }
 
-        // POST: Produtos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

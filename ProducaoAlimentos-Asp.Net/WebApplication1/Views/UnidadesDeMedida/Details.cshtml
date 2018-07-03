@@ -7,9 +7,15 @@
 <h2>Detalhes Unidade De Medida</h2>
 
 <div>
-    <h4>UnidadeDeMedida</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UnidadeDeMedidaID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadeDeMedidaID)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
@@ -37,6 +43,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.UnidadeDeMedidaID }) |
     @Html.ActionLink("Voltar para lista", "Index")
 </p>

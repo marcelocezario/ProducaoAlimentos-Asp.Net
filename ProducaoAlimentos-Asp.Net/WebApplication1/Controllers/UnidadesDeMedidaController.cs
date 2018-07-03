@@ -15,13 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: UnidadesDeMedida
         public ActionResult Index()
         {
-            return View(db.UnidadesDeMedida.ToList());
+            var unidadesDeMedidas = db.UnidadesDeMedida.OrderBy(um => um.Nome).ToList();
+            return View(unidadesDeMedidas);
         }
 
-        // GET: UnidadesDeMedida/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -33,18 +32,14 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(unidadeDeMedida);
+            return PartialView(unidadeDeMedida);
         }
 
-        // GET: UnidadesDeMedida/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UnidadesDeMedida/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UnidadeDeMedidaID,Nome,Sigla,Fracionavel")] UnidadeDeMedida unidadeDeMedida)
@@ -59,7 +54,6 @@ namespace WebApplication1.Controllers
             return View(unidadeDeMedida);
         }
 
-        // GET: UnidadesDeMedida/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -71,12 +65,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(unidadeDeMedida);
+            return PartialView(unidadeDeMedida);
         }
 
-        // POST: UnidadesDeMedida/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UnidadeDeMedidaID,Nome,Sigla,Fracionavel")] UnidadeDeMedida unidadeDeMedida)
@@ -87,10 +78,9 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(unidadeDeMedida);
+            return PartialView(unidadeDeMedida);
         }
 
-        // GET: UnidadesDeMedida/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -102,10 +92,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(unidadeDeMedida);
+            return PartialView(unidadeDeMedida);
         }
 
-        // POST: UnidadesDeMedida/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

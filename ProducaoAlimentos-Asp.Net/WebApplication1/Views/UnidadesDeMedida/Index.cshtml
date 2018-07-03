@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.UnidadeDeMedidaID)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
@@ -23,23 +26,89 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sigla)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fracionavel)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.UnidadeDeMedidaID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.UnidadeDeMedidaID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.UnidadeDeMedidaID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnidadeDeMedidaID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sigla)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fracionavel)
+            </td>
+            <td>
+                <a href="#" class="btnEdit" data-value="@item.UnidadeDeMedidaID">Editar</a> |
+                <a href="#" class="btnDetails" data-value="@item.UnidadeDeMedidaID">Detalhes</a> |
+                <a href="#" class="btnDelete" data-value="@item.UnidadeDeMedidaID">Excluir</a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div id="conteudoModal"></div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/UnidadesDeMedida/Edit/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/UnidadesDeMedida/Details/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/UnidadesDeMedida/Delete/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+
+                    });
+            });
+        });
+
+
+    </script>
+}

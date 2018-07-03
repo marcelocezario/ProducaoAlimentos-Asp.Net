@@ -5,6 +5,7 @@ namespace WebApplication1.Models
 {
     public abstract class Pessoa
     {
+        [Display(Name = "Id")]
         public int ID { get; set; }
         public string Nome { get; set; }
         public string Cpf_Cnpj { get; set; }

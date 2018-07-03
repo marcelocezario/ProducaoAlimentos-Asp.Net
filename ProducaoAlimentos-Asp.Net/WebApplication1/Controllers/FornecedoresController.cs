@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Models.DAL;
+using WebApplication1.Models.ViewModel;
 
 namespace WebApplication1.Controllers
 {
@@ -15,11 +16,10 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: Fornecedores
         public ActionResult Index()
         {
-            var fornecedores = db.Fornecedores.Include(f => f._Endereco);
-            return View(fornecedores.ToList());
+            var fornecedores = db.Fornecedores.OrderBy(f => f.Nome).ToList();
+            return View(fornecedores);
         }
 
         // GET: Fornecedores/Details/5
@@ -34,35 +34,54 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(fornecedor);
+            return PartialView(fornecedor);
         }
 
         // GET: Fornecedores/Create
         public ActionResult Create()
         {
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro");
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
             return View();
         }
 
-        // POST: Fornecedores/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,EnderecoID")] Fornecedor fornecedor)
+        //public ActionResult Create([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,EnderecoID")] Fornecedor fornecedor)
+        public ActionResult Create([Bind(Include = "ID,FornecedorNome,FornecedorCpf_Cnpj,FornecedorTelefone,FornecedorEmail,EnderecoLogradouro,EnderecoNumero,EnderecoComplemento,EnderecoBairro,EnderecoCep,EnderecoCidadeID")] FornecedorViewModel fornecedorViewModel)
         {
-            if (ModelState.IsValid)
+            Endereco endereco = new Endereco
             {
-                db.Fornecedores.Add(fornecedor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                Logradouro = fornecedorViewModel.EnderecoLogradouro,
+                Numero = fornecedorViewModel.EnderecoNumero,
+                Complemento = fornecedorViewModel.EnderecoComplemento,
+                Bairro = fornecedorViewModel.EnderecoBairro,
+                Cep = fornecedorViewModel.EnderecoCep,
+                CidadeID = fornecedorViewModel.EnderecoCidadeID
+            };
 
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro", fornecedor.EnderecoID);
-            return View(fornecedor);
+            EnderecosController ec = new EnderecosController();
+            endereco = ec.Create(endereco);
+            if (endereco != null)
+            {
+                Fornecedor fornecedor = new Fornecedor
+                {
+                    Nome = fornecedorViewModel.FornecedorNome,
+                    Cpf_Cnpj = fornecedorViewModel.FornecedorCpf_Cnpj,
+                    Telefone = fornecedorViewModel.FornecedorTelefone,
+                    Email = fornecedorViewModel.FornecedorEmail,
+                    EnderecoID = endereco.EnderecoID
+                };
+                if (ModelState.IsValid)
+                {
+                    db.Fornecedores.Add(fornecedor);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
+            return View(fornecedorViewModel);
         }
 
-        // GET: Fornecedores/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,13 +93,15 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
+            List<Endereco> enderecos = new List<Endereco>();
+            Endereco endereco = db.Enderecos.Find(fornecedor.EnderecoID);
+
+            enderecos.Add(endereco);
+
             ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro", fornecedor.EnderecoID);
-            return View(fornecedor);
+            return PartialView(fornecedor);
         }
 
-        // POST: Fornecedores/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,EnderecoID")] Fornecedor fornecedor)
@@ -91,11 +112,10 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro", fornecedor.EnderecoID);
-            return View(fornecedor);
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
+            return PartialView(fornecedor);
         }
 
-        // GET: Fornecedores/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,7 +127,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(fornecedor);
+            return PartialView(fornecedor);
         }
 
         // POST: Fornecedores/Delete/5

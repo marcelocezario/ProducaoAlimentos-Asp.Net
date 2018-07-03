@@ -7,17 +7,17 @@
 <h2>Detalhes Fornecedor</h2>
 
 <div>
-    <h4>Fornecedor</h4>
     <hr />
     <dl class="dl-horizontal">
+        <h5>Fornecedor</h5>
+
         <dt>
-            @Html.DisplayNameFor(model => model._Endereco.Logradouro)
+            @Html.DisplayNameFor(model => model.ID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._Endereco.Logradouro)
+            @Html.DisplayFor(model => model.ID)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
@@ -25,7 +25,6 @@
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Cpf_Cnpj)
         </dt>
@@ -49,10 +48,55 @@
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
+        <hr />
+
+        <h5>Endereço</h5>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._Endereco.Logradouro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Endereco.Logradouro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._Endereco.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Endereco.Numero)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._Endereco.Complemento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Endereco.Complemento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._Endereco.Bairro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Endereco.Bairro)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._Endereco.Cep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Endereco.Cep)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._Endereco._Cidade.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Endereco._Cidade.Nome) (@Html.DisplayFor(model => model._Endereco._Cidade._Estado.Sigla))
+        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Voltar para lista", "Index")
 </p>

@@ -7,15 +7,15 @@
 <h2>Detalhes Cidade</h2>
 
 <div>
-    <h4>Cidade</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model._Estado.Nome)
+            @Html.DisplayNameFor(model => model.CidadeID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._Estado.Nome)
+            @Html.DisplayFor(model => model.CidadeID)
         </dd>
 
         <dt>
@@ -25,10 +25,18 @@
         <dd>
             @Html.DisplayFor(model => model.Nome)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._Estado.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Estado.Nome)
+        </dd>
+
+
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.CidadeID }) |
     @Html.ActionLink("Voltar para lista", "Index")
 </p>

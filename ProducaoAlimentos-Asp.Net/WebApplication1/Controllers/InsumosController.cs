@@ -15,14 +15,11 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: Insumos
         public ActionResult Index()
         {
-            var insumos = db.Insumos.Include(i => i._UnidadeDeMedida);
-            return View(insumos.ToList());
+            return View(db.Insumos.OrderBy(i=> i.Nome).ToList());
         }
 
-        // GET: Insumos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,16 +34,12 @@ namespace WebApplication1.Controllers
             return PartialView(insumo);
         }
 
-        // GET: Insumos/Create
         public ActionResult Create()
         {
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome");
             return View();
         }
 
-        // POST: Insumos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "InsumoID,Nome,UnidadeDeMedidaID")] Insumo insumo)
@@ -57,12 +50,10 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
             return View(insumo);
         }
 
-        // GET: Insumos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -75,12 +66,9 @@ namespace WebApplication1.Controllers
                 return HttpNotFound();
             }
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
-            return View(insumo);
+            return PartialView(insumo);
         }
 
-        // POST: Insumos/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "InsumoID,Nome,UnidadeDeMedidaID")] Insumo insumo)
@@ -92,10 +80,9 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
-            return View(insumo);
+            return PartialView(insumo);
         }
 
-        // GET: Insumos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -107,10 +94,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(insumo);
+            return PartialView(insumo);
         }
 
-        // POST: Insumos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -128,11 +114,6 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public Insumo BuscarInsumoPorId (int idInsumo)
-        {
-            return db.Insumos.Find(idInsumo);
         }
     }
 }

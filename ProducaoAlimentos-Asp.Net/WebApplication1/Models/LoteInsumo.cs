@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,5 +29,8 @@ namespace WebApplication1.Models
         [Display(Name = "Fornecedor")]
         public int FornecedorID { get; set; }
         public virtual Fornecedor _Fornecedor { get; set; }
+
+        public virtual List<MovimentacaoEstoqueInsumo> _MovimentacoesEstoqueInsumos { get; set; }
+        public virtual List<LoteInsumoProducao> _LotesInsumosProducao { get; set; }
     }
 }

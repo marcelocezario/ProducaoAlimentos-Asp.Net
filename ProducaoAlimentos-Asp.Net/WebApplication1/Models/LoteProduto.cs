@@ -16,6 +16,8 @@ namespace WebApplication1.Models
         public int ProdutoID { get; set; }
         public virtual Produto _Produto { get; set; }
 
-        public virtual List<LoteInsumoProducao> _ItensInsumoProducao { get; set; }
+        public virtual List<LoteInsumoProducao> _LotesInsumoProducao { get; set; }
+        public virtual List<MovimentacaoEstoqueProduto> _MovimentacoesEstoqueProdutos { get; set; }
+        public virtual List<ItemVenda> _ItensVenda { get; set; }
     }
 }

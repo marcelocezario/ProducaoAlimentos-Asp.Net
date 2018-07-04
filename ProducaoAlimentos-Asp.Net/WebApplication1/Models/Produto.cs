@@ -18,6 +18,8 @@ namespace WebApplication1.Models
         public int UnidadeDeMedidaID { get; set; }
         public virtual UnidadeDeMedida _UnidadeDeMedida { get; set; }
 
+        public virtual List<LoteProduto> _LotesProdutos { get; set; }
         public virtual List<InsumoComposicaoProduto> _ComposicaoProduto { get; set; }
+        public virtual List<EstoqueProduto> _EstoqueProdutos { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
@@ -16,5 +17,7 @@ namespace WebApplication1.Models
         [Display(Name = "Estado")]
         public int EstadoID { get; set; }
         public virtual Estado _Estado { get; set; }
+
+        public virtual List<Endereco> _Enderecos { get; set; }
     }
 }

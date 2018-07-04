@@ -14,5 +14,10 @@ namespace WebApplication1.Models
         [ForeignKey("_LoteInsumo")]
         public int LoteInsumoID { get; set; }
         public virtual LoteInsumo _LoteInsumo { get; set; }
+
+        [Required]
+        [ForeignKey("_LoteProduto")]
+        public int LoteProdutoID { get; set; }
+        public virtual LoteInsumo _LoteProduto { get; set; }
     }
 }

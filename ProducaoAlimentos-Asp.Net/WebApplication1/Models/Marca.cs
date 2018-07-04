@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
@@ -10,5 +11,7 @@ namespace WebApplication1.Models
         public int MarcaID { get; set; }
         [Display(Name = "Marca")]
         public string Nome { get; set; }
+
+        public virtual List<LoteInsumo> _LotesInsumos { get; set; }
     }
 }

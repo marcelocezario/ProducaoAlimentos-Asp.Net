@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Models
@@ -11,5 +12,7 @@ namespace WebApplication1.Models
         [Display(Name = "Estado")]
         public string Nome { get; set; }
         public string Sigla { get; set; }
+
+        public virtual List<Cidade> _Cidades { get; set; }
     }
 }

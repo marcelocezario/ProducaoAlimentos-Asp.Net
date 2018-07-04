@@ -6,9 +6,7 @@
 
 <h2>Movimentação Estoque Produtos</h2>
 
-<p>
-    @Html.ActionLink("Novo Estoque Produto", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -26,26 +24,65 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item._LoteProduto.ID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataMovimentacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Qtde)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorMovimentacao)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item._LoteProduto.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataMovimentacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qtde)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorMovimentacao)
+            </td>
+            <td>
+                <a href="#" class="btnDetails" data-value="@item.ID">Detalhes</a>
+            </td>
+        </tr>
+    }
 
 </table>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <div id="conteudoModal">
+                    </div>
+                </div>
+                <a href="#" class="btnVoltar">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/MovimentacoesEstoqueProdutos/Details/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+            $(".btnVoltar").click(function () {
+                $('#myModal').modal("hide");
+                window.location.reload();
+            })
+        })
+
+    </script>
+}
+

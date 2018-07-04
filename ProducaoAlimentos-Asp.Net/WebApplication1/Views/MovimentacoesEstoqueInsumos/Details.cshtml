@@ -1,0 +1,79 @@
+﻿@model WebApplication1.Models.MovimentacaoEstoqueInsumo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalhes Movimentação Estoque Insumo</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DataMovimentacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataMovimentacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteInsumo._Insumo.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteInsumo._Insumo.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteInsumo._Marca.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteInsumo._Marca.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteInsumo._Fornecedor.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteInsumo._Fornecedor.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteInsumo.Validade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteInsumo.Validade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qtde)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qtde) @Html.DisplayFor(model => model._LoteInsumo._Insumo._UnidadeDeMedida.Sigla)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorMovimentacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorMovimentacao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteInsumo.ID) Lote
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteInsumo.ID)
+        </dd>
+
+    </dl>
+</div>

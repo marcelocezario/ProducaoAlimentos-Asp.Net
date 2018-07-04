@@ -17,7 +17,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            var movimentacoesEstoqueInsumos = db.MovimentacoesEstoqueInsumos.Include(m => m._LoteInsumo);
+            var movimentacoesEstoqueInsumos = db.MovimentacoesEstoqueInsumos.Include(m => m._LoteInsumo).OrderByDescending(m => m.DataMovimentacao).ThenByDescending(m => m.ID);
             return View(movimentacoesEstoqueInsumos.ToList());
         }
 
@@ -32,13 +32,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(movimentacaoEstoqueInsumo);
-        }
-
-        public ActionResult Create()
-        {
-            ViewBag.LoteInsumoID = new SelectList(db.LotesInsumos, "ID", "ID");
-            return View();
+            return PartialView(movimentacaoEstoqueInsumo);
         }
 
         [HttpPost]
@@ -54,22 +48,6 @@ namespace WebApplication1.Controllers
             return false;
         }
 
-        // GET: MovimentacoesEstoqueInsumos/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Find(id);
-            if (movimentacaoEstoqueInsumo == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.LoteInsumoID = new SelectList(db.LotesInsumos, "ID", "ID", movimentacaoEstoqueInsumo.LoteInsumoID);
-            return View(movimentacaoEstoqueInsumo);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,LoteInsumoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo)
@@ -82,32 +60,6 @@ namespace WebApplication1.Controllers
             }
             ViewBag.LoteInsumoID = new SelectList(db.LotesInsumos, "ID", "ID", movimentacaoEstoqueInsumo.LoteInsumoID);
             return View(movimentacaoEstoqueInsumo);
-        }
-
-        // GET: MovimentacoesEstoqueInsumos/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Find(id);
-            if (movimentacaoEstoqueInsumo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(movimentacaoEstoqueInsumo);
-        }
-
-        // POST: MovimentacoesEstoqueInsumos/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Find(id);
-            db.MovimentacoesEstoqueInsumos.Remove(movimentacaoEstoqueInsumo);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

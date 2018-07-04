@@ -344,15 +344,7 @@
     <Content Include="Views\Produtos\Details.cshtml" />
     <Content Include="Views\Produtos\Edit.cshtml" />
     <Content Include="Views\Produtos\Index.cshtml" />
-    <Content Include="Views\EstoqueInsumos\Create.cshtml" />
-    <Content Include="Views\EstoqueInsumos\Delete.cshtml" />
-    <Content Include="Views\EstoqueInsumos\Details.cshtml" />
-    <Content Include="Views\EstoqueInsumos\Edit.cshtml" />
     <Content Include="Views\EstoqueInsumos\Index.cshtml" />
-    <Content Include="Views\EstoqueProdutos\Create.cshtml" />
-    <Content Include="Views\EstoqueProdutos\Delete.cshtml" />
-    <Content Include="Views\EstoqueProdutos\Details.cshtml" />
-    <Content Include="Views\EstoqueProdutos\Edit.cshtml" />
     <Content Include="Views\EstoqueProdutos\Index.cshtml" />
     <Content Include="Views\LotesInsumos\Create.cshtml" />
     <Content Include="Views\LotesInsumos\Delete.cshtml" />
@@ -365,10 +357,6 @@
     <Content Include="Views\LotesInsumosProducoes\Details.cshtml" />
     <Content Include="Views\LotesInsumosProducoes\Edit.cshtml" />
     <Content Include="Views\LotesInsumosProducoes\Index.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueProdutos\Create.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueProdutos\Delete.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueProdutos\Details.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueProdutos\Edit.cshtml" />
     <Content Include="Views\MovimentacoesEstoqueProdutos\Index.cshtml" />
     <Content Include="Views\ItensVendas\Create.cshtml" />
     <Content Include="Views\ItensVendas\Delete.cshtml" />
@@ -388,6 +376,8 @@
     <Content Include="Views\InsumosComposicaoProdutos\Delete.cshtml" />
     <Content Include="Views\InsumosComposicaoProdutos\Edit.cshtml" />
     <Content Include="Views\InsumosComposicaoProdutos\Create.cshtml" />
+    <Content Include="Views\MovimentacoesEstoqueInsumos\Details.cshtml" />
+    <Content Include="Views\MovimentacoesEstoqueProdutos\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

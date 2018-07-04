@@ -7,17 +7,14 @@
 <h2>Detalhes Movimentação Estoque Produto</h2>
 
 <div>
-    <h4>MovimentacaoEstoqueProduto</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model._LoteProduto.ID)
+            @Html.DisplayNameFor(model => model.ID)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model._LoteProduto.ID)
+            @Html.DisplayFor(model => model.ID)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.DataMovimentacao)
         </dt>
@@ -25,15 +22,35 @@
         <dd>
             @Html.DisplayFor(model => model.DataMovimentacao)
         </dd>
-
         <dt>
-            @Html.DisplayNameFor(model => model.Qtde)
+            @Html.DisplayNameFor(model => model._LoteProduto._Produto.Nome)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Qtde)
+            @Html.DisplayFor(model => model._LoteProduto._Produto.Nome)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteProduto.Validade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteProduto.Validade)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Qtde)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Qtde) @Html.DisplayFor(model => model._LoteProduto._Produto._UnidadeDeMedida.Sigla)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteProduto.CustoMedio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteProduto.CustoMedio)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.ValorMovimentacao)
         </dt>
@@ -42,9 +59,30 @@
             @Html.DisplayFor(model => model.ValorMovimentacao)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model._LoteProduto.ID) Lote
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._LoteProduto.ID)
+        </dd>
+        <hr />
+        @if (Model.Qtde > 0)
+        {
+            <h5>Lotes de insumos utilizados neste lote de produtos</h5>
+            <ul>
+                @foreach (var item in Model._LoteProduto._ItensInsumoProducao)
+                {
+                    <li>
+                        @item.QtdeInsumo
+                        @item._LoteInsumo._Insumo._UnidadeDeMedida.Sigla
+                        @item._LoteInsumo._Insumo.Nome |
+                        Marca @item._LoteInsumo._Marca.Nome |
+                        Id Lote @item._LoteInsumo.ID
+                    </li>
+                }
+            </ul>
+        }
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Voltar para lista", "Index")
-</p>

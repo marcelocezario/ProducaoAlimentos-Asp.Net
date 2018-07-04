@@ -62,11 +62,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-
-                <div id="conteudoModal"></div>
-
+                <div class="modal-header">
+                    <div id="conteudoModal">
+                    </div>
+                </div>
+                <a href="#" class="btnVoltar">Voltar</a>
             </div>
-
         </div>
     </div>
 </div>
@@ -82,7 +83,7 @@
 
                 $("#conteudoModal").load("/Clientes/Edit/" + id,
                     function () {
-                        $('#myModal').modal("show");
+                        $('#myModal').modal('show');
 
                     });
             });
@@ -116,7 +117,6 @@
             });
         });
 
-
         $(document).ready(function () {
 
             $(".btnEditEndereco").click(function () {
@@ -131,6 +131,11 @@
             });
         });
 
-
+        $(document).ready(function () {
+            $(".btnVoltar").click(function () {
+                $('#myModal').modal("hide");
+                window.location.reload();
+            })
+        })
     </script>
 }

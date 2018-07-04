@@ -15,6 +15,7 @@ namespace WebApplication1.Models
 
         [Required]
         [ForeignKey("_Cidade")]
+        [Display(Name = "Cidade")]
         public int CidadeID { get; set; }
         public virtual Cidade _Cidade { get; set; }
     }

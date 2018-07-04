@@ -73,6 +73,40 @@
         <dd>
             @Html.DisplayFor(model => model.Validade)
         </dd>
+        <hr />
+        <hr />
+
+
+
+        <h5>Lotes de insumos utilizados na produção deste lote de produtos</h5>
+        <ul>
+            @foreach (var item in Model._LotesInsumoProducao)
+        {
+            <li>
+                @item.QtdeInsumo
+                @item._LoteInsumo._Insumo._UnidadeDeMedida.Sigla
+                @item._LoteInsumo._Insumo.Nome |
+                Marca @item._LoteInsumo._Marca.Nome |
+                Id Lote @item._LoteInsumo.ID
+            </li>
+    }
+        </ul>
+        <hr />
+
+        <h5>Vendas deste lote de produtos</h5>
+        <ul>
+            @foreach (var item in Model._ItensVenda)
+        {
+            <li>
+                @item._Venda.DataVenda |
+                @item.QtdeProduto
+                @item._LoteProduto._Produto._UnidadeDeMedida.Sigla |
+                Valor Venda R$ @item.ValorTotalItem |
+                Id Venda @item.VendaID
+            </li>
+    }
+        </ul>
+
 
     </dl>
 </div>

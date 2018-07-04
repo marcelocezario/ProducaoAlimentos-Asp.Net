@@ -75,5 +75,22 @@
             @Html.DisplayFor(model => model._LoteInsumo.ID)
         </dd>
 
+
+        <h5>Lotes de produtos que usaram esse lote de Insumos</h5>
+        <ul>
+            @foreach (var item in Model._LoteInsumo._LotesInsumosProducao)
+            {
+                <li>
+                    @item._LoteProduto.DataProducao |
+                    @item.QtdeInsumo
+                    @item._LoteInsumo._Insumo._UnidadeDeMedida.Sigla |
+                    Produto: @item._LoteProduto.QtdeInicial
+                    @item._LoteInsumo._Insumo._UnidadeDeMedida.Sigla  de
+                    @item._LoteProduto._Produto.Nome |
+                    Id Lote @item._LoteProduto.ID
+                </li>
+            }
+        </ul>
+
     </dl>
 </div>

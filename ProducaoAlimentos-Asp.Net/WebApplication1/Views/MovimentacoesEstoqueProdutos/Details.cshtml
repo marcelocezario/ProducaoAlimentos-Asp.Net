@@ -71,7 +71,7 @@
         {
             <h5>Lotes de insumos utilizados neste lote de produtos</h5>
             <ul>
-                @foreach (var item in Model._LoteProduto._ItensInsumoProducao)
+                @foreach (var item in Model._LoteProduto._LotesInsumoProducao)
                 {
                     <li>
                         @item.QtdeInsumo
@@ -82,6 +82,23 @@
                     </li>
                 }
             </ul>
+        }
+
+        @if (Model.Qtde < 0)
+        {
+        <h5>Vendas deste lote de produção</h5>
+        <ul>
+            @foreach (var item in Model._LoteProduto._ItensVenda)
+            {
+                <li>
+                    @item._Venda.DataVenda |
+                    @item.QtdeProduto
+                    @item._LoteProduto._Produto._UnidadeDeMedida.Sigla |
+                    Valor Venda R$ @item.ValorTotalItem |
+                    Id Venda @item.VendaID
+                </li>
+            }
+        </ul>
         }
 
     </dl>

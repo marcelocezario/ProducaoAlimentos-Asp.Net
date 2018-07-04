@@ -15,14 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: MovimentacoesEstoqueInsumos
         public ActionResult Index()
         {
             var movimentacoesEstoqueInsumos = db.MovimentacoesEstoqueInsumos.Include(m => m._LoteInsumo);
             return View(movimentacoesEstoqueInsumos.ToList());
         }
 
-        // GET: MovimentacoesEstoqueInsumos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,29 +35,23 @@ namespace WebApplication1.Controllers
             return View(movimentacaoEstoqueInsumo);
         }
 
-        // GET: MovimentacoesEstoqueInsumos/Create
         public ActionResult Create()
         {
             ViewBag.LoteInsumoID = new SelectList(db.LotesInsumos, "ID", "ID");
             return View();
         }
 
-        // POST: MovimentacoesEstoqueInsumos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,LoteInsumoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo)
+        public bool Create([Bind(Include = "ID,LoteInsumoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo)
         {
             if (ModelState.IsValid)
             {
                 db.MovimentacoesEstoqueInsumos.Add(movimentacaoEstoqueInsumo);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return true;
             }
-
-            ViewBag.LoteInsumoID = new SelectList(db.LotesInsumos, "ID", "ID", movimentacaoEstoqueInsumo.LoteInsumoID);
-            return View(movimentacaoEstoqueInsumo);
+            return false;
         }
 
         // GET: MovimentacoesEstoqueInsumos/Edit/5
@@ -78,9 +70,6 @@ namespace WebApplication1.Controllers
             return View(movimentacaoEstoqueInsumo);
         }
 
-        // POST: MovimentacoesEstoqueInsumos/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,LoteInsumoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo)
@@ -128,25 +117,6 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public void RegistrarMovimentacaoEstoque (DateTime dataMovimentacao, double qtde, double valorMedio, LoteInsumo loteInsumo)
-        {
-            MovimentacaoEstoqueInsumo mei = new MovimentacaoEstoqueInsumo();
-
-            mei.DataMovimentacao = dataMovimentacao;
-            mei.Qtde = qtde;
-            mei.ValorMovimentacao = valorMedio * qtde;
-            mei.LoteInsumoID = loteInsumo.ID;
-
-            if (qtde < 0)
-                mei.ValorMovimentacao *= -1;
-
-            EstoqueInsumosController eic = new EstoqueInsumosController();
-            eic.RegistrarEstoqueInsumo(mei);
-
-            db.MovimentacoesEstoqueInsumos.Add(mei);
-            db.SaveChanges();
         }
     }
 }

@@ -53,7 +53,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                NovoLoteProduto(loteProduto);
+//                NovoLoteProduto(loteProduto);
 
                 return RedirectToAction("Index");
             }
@@ -129,7 +129,7 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
-
+/*
         public LoteProduto BuscarLoteProdutoPorID(int idLoteProduto)
         {
             return db.LotesProdutos.Find(idLoteProduto);
@@ -176,5 +176,6 @@ namespace WebApplication1.Controllers
             MovimentacoesEstoqueProdutosController mepc = new MovimentacoesEstoqueProdutosController();
             mepc.RegistrarMovimentacaoEstoque(dataMovimentacao, qtde, loteProduto.CustoMedio, loteProduto);
         }
+        */
     }
 }

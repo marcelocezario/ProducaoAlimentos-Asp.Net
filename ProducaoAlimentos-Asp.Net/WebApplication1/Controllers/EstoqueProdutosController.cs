@@ -129,7 +129,7 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
-
+/*
         public EstoqueProduto BuscarEstoqueProdutoPorNome(string nomeProduto)
         {
             var ep = from x in db.EstoqueProdutos.ToList()
@@ -168,6 +168,7 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
             }
         }
+        */
 
     }
 }

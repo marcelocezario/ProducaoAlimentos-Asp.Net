@@ -129,7 +129,7 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
-
+/*
         public void RegistrarMovimentacaoEstoque(DateTime dataMovimentacao, double qtde, double valorMedio, LoteProduto loteProduto)
         {
             MovimentacaoEstoqueProduto mep = new MovimentacaoEstoqueProduto();
@@ -148,6 +148,7 @@ namespace WebApplication1.Controllers
             db.MovimentacoesEstoqueProdutos.Add(mep);
             db.SaveChanges();
         }
+        */
 
     }
 }

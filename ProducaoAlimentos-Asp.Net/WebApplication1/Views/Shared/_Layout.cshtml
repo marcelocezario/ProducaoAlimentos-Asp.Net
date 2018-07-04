@@ -25,7 +25,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Vendas", "Index", "Vendas")</li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros<span class="caret"></span></a>
@@ -53,14 +52,18 @@
                             <li>@Html.ActionLink("Consultar Lotes de Insumos Disponíveis", "Index", "LotesInsumos")</li>
                             <li>@Html.ActionLink("Consultar Lotes de Produtos Disponíveis", "Index", "LotesProdutos")</li>
                             <li role="separator" class="divider"></li>
-                            <li>@Html.ActionLink("Registrar Compra Insumos", "Create", "LotesInsumos")</li>
                             <li role="separator" class="divider"></li>
-                            <li>@Html.ActionLink("Registrar Produção", "Create", "LotesProdutos")</li>
-
-                            <!--Ocultar no html  //Html.HiddenFor-->
-
                         </ul>
                     </li>
+
+                    <li>@Html.ActionLink("Registrar Compra Insumos", "Create", "LotesInsumos")</li>
+
+                    <li>@Html.ActionLink("Registrar Produção", "Create", "LotesProdutos")</li>
+
+                    <li>@Html.ActionLink("Vendas", "Index", "Vendas")</li>
+
+
+
 
 
                 </ul>

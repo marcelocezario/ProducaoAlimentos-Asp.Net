@@ -12,8 +12,8 @@ namespace WebApplication1.Models
         public DateTime DataCompra { get; set; }
 
         [Required]
-        [ForeignKey("_Insumo")]
         [Display(Name = "Insumo")]
+        [ForeignKey("_Insumo")]
         public int InsumoID { get; set; }
         public virtual Insumo _Insumo { get; set; }
 

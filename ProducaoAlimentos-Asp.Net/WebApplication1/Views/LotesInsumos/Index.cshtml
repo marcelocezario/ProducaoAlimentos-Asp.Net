@@ -7,7 +7,7 @@
 <h2>Lotes Insumos</h2>
 
 <p>
-    @Html.ActionLink("Novo Lote Insumo", "Create")
+    @Html.ActionLink("Registrar nova compra de Insumos", "Create")
 </p>
 <table class="table">
     <tr>
@@ -106,14 +106,13 @@
 
         $(document).ready(function () {
 
-            $(".btnEdit").click(function () {
+            $(".btnCreate").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/LotesInsumos/Edit/" + id,
+                $("#conteudoModal").load("/LotesInsumos/Create/",
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -127,7 +126,6 @@
                 $("#conteudoModal").load("/LotesInsumos/Details/" + id,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -141,7 +139,19 @@
                 $("#conteudoModal").load("/LotesInsumos/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
+                    });
+            });
+        });
 
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/LotesInsumos/Edit/" + id,
+                    function () {
+                        $('#myModal').modal('show');
                     });
             });
         });
@@ -152,7 +162,5 @@
                 window.location.reload();
             })
         })
-
-
     </script>
 }

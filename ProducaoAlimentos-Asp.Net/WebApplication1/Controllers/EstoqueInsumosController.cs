@@ -15,14 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: EstoqueInsumos
         public ActionResult Index()
         {
             var estoqueInsumos = db.EstoqueInsumos.Include(e => e._Insumo);
             return View(estoqueInsumos.ToList());
         }
 
-        // GET: EstoqueInsumos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,32 +35,19 @@ namespace WebApplication1.Controllers
             return View(estoqueInsumo);
         }
 
-        // GET: EstoqueInsumos/Create
-        public ActionResult Create()
-        {
-            ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome");
-            return View();
-        }
-
-        // POST: EstoqueInsumos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,InsumoID,QtdeTotalEstoque,CustoTotalEstoque")] EstoqueInsumo estoqueInsumo)
+        public bool Create([Bind(Include = "ID,InsumoID,QtdeTotalEstoque,CustoTotalEstoque")] EstoqueInsumo estoqueInsumo)
         {
             if (ModelState.IsValid)
             {
                 db.EstoqueInsumos.Add(estoqueInsumo);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return true;
             }
-
-            ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", estoqueInsumo.InsumoID);
-            return View(estoqueInsumo);
+            return false;
         }
 
-        // GET: EstoqueInsumos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -78,24 +63,24 @@ namespace WebApplication1.Controllers
             return View(estoqueInsumo);
         }
 
-        // POST: EstoqueInsumos/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,InsumoID,QtdeTotalEstoque,CustoTotalEstoque")] EstoqueInsumo estoqueInsumo)
+        public bool Edit([Bind(Include = "ID,InsumoID,QtdeTotalEstoque,CustoTotalEstoque")] EstoqueInsumo estoqueInsumo)
         {
+            EstoqueInsumo estoqueInsumoEditar = db.EstoqueInsumos.Find(estoqueInsumo.ID);
+
+            estoqueInsumoEditar.QtdeTotalEstoque = estoqueInsumo.QtdeTotalEstoque;
+            estoqueInsumoEditar.CustoTotalEstoque = estoqueInsumo.CustoTotalEstoque;
+
             if (ModelState.IsValid)
             {
-                db.Entry(estoqueInsumo).State = EntityState.Modified;
+                db.Entry(estoqueInsumoEditar).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return true;
             }
-            ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", estoqueInsumo.InsumoID);
-            return View(estoqueInsumo);
+            return false;
         }
 
-        // GET: EstoqueInsumos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +95,6 @@ namespace WebApplication1.Controllers
             return View(estoqueInsumo);
         }
 
-        // POST: EstoqueInsumos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -128,45 +112,6 @@ namespace WebApplication1.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        public EstoqueInsumo BuscarEstoqueInsumoPorNome(string nomeInsumo)
-        {
-            var ei = from x in db.EstoqueInsumos.ToList()
-                     where x._Insumo.Nome.Equals(nomeInsumo)
-                     select x;
-            if (ei != null)
-                return ei.FirstOrDefault();
-            else
-                return null;
-        }
-
-        public void RegistrarEstoqueInsumo(MovimentacaoEstoqueInsumo mei)
-        {
-            LotesInsumosController lic = new LotesInsumosController();
-            LoteInsumo loteInsumo = lic.BuscarLoteInsumoPorID(mei.LoteInsumoID);
-
-            EstoqueInsumo estoqueInsumo = BuscarEstoqueInsumoPorNome(loteInsumo._Insumo.Nome);
-
-            if (estoqueInsumo != null)
-            {
-                estoqueInsumo.QtdeTotalEstoque += mei.Qtde;
-                estoqueInsumo.CustoTotalEstoque += mei.ValorMovimentacao;
-
-                db.Entry(estoqueInsumo).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
-            }
-            else
-            {
-                estoqueInsumo = new EstoqueInsumo();
-
-                estoqueInsumo.QtdeTotalEstoque = mei.Qtde;
-                estoqueInsumo.CustoTotalEstoque = mei.ValorMovimentacao;
-                estoqueInsumo.InsumoID = loteInsumo.InsumoID;
-
-                db.EstoqueInsumos.Add(estoqueInsumo);
-                db.SaveChanges();
-            }
         }
     }
 }

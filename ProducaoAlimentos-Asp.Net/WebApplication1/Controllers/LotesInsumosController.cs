@@ -15,14 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: LotesInsumos
         public ActionResult Index()
         {
             var lotesInsumos = db.LotesInsumos.Include(l => l._Fornecedor).Include(l => l._Insumo).Include(l => l._Marca);
             return View(lotesInsumos.ToList());
         }
 
-        // GET: LotesInsumos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,10 +32,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(loteInsumo);
+            return PartialView(loteInsumo);
         }
 
-        // GET: LotesInsumos/Create
         public ActionResult Create()
         {
             ViewBag.FornecedorID = new SelectList(db.Fornecedores, "ID", "Nome");
@@ -46,18 +43,64 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        // POST: LotesInsumos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,DataCompra,InsumoID,MarcaID,FornecedorID,QtdeInicial,QtdeDisponivel,CustoMedio,CustoTotalInicial,Validade")] LoteInsumo loteInsumo)
+        public ActionResult Create([Bind(Include = "ID,DataCompra,InsumoID,MarcaID,FornecedorID,QtdeInicial,QtdeDisponivel,CustoMedio,CustoTotalInicial,Validade,_Insumo")] LoteInsumo loteInsumo)
         {
+
             if (ModelState.IsValid)
             {
-                NovoLoteInsumo(loteInsumo);
+                loteInsumo.QtdeDisponivel = loteInsumo.QtdeInicial;
+                loteInsumo.CustoMedio = loteInsumo.CustoTotalInicial / loteInsumo.QtdeInicial;
 
-                return RedirectToAction("Index");
+                db.LotesInsumos.Add(loteInsumo);
+                db.SaveChanges();
+
+                loteInsumo = db.LotesInsumos.Include(li => li._Insumo).Where(li => li.ID == loteInsumo.ID).FirstOrDefault();
+
+                // Incluir Movimentação Estoque Insumos
+                MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = new MovimentacaoEstoqueInsumo()
+                {
+                    DataMovimentacao = loteInsumo.DataCompra,
+                    Qtde = loteInsumo.QtdeInicial,
+                    ValorMovimentacao = loteInsumo.CustoTotalInicial,
+                    LoteInsumoID = loteInsumo.ID
+                };
+                MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
+                if (meic.Create(movimentacaoEstoqueInsumo))
+                {
+                    // Incluir / Alterar Estoque Insumos
+                    EstoqueInsumosController eic = new EstoqueInsumosController();
+                    
+                    var x = db.EstoqueInsumos.Where(ei => ei._Insumo.Nome.Equals(loteInsumo._Insumo.Nome)).FirstOrDefault();
+
+                    if (x != null)
+                    {
+                        EstoqueInsumo estoqueInsumo = x;
+
+                        estoqueInsumo.QtdeTotalEstoque += loteInsumo.QtdeInicial;
+                        estoqueInsumo.CustoTotalEstoque += loteInsumo.CustoTotalInicial;
+
+                        if (!eic.Edit(estoqueInsumo))
+                            return View();
+                    }
+                    else
+                    {
+                        EstoqueInsumo estoqueInsumo = new EstoqueInsumo()
+                        {
+                            QtdeTotalEstoque = loteInsumo.QtdeInicial,
+                            CustoTotalEstoque = loteInsumo.CustoTotalInicial,
+                            InsumoID = loteInsumo.InsumoID
+                        };
+
+                        if (!eic.Create(estoqueInsumo))
+                            return View();
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
             }
 
             ViewBag.FornecedorID = new SelectList(db.Fornecedores, "ID", "Nome", loteInsumo.FornecedorID);
@@ -66,7 +109,6 @@ namespace WebApplication1.Controllers
             return View(loteInsumo);
         }
 
-        // GET: LotesInsumos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,12 +123,9 @@ namespace WebApplication1.Controllers
             ViewBag.FornecedorID = new SelectList(db.Fornecedores, "ID", "Nome", loteInsumo.FornecedorID);
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", loteInsumo.InsumoID);
             ViewBag.MarcaID = new SelectList(db.Marcas, "MarcaID", "Nome", loteInsumo.MarcaID);
-            return View(loteInsumo);
+            return PartialView(loteInsumo);
         }
 
-        // POST: LotesInsumos/Edit/5
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,DataCompra,InsumoID,MarcaID,FornecedorID,QtdeInicial,QtdeDisponivel,CustoMedio,CustoTotalInicial,Validade")] LoteInsumo loteInsumo)
@@ -103,7 +142,6 @@ namespace WebApplication1.Controllers
             return View(loteInsumo);
         }
 
-        // GET: LotesInsumos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -115,10 +153,9 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(loteInsumo);
+            return PartialView(loteInsumo);
         }
 
-        // POST: LotesInsumos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
@@ -141,31 +178,6 @@ namespace WebApplication1.Controllers
         public LoteInsumo BuscarLoteInsumoPorID(int idLoteInsumo)
         {
             return db.LotesInsumos.Find(idLoteInsumo);
-        }
-
-        public void NovoLoteInsumo(LoteInsumo loteInsumo)
-        {
-            loteInsumo.QtdeDisponivel = loteInsumo.QtdeInicial;
-            loteInsumo.CustoMedio = loteInsumo.CustoTotalInicial / loteInsumo.QtdeInicial;
-
-            db.LotesInsumos.Add(loteInsumo);
-            db.SaveChanges();
-
-            MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
-            meic.RegistrarMovimentacaoEstoque(loteInsumo.DataCompra, loteInsumo.QtdeInicial, loteInsumo.CustoMedio, loteInsumo);
-        }
-
-        public void BaixarLoteInsumo(LoteInsumo loteInsumo, double qtde, DateTime dataMovimentacao)
-        {
-            qtde *= -1;
-
-            loteInsumo.QtdeDisponivel += qtde;
-
-            db.Entry(loteInsumo).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-            MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
-            meic.RegistrarMovimentacaoEstoque(dataMovimentacao, qtde, loteInsumo.CustoMedio, loteInsumo);
         }
     }
 }

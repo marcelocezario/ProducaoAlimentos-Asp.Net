@@ -359,10 +359,6 @@
     <Content Include="Views\LotesInsumos\Details.cshtml" />
     <Content Include="Views\LotesInsumos\Edit.cshtml" />
     <Content Include="Views\LotesInsumos\Index.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueInsumos\Create.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueInsumos\Delete.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueInsumos\Details.cshtml" />
-    <Content Include="Views\MovimentacoesEstoqueInsumos\Edit.cshtml" />
     <Content Include="Views\MovimentacoesEstoqueInsumos\Index.cshtml" />
     <Content Include="Views\LotesInsumosProducoes\Create.cshtml" />
     <Content Include="Views\LotesInsumosProducoes\Delete.cshtml" />

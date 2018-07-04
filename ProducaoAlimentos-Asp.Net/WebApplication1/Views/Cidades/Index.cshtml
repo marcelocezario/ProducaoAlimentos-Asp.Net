@@ -7,7 +7,7 @@
 <h2>Cidades</h2>
 
 <p>
-    @Html.ActionLink("Nova cidade", "Create")
+    <a href="#" class="btnCreate">Nova Cidade</a>
 </p>
 <table class="table">
     <tr>
@@ -63,14 +63,27 @@
 
         $(document).ready(function () {
 
-            $(".btnEdit").click(function () {
+            $(".btnCreate").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Cidades/Edit/" + id,
+                $("#conteudoModal").load("/Cidades/Create/",
                     function () {
                         $('#myModal').modal("show");
+                    });
+            });
+        });
 
+
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Cidades/Delete/" + id,
+                    function () {
+                        $('#myModal').modal("show");
                     });
             });
         });
@@ -84,25 +97,23 @@
                 $("#conteudoModal").load("/Cidades/Details/" + id,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
+
 
         $(document).ready(function () {
 
-            $(".btnDelete").click(function () {
+            $(".btnEdit").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Cidades/Delete/" + id,
+                $("#conteudoModal").load("/Cidades/Edit/" + id,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
-
 
         $(document).ready(function () {
             $(".btnVoltar").click(function () {

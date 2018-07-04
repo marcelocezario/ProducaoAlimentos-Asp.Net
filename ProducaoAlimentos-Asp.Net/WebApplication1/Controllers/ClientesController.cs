@@ -12,7 +12,7 @@ using WebApplication1.Models.ViewModel;
 
 namespace WebApplication1.Controllers
 {
-//    [Authorize]
+    //    [Authorize]
     public class ClientesController : Controller
     {
         private Contexto db = new Contexto();
@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
@@ -92,27 +92,62 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            List<Endereco> enderecos = new List<Endereco>();
-            Endereco endereco = db.Enderecos.Find(cliente.EnderecoID);
+            ClienteViewModel clienteViewModel = new ClienteViewModel
+            {
+                ClienteID = cliente.ID,
+                ClienteNome = cliente.Nome,
+                ClienteCpf_Cnpj = cliente.Cpf_Cnpj,
+                ClienteTelefone = cliente.Telefone,
+                ClienteEmail = cliente.Email,
+                EnderecoID = cliente.EnderecoID,
+                EnderecoLogradouro = cliente._Endereco.Logradouro,
+                EnderecoNumero = cliente._Endereco.Numero,
+                EnderecoComplemento = cliente._Endereco.Complemento,
+                EnderecoBairro = cliente._Endereco.Bairro,
+                EnderecoCep = cliente._Endereco.Cep,
+                EnderecoCidadeID = cliente._Endereco.CidadeID
+            };
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
 
-            enderecos.Add(endereco);
-
-            ViewBag.EnderecoID = new SelectList(enderecos, "EnderecoID", "_Cidade.Nome", cliente._Endereco._Cidade.Nome);
-            return PartialView(cliente);
+            return PartialView(clienteViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,EnderecoID")] Cliente cliente)
+        public ActionResult Edit([Bind(Include = "ClienteID,ClienteNome,ClienteCpf_Cnpj,ClienteTelefone,ClienteEmail,EnderecoID,EnderecoLogradouro,EnderecoNumero,EnderecoComplemento,EnderecoBairro,EnderecoCep,EnderecoCidadeID")] ClienteViewModel clienteViewModel)
         {
-            if (ModelState.IsValid)
+            Endereco endereco = new Endereco()
             {
-                db.Entry(cliente).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                EnderecoID = clienteViewModel.EnderecoID,
+                Logradouro = clienteViewModel.EnderecoLogradouro,
+                Numero = clienteViewModel.EnderecoNumero,
+                Complemento = clienteViewModel.EnderecoComplemento,
+                Bairro = clienteViewModel.EnderecoBairro,
+                Cep = clienteViewModel.EnderecoCep,
+                CidadeID = clienteViewModel.EnderecoCidadeID
+            };
+
+            EnderecosController ec = new EnderecosController();
+            endereco = ec.Edit(endereco);
+
+            if (endereco != null)
+            {
+                Cliente cliente = db.Clientes.Find(clienteViewModel.ClienteID);
+                cliente.Nome = clienteViewModel.ClienteNome;
+                cliente.Cpf_Cnpj = clienteViewModel.ClienteCpf_Cnpj;
+                cliente.Telefone = clienteViewModel.ClienteTelefone;
+                cliente.Email = clienteViewModel.ClienteEmail;
+                cliente.EnderecoID = endereco.EnderecoID;
+
+                if (ModelState.IsValid)
+                {
+                    db.Entry(cliente).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
-            return PartialView(cliente);
+            return View(clienteViewModel);
         }
 
         public ActionResult Delete(int? id)

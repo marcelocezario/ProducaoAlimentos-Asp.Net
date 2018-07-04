@@ -56,33 +56,43 @@ namespace WebApplication1.Controllers
             return null;
         }
 
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Endereco endereco = db.Enderecos.Find(id);
-            if (endereco == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
-            return PartialView(endereco);
-        }
+//        public ActionResult Edit(int? id)
+//        {
+//            if (id == null)
+//            {
+//                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+//            }
+//            Endereco endereco = db.Enderecos.Find(id);
+//            if (endereco == null)
+//            {
+//                return HttpNotFound();
+//            }
+//            ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
+//            return PartialView(endereco);
+//        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
+//        public ActionResult Edit([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
+        public Endereco Edit([Bind(Include = "EnderecoID,Logradouro,Numero,Complemento,Bairro,Cep,CidadeID")] Endereco endereco)
         {
+            Endereco enderecoEditar = db.Enderecos.Find(endereco.EnderecoID);
+
+            enderecoEditar.Logradouro = endereco.Logradouro;
+            enderecoEditar.Numero = endereco.Numero;
+            enderecoEditar.Complemento = endereco.Complemento;
+            enderecoEditar.Bairro = endereco.Bairro;
+            enderecoEditar.Cep = endereco.Cep;
+            enderecoEditar.CidadeID = endereco.CidadeID;
+
+
             if (ModelState.IsValid)
             {
-                db.Entry(endereco).State = EntityState.Modified;
+                db.Entry(enderecoEditar).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return endereco;
             }
-            ViewBag.CidadeID = new SelectList(db.Cidades, "CidadeID", "Nome", endereco.CidadeID);
-            return PartialView(endereco);
+            return null;
         }
 
         public ActionResult Delete(int? id)

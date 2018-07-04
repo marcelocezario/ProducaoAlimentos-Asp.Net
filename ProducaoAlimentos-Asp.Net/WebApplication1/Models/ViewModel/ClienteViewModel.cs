@@ -10,6 +10,7 @@ namespace WebApplication1.Models.ViewModel
     public class ClienteViewModel
     {
         // Cliente
+        public int ClienteID { get; set; }
         [Display(Name = "Cliente")]
         public string ClienteNome { get; set; }
         [Display(Name = "Cpf_Cnpj")]
@@ -20,6 +21,7 @@ namespace WebApplication1.Models.ViewModel
         public string ClienteEmail { get; set; }
 
         //Endereco
+        public int EnderecoID { get; set; }
         [Display(Name = "Logradouro")]
         public string EnderecoLogradouro { get; set; }
         [Display(Name = "Número")]

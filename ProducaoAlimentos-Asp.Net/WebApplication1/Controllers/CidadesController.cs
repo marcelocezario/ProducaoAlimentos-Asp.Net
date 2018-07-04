@@ -39,7 +39,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.EstadoID = new SelectList(db.Estados.OrderBy(e=>e.Nome).ToList(), "EstadoID", "Nome");
-            return View();
+            return PartialView();
         }
 
         [HttpPost]

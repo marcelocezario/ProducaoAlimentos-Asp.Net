@@ -7,7 +7,7 @@
 <h2>Insumos</h2>
 
 <p>
-    @Html.ActionLink("Novo Insumo", "Create")
+    <a href="#" class="btnCreate">Novo Insumo</a>
 </p>
 <table class="table">
     <tr>
@@ -26,22 +26,22 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.InsumoID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome) (@Html.DisplayFor(modelItem => item._UnidadeDeMedida.Sigla))
-        </td>
-        <td>
-            <a href="#" class="btnEdit" data-value="@item.InsumoID">Editar</a> |
-            <a href="#" class="btnDetails" data-value="@item.InsumoID">Detalhes</a> |
-            <a href="#" class="btnDelete" data-value="@item.InsumoID">Excluir</a>
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InsumoID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._UnidadeDeMedida.Nome) (@Html.DisplayFor(modelItem => item._UnidadeDeMedida.Sigla))
+            </td>
+            <td>
+                <a href="#" class="btnEdit" data-value="@item.InsumoID">Editar</a> |
+                <a href="#" class="btnDetails" data-value="@item.InsumoID">Detalhes</a> |
+                <a href="#" class="btnDelete" data-value="@item.InsumoID">Excluir</a>
+            </td>
+        </tr>
     }
 
 </table>
@@ -65,14 +65,13 @@
 
         $(document).ready(function () {
 
-            $(".btnEdit").click(function () {
+            $(".btnCreate").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Insumos/Edit/" + id,
+                $("#conteudoModal").load("/Insumos/Create/",
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -86,7 +85,6 @@
                 $("#conteudoModal").load("/Insumos/Details/" + id,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -100,7 +98,19 @@
                 $("#conteudoModal").load("/Insumos/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
+                    });
+            });
+        });
 
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Insumos/Edit/" + id,
+                    function () {
+                        $('#myModal').modal('show');
                     });
             });
         });
@@ -111,7 +121,5 @@
                 window.location.reload();
             })
         })
-
-
     </script>
 }

@@ -17,7 +17,8 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Insumos.OrderBy(i=> i.Nome).ToList());
+            var insumos = db.Insumos.OrderBy(e => e.Nome).ToList();
+            return View(insumos);
         }
 
         public ActionResult Details(int? id)
@@ -37,7 +38,7 @@ namespace WebApplication1.Controllers
         public ActionResult Create()
         {
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida.OrderBy(um => um.Nome).ToList(), "UnidadeDeMedidaID", "Nome");
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
@@ -80,7 +81,7 @@ namespace WebApplication1.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida.OrderBy(um => um.Nome).ToList(), "UnidadeDeMedidaID", "Nome", insumo.UnidadeDeMedidaID);
-            return PartialView(insumo);
+            return View(insumo);
         }
 
         public ActionResult Delete(int? id)

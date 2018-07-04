@@ -7,7 +7,7 @@
 <h2>Estados</h2>
 
 <p>
-    @Html.ActionLink("Novo Estado", "Create")
+    <a href="#" class="btnCreate">Novo Estado</a>
 </p>
 <table class="table">
     <tr>
@@ -64,11 +64,24 @@
 
         $(document).ready(function () {
 
-            $(".btnEdit").click(function () {
+            $(".btnCreate").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Estados/Edit/" + id,
+                $("#conteudoModal").load("/Estados/Create/",
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Estados/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
 
@@ -92,11 +105,11 @@
 
         $(document).ready(function () {
 
-            $(".btnDelete").click(function () {
+            $(".btnEdit").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Estados/Delete/" + id,
+                $("#conteudoModal").load("/Estados/Edit/" + id,
                     function () {
                         $('#myModal').modal("show");
 

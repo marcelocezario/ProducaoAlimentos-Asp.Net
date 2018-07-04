@@ -7,7 +7,7 @@
 <h2>Unidades De Medida</h2>
 
 <p>
-    @Html.ActionLink("Nova Unidade De Medida", "Create")
+    <a href="#" class="btnCreate">Nova Unidade de Medida</a>
 </p>
 <table class="table">
     <tr>
@@ -55,11 +55,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-
-                <div id="conteudoModal"></div>
-
+                <div class="modal-header">
+                    <div id="conteudoModal">
+                    </div>
+                </div>
+                <a href="#" class="btnVoltar">Voltar</a>
             </div>
-
         </div>
     </div>
 </div>
@@ -69,14 +70,13 @@
 
         $(document).ready(function () {
 
-            $(".btnEdit").click(function () {
+            $(".btnCreate").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/UnidadesDeMedida/Edit/" + id,
+                $("#conteudoModal").load("/UnidadesDeMedida/Create/",
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -90,7 +90,6 @@
                 $("#conteudoModal").load("/UnidadesDeMedida/Details/" + id,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -104,11 +103,28 @@
                 $("#conteudoModal").load("/UnidadesDeMedida/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
 
+        $(document).ready(function () {
 
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/UnidadesDeMedida/Edit/" + id,
+                    function () {
+                        $('#myModal').modal('show');
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+            $(".btnVoltar").click(function () {
+                $('#myModal').modal("hide");
+                window.location.reload();
+            })
+        })
     </script>
 }

@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<WebApplication1.Models.Fornecedor>
 
 @{
-    /**/
-
     ViewBag.Title = "Index";
 }
 
 <h2>Fornecedores</h2>
 
 <p>
-    @Html.ActionLink("Novo Fornecedor", "Create")
+    <a href="#" class="btnCreate">Novo Fornecedor</a>
 </p>
 <table class="table">
     <tr>
@@ -51,7 +49,6 @@
         </td>
         <td>
             <a href="#" class="btnEdit" data-value="@item.ID">Editar</a> |
-            <a href="#" class="btnEditEndereco" data-value="@item._Endereco.EnderecoID">Editar Endereço</a> |
             <a href="#" class="btnDetails" data-value="@item.ID">Detalhes</a> |
             <a href="#" class="btnDelete" data-value="@item.ID">Excluir</a>
         </td>
@@ -79,11 +76,24 @@
 
         $(document).ready(function () {
 
-            $(".btnEdit").click(function () {
+            $(".btnCreate").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Fornecedores/Edit/" + id,
+                $("#conteudoModal").load("/Fornecedores/Create/",
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Fornecedores/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
 
@@ -107,26 +117,11 @@
 
         $(document).ready(function () {
 
-            $(".btnDelete").click(function () {
+            $(".btnEdit").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Fornecedores/Delete/" + id,
-                    function () {
-                        $('#myModal').modal("show");
-
-                    });
-            });
-        });
-
-
-        $(document).ready(function () {
-
-            $(".btnEditEndereco").click(function () {
-
-                var id = $(this).data("value");
-
-                $("#conteudoModal").load("/Enderecos/Edit/" + id,
+                $("#conteudoModal").load("/Fornecedores/Edit/" + id,
                     function () {
                         $('#myModal').modal("show");
 

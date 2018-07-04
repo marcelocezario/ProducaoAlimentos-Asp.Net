@@ -37,7 +37,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace WebApplication1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return PartialView(marca);
+            return View(marca);
         }
 
         public ActionResult Edit(int? id)

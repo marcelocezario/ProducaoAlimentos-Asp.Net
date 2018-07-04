@@ -7,7 +7,7 @@
 <h2>Marcas</h2>
 
 <p>
-    @Html.ActionLink("Nova Marca", "Create")
+    <a href="#" class="btnCreate">Nova Marca</a>
 </p>
 <table class="table">
     <tr>
@@ -58,14 +58,13 @@
 
         $(document).ready(function () {
 
-            $(".btnEdit").click(function () {
+            $(".btnCreate").click(function () {
 
                 var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Marcas/Edit/" + id,
+                $("#conteudoModal").load("/Marcas/Create/",
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -79,7 +78,6 @@
                 $("#conteudoModal").load("/Marcas/Details/" + id,
                     function () {
                         $('#myModal').modal("show");
-
                     });
             });
         });
@@ -93,7 +91,19 @@
                 $("#conteudoModal").load("/Marcas/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
+                    });
+            });
+        });
 
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Marcas/Edit/" + id,
+                    function () {
+                        $('#myModal').modal('show');
                     });
             });
         });
@@ -104,7 +114,5 @@
                 window.location.reload();
             })
         })
-
-
     </script>
 }

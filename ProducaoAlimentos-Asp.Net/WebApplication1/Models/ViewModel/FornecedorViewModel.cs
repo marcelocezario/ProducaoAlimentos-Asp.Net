@@ -10,6 +10,7 @@ namespace WebApplication1.Models.ViewModel
     public class FornecedorViewModel
     {
         // Cliente
+        public int FornecedorID { get; set; }
         [Display(Name = "Fornecedor")]
         public string FornecedorNome { get; set; }
         [Display(Name = "Cpf_Cnpj")]
@@ -20,6 +21,7 @@ namespace WebApplication1.Models.ViewModel
         public string FornecedorEmail { get; set; }
 
         //Endereco
+        public int EnderecoID { get; set; }
         [Display(Name = "Logradouro")]
         public string EnderecoLogradouro { get; set; }
         [Display(Name = "Número")]

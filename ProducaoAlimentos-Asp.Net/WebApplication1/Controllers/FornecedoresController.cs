@@ -22,7 +22,6 @@ namespace WebApplication1.Controllers
             return View(fornecedores);
         }
 
-        // GET: Fornecedores/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,11 +36,10 @@ namespace WebApplication1.Controllers
             return PartialView(fornecedor);
         }
 
-        // GET: Fornecedores/Create
         public ActionResult Create()
         {
             ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
@@ -93,27 +91,61 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            List<Endereco> enderecos = new List<Endereco>();
-            Endereco endereco = db.Enderecos.Find(fornecedor.EnderecoID);
+            FornecedorViewModel fornecedorViewModel = new FornecedorViewModel()
+            {
+                FornecedorID = fornecedor.ID,
+                FornecedorNome = fornecedor.Nome,
+                FornecedorCpf_Cnpj = fornecedor.Cpf_Cnpj,
+                FornecedorTelefone = fornecedor.Telefone,
+                FornecedorEmail = fornecedor.Email,
+                EnderecoID = fornecedor.EnderecoID,
+                EnderecoLogradouro = fornecedor._Endereco.Logradouro,
+                EnderecoNumero = fornecedor._Endereco.Numero,
+                EnderecoComplemento = fornecedor._Endereco.Complemento,
+                EnderecoBairro = fornecedor._Endereco.Bairro,
+                EnderecoCep = fornecedor._Endereco.Cep,
+                EnderecoCidadeID = fornecedor._Endereco.CidadeID
+            };
+            ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
 
-            enderecos.Add(endereco);
-
-            ViewBag.EnderecoID = new SelectList(db.Enderecos, "EnderecoID", "Logradouro", fornecedor.EnderecoID);
-            return PartialView(fornecedor);
+            return PartialView(fornecedorViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Nome,Cpf_Cnpj,Telefone,Email,EnderecoID")] Fornecedor fornecedor)
+        public ActionResult Edit([Bind(Include = "ID,FornecedorID,FornecedorNome,FornecedorCpf_Cnpj,FornecedorTelefone,FornecedorEmail,EnderecoID,EnderecoLogradouro,EnderecoNumero,EnderecoComplemento,EnderecoBairro,EnderecoCep,EnderecoCidadeID")] FornecedorViewModel fornecedorViewModel)
         {
-            if (ModelState.IsValid)
+            Endereco endereco = new Endereco()
             {
-                db.Entry(fornecedor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                EnderecoID = fornecedorViewModel.EnderecoID,
+                Logradouro = fornecedorViewModel.EnderecoLogradouro,
+                Numero = fornecedorViewModel.EnderecoNumero,
+                Complemento = fornecedorViewModel.EnderecoComplemento,
+                Bairro = fornecedorViewModel.EnderecoBairro,
+                Cep = fornecedorViewModel.EnderecoCep,
+                CidadeID = fornecedorViewModel.EnderecoCidadeID
+            };
+            EnderecosController ec = new EnderecosController();
+            endereco = ec.Edit(endereco);
+            if (endereco != null)
+            {
+                Fornecedor fornecedor = db.Fornecedores.Find(fornecedorViewModel.FornecedorID);
+                fornecedor.Nome = fornecedorViewModel.FornecedorNome;
+                fornecedor.Cpf_Cnpj = fornecedorViewModel.FornecedorCpf_Cnpj;
+                fornecedor.Telefone = fornecedorViewModel.FornecedorTelefone;
+                fornecedor.Email = fornecedorViewModel.FornecedorEmail;
+                fornecedor.EnderecoID = endereco.EnderecoID;
+
+                if (ModelState.IsValid)
+                {
+                    db.Entry(fornecedor).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
+
             ViewBag.EnderecoCidadeID = new SelectList(db.Cidades, "CidadeID", "Nome");
-            return PartialView(fornecedor);
+            return View(fornecedorViewModel);
         }
 
         public ActionResult Delete(int? id)

@@ -7,7 +7,7 @@
 <h2>Produtos</h2>
 
 <p>
-    @Html.ActionLink("Novo Produto", "Create")
+    <a href="#" class="btnCreate">Novo Produto</a>
 </p>
 <table class="table">
     <tr>
@@ -65,14 +65,26 @@
 
         $(document).ready(function () {
 
-            $(".btnDetails").click(function () {
+            $(".btnCreate").click(function () {
 
-                var ProdutoID = $(this).data("value");
+                var id = $(this).data("value");
 
-                $("#conteudoModal").load("/Produtos/Details/" + ProdutoID,
+                $("#conteudoModal").load("/Produtos/Create/",
                     function () {
                         $('#myModal').modal("show");
+                    });
+            });
+        });
 
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Produtos/Details/" + id,
+                    function () {
+                        $('#myModal').modal("show");
                     });
             });
         });
@@ -86,7 +98,19 @@
                 $("#conteudoModal").load("/Produtos/Delete/" + id,
                     function () {
                         $('#myModal').modal("show");
+                    });
+            });
+        });
 
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/Produtos/Edit/" + id,
+                    function () {
+                        $('#myModal').modal('show');
                     });
             });
         });
@@ -97,6 +121,5 @@
                 window.location.reload();
             })
         })
-
     </script>
 }

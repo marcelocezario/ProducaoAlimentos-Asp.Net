@@ -14,42 +14,7 @@ namespace WebApplication1.Controllers
     public class InsumosComposicaoProdutosController : Controller
     {
         private Contexto db = new Contexto();
-/*
-        public ActionResult Index(int? id)
-        {
-            if (id != null)
-            {
-                var cp = (from x in db.InsumosComposicaoProdutos
-                          where x.ProdutoID == id
-                          orderby x._Produto.Nome, x._Insumo.Nome
-                          select x).ToList();
-                if (cp.Count() == 0)
-                    return HttpNotFound();
-                return View(cp);
-            }
-            else
-            {
-                var cp = (from x in db.InsumosComposicaoProdutos
-                         orderby x._Produto.Nome, x._Insumo.Nome
-                         select x).ToList();
-                return View(cp);
-            }
-        }
 
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            InsumoComposicaoProduto insumoComposicaoProduto = db.InsumosComposicaoProdutos.Find(id);
-            if (insumoComposicaoProduto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(insumoComposicaoProduto);
-        }
-*/
         public ActionResult Create(int? id)
         {
             if (id == null)

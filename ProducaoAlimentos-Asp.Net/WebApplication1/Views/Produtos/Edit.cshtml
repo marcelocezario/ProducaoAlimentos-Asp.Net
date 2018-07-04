@@ -41,21 +41,23 @@
         </div>
     </div>
 }
+<hr />
 
-<h3>Insumos Composição</h3>
+<h5>Insumos que compôe o produto:</h5>
 <ul>
     @foreach (var item in Model._ComposicaoProduto)
     {
-    <li>
-        @item.QtdeInsumo
-        @item._Insumo._UnidadeDeMedida.Sigla
-        @item._Insumo.Nome
-        <a href="#" class="btnEdit" data-value="@item.InsumoComposicaoProdutoID">Editar</a> |
-        <a href="#" class="btnDelete" data-value="@item.InsumoComposicaoProdutoID">Delete</a>
-    </li>
+        <li>
+            @item.QtdeInsumo
+            @item._Insumo._UnidadeDeMedida.Sigla
+            @item._Insumo.Nome
+            <a href="#" class="btnEdit" data-value="@item.InsumoComposicaoProdutoID">Editar</a> |
+            <a href="#" class="btnDelete" data-value="@item.InsumoComposicaoProdutoID">Delete</a>
+        </li>
     }
 
 </ul>
+<hr />
 
 <div>
     @Html.ActionLink("Voltar para lista", "Index")
@@ -65,11 +67,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-
-                <div id="conteudoModal"></div>
-
+                <div class="modal-header">
+                    <div id="conteudoModal">
+                    </div>
+                </div>
+                <a href="#" class="btnVoltar">Voltar</a>
             </div>
-
         </div>
     </div>
 </div>
@@ -107,6 +110,12 @@
             });
         });
 
+        $(document).ready(function () {
+            $(".btnVoltar").click(function () {
+                $('#myModal').modal("hide");
+                window.location.reload();
+            })
+        })
 
     </script>
 }

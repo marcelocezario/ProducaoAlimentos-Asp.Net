@@ -39,7 +39,7 @@ namespace WebApplication1.Controllers
         {
             ViewBag.UnidadeDeMedidaID = new SelectList(db.UnidadesDeMedida, "UnidadeDeMedidaID", "Nome");
             ViewBag.InsumoID = new SelectList(db.Insumos.OrderBy(i => i.Nome), "InsumoID", "Nome");
-            return View();
+            return PartialView();
         }
 
         [HttpPost]

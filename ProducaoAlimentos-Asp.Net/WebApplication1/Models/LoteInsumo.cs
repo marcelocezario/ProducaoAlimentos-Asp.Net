@@ -9,6 +9,7 @@ namespace WebApplication1.Models
     public class LoteInsumo : Lote
     {
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data da compra")]
         public DateTime DataCompra { get; set; }
 

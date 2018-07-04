@@ -8,6 +8,7 @@ namespace WebApplication1.Models
     public class LoteInsumo : Lote
     {
         [DataType(DataType.Date)]
+        [Display(Name = "Data da compra")]
         public DateTime DataCompra { get; set; }
 
         [Required]

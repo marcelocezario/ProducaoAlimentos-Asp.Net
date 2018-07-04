@@ -7,17 +7,15 @@
 <h2>Detalhes Lote Insumo</h2>
 
 <div>
-    <h4>LoteInsumo</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model._Fornecedor.Nome)
+            @Html.DisplayNameFor(model => model.ID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model._Fornecedor.Nome)
+            @Html.DisplayFor(model => model.ID)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model._Insumo.Nome)
         </dt>
@@ -25,13 +23,19 @@
         <dd>
             @Html.DisplayFor(model => model._Insumo.Nome)
         </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model._Marca.Nome)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model._Marca.Nome)
+        </dd>
+        <dt>
+        @Html.DisplayNameFor(model => model._Fornecedor.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model._Fornecedor.Nome)
         </dd>
 
         <dt>
@@ -85,6 +89,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Voltar para lista", "Index")
 </p>

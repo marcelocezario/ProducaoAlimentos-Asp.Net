@@ -44,8 +44,22 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.InsumosComposicaoProdutos.Add(insumoComposicaoProduto);
-                db.SaveChanges();
+                var c = (from x in db.InsumosComposicaoProdutos
+                        where x.ProdutoID.Equals(insumoComposicaoProduto.ProdutoID) && x.InsumoID.Equals(insumoComposicaoProduto.InsumoID)
+                        select x).FirstOrDefault();
+
+                if (c != null)
+                {
+                    c.QtdeInsumo = insumoComposicaoProduto.QtdeInsumo;
+                    db.Entry(c).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.InsumosComposicaoProdutos.Add(insumoComposicaoProduto);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Edit", "Produtos", new { @id = insumoComposicaoProduto.ProdutoID });
             }
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", insumoComposicaoProduto.InsumoID);

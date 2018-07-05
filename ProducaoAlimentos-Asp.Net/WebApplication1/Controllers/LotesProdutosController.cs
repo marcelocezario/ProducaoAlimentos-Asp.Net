@@ -15,14 +15,12 @@ namespace WebApplication1.Controllers
     {
         private Contexto db = new Contexto();
 
-        // GET: LotesProdutos
         public ActionResult Index()
         {
             var lotesProdutos = db.LotesProdutos.Include(l => l._Produto);
             return View(lotesProdutos.ToList());
         }
 
-        // GET: LotesProdutos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,23 +35,45 @@ namespace WebApplication1.Controllers
             return View(loteProduto);
         }
 
-        // GET: LotesProdutos/Create
         public ActionResult Create()
         {
             ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome");
             return View();
         }
 
-        // POST: LotesProdutos/Create
-        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
-        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,DataProducao,ValorVendaUnitario,ProdutoID,QtdeInicial,QtdeDisponivel,CustoMedio,CustoTotalInicial,Validade")] LoteProduto loteProduto)
+        public ActionResult Create([Bind(Include = "ID,DataProducao,ValorVendaUnitario,ProdutoID,QtdeInicial,QtdeDisponivel,CustoMedio,CustoTotalInicial,Validade,_Produto")] LoteProduto loteProduto)
         {
             if (ModelState.IsValid)
             {
-//                NovoLoteProduto(loteProduto);
+                // Verificando se há insumos necessários suficientes em estoque
+
+                bool insumosDisponiveis = true;
+
+                foreach (InsumoComposicaoProduto item in loteProduto._Produto._ComposicaoProduto)
+                {
+                    
+                }
+
+
+
+                loteProduto.QtdeDisponivel = loteProduto.QtdeInicial;
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+
 
                 return RedirectToAction("Index");
             }
@@ -129,53 +149,5 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
-/*
-        public LoteProduto BuscarLoteProdutoPorID(int idLoteProduto)
-        {
-            return db.LotesProdutos.Find(idLoteProduto);
-        }
-
-        public void NovoLoteProduto(LoteProduto loteProduto)
-        {
-            loteProduto.QtdeDisponivel = loteProduto.QtdeInicial;
-
-            double custoTotal = 0;
-
-            foreach (LoteInsumoProducao item in loteProduto._ItensInsumoProducao)
-            {
-                custoTotal += item.CustoTotalInsumo;
-            }
-
-            loteProduto.CustoMedio = custoTotal / loteProduto.QtdeInicial;
-
-            db.LotesProdutos.Add(loteProduto);
-            db.SaveChanges();
-
-            LotesProdutosController lpc = new LotesProdutosController();
-            loteProduto = lpc.BuscarLoteProdutoPorID(loteProduto.ID);
-
-            LotesInsumosController lic = new LotesInsumosController();
-            foreach (var lip in loteProduto._ItensInsumoProducao)
-            {
-                lic.BaixarLoteInsumo(lip._LoteInsumo, lip.QtdeInsumo, loteProduto.DataProducao);
-            }
-
-            MovimentacoesEstoqueProdutosController meip = new MovimentacoesEstoqueProdutosController();
-            meip.RegistrarMovimentacaoEstoque(loteProduto.DataProducao, loteProduto.QtdeInicial, loteProduto.CustoMedio, loteProduto);
-        }
-
-        public void BaixarLoteProduto(LoteProduto loteProduto, double qtde, DateTime dataMovimentacao)
-        {
-            qtde *= -1;
-
-            loteProduto.QtdeDisponivel += qtde;
-
-            db.Entry(loteProduto).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
-
-            MovimentacoesEstoqueProdutosController mepc = new MovimentacoesEstoqueProdutosController();
-            mepc.RegistrarMovimentacaoEstoque(dataMovimentacao, qtde, loteProduto.CustoMedio, loteProduto);
-        }
-        */
     }
 }

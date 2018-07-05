@@ -7,18 +7,18 @@
 <h2>Lotes Produtos</h2>
 
 <p>
-    @Html.ActionLink("Novo Lote Produto", "Create")
+    @Html.ActionLink("Registrar nova produção", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model._Produto.Nome)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataProducao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ValorVendaUnitario)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.QtdeInicial)
@@ -27,10 +27,13 @@
             @Html.DisplayNameFor(model => model.QtdeDisponivel)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.CustoTotalInicial)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.CustoMedio)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CustoTotalInicial)
+            @Html.DisplayNameFor(model => model.ValorVendaUnitario)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Validade)
@@ -38,38 +41,118 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item._Produto.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataProducao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorVendaUnitario)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QtdeInicial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.QtdeDisponivel)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustoMedio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CustoTotalInicial)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Validade)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._Produto.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataProducao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdeInicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdeDisponivel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustoTotalInicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustoMedio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorVendaUnitario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Validade)
+            </td>
+            <td>
+                <a href="#" class="btnDetails" data-value="@item.ID">Detalhes</a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <div id="conteudoModal">
+                    </div>
+                </div>
+                <a href="#" class="btnVoltar">Voltar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".btnCreate").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/LotesProdutos/Create/",
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDetails").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/LotesProdutos/Details/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnDelete").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/LotesProdutos/Delete/" + id,
+                    function () {
+                        $('#myModal').modal("show");
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $(".btnEdit").click(function () {
+
+                var id = $(this).data("value");
+
+                $("#conteudoModal").load("/LotesProdutos/Edit/" + id,
+                    function () {
+                        $('#myModal').modal('show');
+                    });
+            });
+        });
+
+        $(document).ready(function () {
+            $(".btnVoltar").click(function () {
+                $('#myModal').modal("hide");
+                window.location.reload();
+            })
+        })
+    </script>
+}

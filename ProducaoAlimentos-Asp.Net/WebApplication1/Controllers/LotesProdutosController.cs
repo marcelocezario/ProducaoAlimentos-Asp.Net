@@ -32,7 +32,7 @@ namespace WebApplication1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(loteProduto);
+            return PartialView(loteProduto);
         }
 
         public ActionResult Create()

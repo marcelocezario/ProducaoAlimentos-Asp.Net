@@ -10,10 +10,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model._LoteProduto.ID)
+            @Html.DisplayNameFor(model => model.ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataMovimentacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model._LoteProduto._Produto.Nome)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Qtde)
@@ -26,23 +29,26 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item._LoteProduto.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataMovimentacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Qtde)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorMovimentacao)
-            </td>
-            <td>
-                <a href="#" class="btnDetails" data-value="@item.ID">Detalhes</a>
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataMovimentacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item._LoteProduto._Produto.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qtde)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorMovimentacao)
+        </td>
+        <td>
+            <a href="#" class="btnDetails" data-value="@item.ID">Detalhes</a>
+        </td>
+    </tr>
     }
 
 </table>

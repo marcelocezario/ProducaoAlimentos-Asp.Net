@@ -6,11 +6,11 @@
 
 <h2>Estoque Insumos</h2>
 
-<p>
-    @Html.ActionLink("Novo Estoque Insumo", "Create")
-</p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model._Insumo.Nome)
         </th>
@@ -26,6 +26,9 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item._Insumo.Nome)
         </td>
         <td>
@@ -33,11 +36,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.CustoTotalEstoque)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.ID })
         </td>
     </tr>
 }

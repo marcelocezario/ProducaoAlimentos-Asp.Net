@@ -97,7 +97,6 @@ namespace WebApplication1.Controllers
                             return View();
                     }
 
-                    db.SaveChanges();
                     return RedirectToAction("Index");
 
                 }

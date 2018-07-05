@@ -168,7 +168,45 @@ namespace WebApplication1.Controllers
                     db.LotesInsumosProducao.AddRange(lotesComposicaoProduto);
                     db.SaveChanges();
 
+                    MovimentacaoEstoqueProduto movimentacaoEstoqueProduto = new MovimentacaoEstoqueProduto()
+                    {
+                        DataMovimentacao = loteProduto.DataProducao,
+                        Qtde = loteProduto.QtdeInicial,
+                        ValorMovimentacao = loteProduto.CustoTotalInicial,
+                        LoteProdutoID = loteProduto.ID
+                    };
+
+                    MovimentacoesEstoqueProdutosController mepc = new MovimentacoesEstoqueProdutosController();
+                    if (mepc.Create(movimentacaoEstoqueProduto))
+                    {
+                        EstoqueProdutosController epc = new EstoqueProdutosController();
+
+                        var x = db.EstoqueProdutos.Where(e => e.ProdutoID == loteProduto.ProdutoID).FirstOrDefault();
+
+                        if (x != null)
+                        {
+                            EstoqueProduto estoqueProduto = x;
+
+                            estoqueProduto.QtdeTotalEstoque += loteProduto.QtdeInicial;
+                            estoqueProduto.CustoTotalEstoque += loteProduto.CustoTotalInicial;
+
+                            epc.Edit(estoqueProduto);
+                        }
+                        else
+                        {
+                            EstoqueProduto estoqueProduto = new EstoqueProduto()
+                            {
+                                QtdeTotalEstoque = loteProduto.QtdeInicial,
+                                CustoTotalEstoque = loteProduto.CustoTotalInicial,
+                                ProdutoID = loteProduto.ProdutoID
+                            };
+
+                            if (!epc.Create(estoqueProduto))
+                                return View();
+                        }
+
                     return RedirectToAction("Index");
+                    }
                 }
             }
 

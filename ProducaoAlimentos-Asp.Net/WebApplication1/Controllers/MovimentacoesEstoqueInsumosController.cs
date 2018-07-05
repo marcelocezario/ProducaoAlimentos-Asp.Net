@@ -84,14 +84,13 @@ namespace WebApplication1.Controllers
             return false;
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public bool Delete(int id)
         {
             MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Find(id);
             db.MovimentacoesEstoqueInsumos.Remove(movimentacaoEstoqueInsumo);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            return true;
         }
 
 

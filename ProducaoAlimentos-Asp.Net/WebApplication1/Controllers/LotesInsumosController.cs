@@ -198,15 +198,30 @@ namespace WebApplication1.Controllers
 
         public ActionResult Delete(int? id)
         {
+            LoteInsumo loteInsumo = db.LotesInsumos.Find(id);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LoteInsumo loteInsumo = db.LotesInsumos.Find(id);
+            if (loteInsumo.QtdeDisponivel != loteInsumo.QtdeInicial)
+            {
+                return HttpNotFound();
+            }
             if (loteInsumo == null)
             {
                 return HttpNotFound();
             }
+            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(loteInsumo.ID)).FirstOrDefault();
+            if (movimentacaoEstoqueInsumo == null)
+            {
+                return HttpNotFound();
+            }
+            EstoqueInsumo estoqueInsumo = db.EstoqueInsumos.Where(e => e._Insumo.Nome.Equals(loteInsumo._Insumo.Nome)).FirstOrDefault();
+            if (estoqueInsumo == null)
+            {
+                return HttpNotFound();
+            }
+            
             return PartialView(loteInsumo);
         }
 
@@ -215,30 +230,20 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             LoteInsumo loteInsumo = db.LotesInsumos.Find(id);
+            EstoqueInsumo estoqueInsumo = db.EstoqueInsumos.Where(e => e._Insumo.Nome.Equals(loteInsumo._Insumo.Nome)).FirstOrDefault();
 
-            if (loteInsumo.QtdeDisponivel == loteInsumo.QtdeInicial)
-            {
-                db.LotesInsumos.Remove(loteInsumo);
-                db.SaveChanges();
+            estoqueInsumo.QtdeTotalEstoque -= loteInsumo.QtdeInicial;
+            estoqueInsumo.CustoTotalEstoque -= loteInsumo.CustoTotalInicial;
+            EstoqueInsumosController eic = new EstoqueInsumosController();
+            eic.Edit(estoqueInsumo);
 
-                // Alterando Movimentação Estoque Insumos
-                MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(loteInsumo.ID)).FirstOrDefault();
-                if (movimentacaoEstoqueInsumo == null)
-                {
-                    return HttpNotFound();
-                }
-                db.MovimentacoesEstoqueInsumos.Remove(movimentacaoEstoqueInsumo);
-                db.SaveChanges();
+            List<MovimentacaoEstoqueInsumo> movimentacoes = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(loteInsumo.ID)).ToList();
 
-                // Incluir / Alterar Estoque Insumos
+            db.MovimentacoesEstoqueInsumos.RemoveRange(movimentacoes);
+            db.LotesInsumos.Remove(loteInsumo);
+            db.SaveChanges();
 
-
-
-
-                return RedirectToAction("Index");
-            }
-
-            return view
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

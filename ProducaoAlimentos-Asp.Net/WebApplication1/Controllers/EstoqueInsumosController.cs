@@ -81,30 +81,6 @@ namespace WebApplication1.Controllers
             return false;
         }
 
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            EstoqueInsumo estoqueInsumo = db.EstoqueInsumos.Find(id);
-            if (estoqueInsumo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estoqueInsumo);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            EstoqueInsumo estoqueInsumo = db.EstoqueInsumos.Find(id);
-            db.EstoqueInsumos.Remove(estoqueInsumo);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

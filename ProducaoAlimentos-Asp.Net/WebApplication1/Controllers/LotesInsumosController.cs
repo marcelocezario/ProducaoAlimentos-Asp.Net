@@ -205,23 +205,11 @@ namespace WebApplication1.Controllers
             }
             if (loteInsumo.QtdeDisponivel != loteInsumo.QtdeInicial)
             {
-                return HttpNotFound();
+                return Content("Já houve utilização deste Lote de Insumos, portanto não é possível excluí-lo. " +
+                    "Se achar necessário, poderá alterar a quantidade dele para o valor que já foi utilizado " +
+                    "para assim, zerar a quantidade disponível em estoque");
             }
-            if (loteInsumo == null)
-            {
-                return HttpNotFound();
-            }
-            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(loteInsumo.ID)).FirstOrDefault();
-            if (movimentacaoEstoqueInsumo == null)
-            {
-                return HttpNotFound();
-            }
-            EstoqueInsumo estoqueInsumo = db.EstoqueInsumos.Where(e => e._Insumo.Nome.Equals(loteInsumo._Insumo.Nome)).FirstOrDefault();
-            if (estoqueInsumo == null)
-            {
-                return HttpNotFound();
-            }
-            
+
             return PartialView(loteInsumo);
         }
 

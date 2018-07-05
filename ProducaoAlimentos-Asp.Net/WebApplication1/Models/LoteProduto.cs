@@ -15,6 +15,7 @@ namespace WebApplication1.Models
 
         [Required]
         [ForeignKey("_Produto")]
+        [Display(Name = "Produto")]
         public int ProdutoID { get; set; }
         public virtual Produto _Produto { get; set; }
 

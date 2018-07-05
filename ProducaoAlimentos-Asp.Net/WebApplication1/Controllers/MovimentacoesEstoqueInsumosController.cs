@@ -52,7 +52,8 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public bool Edit([Bind(Include = "ID,LoteInsumoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo)
         {
-            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumoEditar = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(movimentacaoEstoqueInsumo.LoteInsumoID)).FirstOrDefault();
+//          MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumoEditar = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(movimentacaoEstoqueInsumo.LoteInsumoID)).FirstOrDefault();
+            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumoEditar = db.MovimentacoesEstoqueInsumos.Find(movimentacaoEstoqueInsumo.ID);
 
             movimentacaoEstoqueInsumoEditar.DataMovimentacao = movimentacaoEstoqueInsumo.DataMovimentacao;
             movimentacaoEstoqueInsumoEditar.Qtde = movimentacaoEstoqueInsumo.Qtde;
@@ -87,10 +88,13 @@ namespace WebApplication1.Controllers
         public bool Delete(int id)
         {
             MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Find(id);
-            db.MovimentacoesEstoqueInsumos.Remove(movimentacaoEstoqueInsumo);
-            db.SaveChanges();
-
-            return true;
+            if (movimentacaoEstoqueInsumo != null)
+            {
+                db.MovimentacoesEstoqueInsumos.Remove(movimentacaoEstoqueInsumo);
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
 

@@ -158,13 +158,14 @@ namespace WebApplication1.Controllers
                     loteInsumo = db.LotesInsumos.Include(li => li._Insumo).Where(li => li.ID == loteInsumo.ID).FirstOrDefault();
 
                     // Alterando Movimentação Estoque Insumos
-                    MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = new MovimentacaoEstoqueInsumo()
-                    {
-                        DataMovimentacao = loteInsumo.DataCompra,
-                        Qtde = loteInsumo.QtdeInicial,
-                        ValorMovimentacao = loteInsumo.CustoTotalInicial,
-                        LoteInsumoID = loteInsumo.ID
-                    };
+
+                    MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(loteInsumo.ID)).FirstOrDefault();
+                    
+                    movimentacaoEstoqueInsumo.DataMovimentacao = loteInsumo.DataCompra;
+                    movimentacaoEstoqueInsumo.Qtde = loteInsumo.QtdeInicial;
+                    movimentacaoEstoqueInsumo.ValorMovimentacao = loteInsumo.CustoTotalInicial;
+                    movimentacaoEstoqueInsumo.LoteInsumoID = loteInsumo.ID;
+
 
                     MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
 

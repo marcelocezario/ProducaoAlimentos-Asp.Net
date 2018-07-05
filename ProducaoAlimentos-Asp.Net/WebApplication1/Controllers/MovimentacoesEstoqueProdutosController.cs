@@ -37,32 +37,62 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,LoteProdutoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueProduto movimentacaoEstoqueProduto)
+        public bool Create([Bind(Include = "ID,LoteProdutoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueProduto movimentacaoEstoqueProduto)
         {
             if (ModelState.IsValid)
             {
                 db.MovimentacoesEstoqueProdutos.Add(movimentacaoEstoqueProduto);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return true;
             }
-
-            ViewBag.LoteProdutoID = new SelectList(db.LotesProdutos, "ID", "ID", movimentacaoEstoqueProduto.LoteProdutoID);
-            return View(movimentacaoEstoqueProduto);
+            return false;
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,LoteProdutoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueProduto movimentacaoEstoqueProduto)
+        public bool Edit([Bind(Include = "ID,LoteProdutoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueProduto movimentacaoEstoqueProduto)
         {
+            MovimentacaoEstoqueProduto movimentacaoEstoqueProdutoEditar = db.MovimentacoesEstoqueProdutos.Find(movimentacaoEstoqueProduto.ID);
+
+            movimentacaoEstoqueProdutoEditar.DataMovimentacao = movimentacaoEstoqueProduto.DataMovimentacao;
+            movimentacaoEstoqueProdutoEditar.Qtde = movimentacaoEstoqueProduto.Qtde;
+            movimentacaoEstoqueProdutoEditar.ValorMovimentacao = movimentacaoEstoqueProduto.ValorMovimentacao;
+            movimentacaoEstoqueProdutoEditar.LoteProdutoID = movimentacaoEstoqueProduto.LoteProdutoID;
+
             if (ModelState.IsValid)
             {
-                db.Entry(movimentacaoEstoqueProduto).State = EntityState.Modified;
+                db.Entry(movimentacaoEstoqueProdutoEditar).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                foreach (MovimentacaoEstoqueProduto mep in db.MovimentacoesEstoqueProdutos.Where(m => m.LoteProdutoID.Equals(movimentacaoEstoqueProduto.LoteProdutoID)).ToList())
+                {
+                    if (mep.Qtde < 0)
+                    {
+                        mep.ValorMovimentacao = -mep.Qtde * mep._LoteProduto.CustoMedio;
+                    }
+                    else
+                    {
+                        mep.ValorMovimentacao = mep.Qtde * mep._LoteProduto.CustoMedio;
+                    }
+
+                    db.Entry(mep).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return true;
             }
-            ViewBag.LoteProdutoID = new SelectList(db.LotesProdutos, "ID", "ID", movimentacaoEstoqueProduto.LoteProdutoID);
-            return View(movimentacaoEstoqueProduto);
+            return false;
+        }
+
+        public bool Delete (int id)
+        {
+            MovimentacaoEstoqueProduto movimentacaoEstoqueProduto = db.MovimentacoesEstoqueProdutos.Find(id);
+            if (movimentacaoEstoqueProduto != null)
+            {
+                db.MovimentacoesEstoqueProdutos.Remove(movimentacaoEstoqueProduto);
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         protected override void Dispose(bool disposing)
@@ -73,24 +103,5 @@ namespace WebApplication1.Controllers
             }
             base.Dispose(disposing);
         }
-
-//        public void RegistrarMovimentacaoEstoque(DateTime dataMovimentacao, double qtde, double valorMedio, LoteProduto loteProduto)
-//        {
-//            MovimentacaoEstoqueProduto mep = new MovimentacaoEstoqueProduto();
-//
-//            mep.DataMovimentacao = dataMovimentacao;
-//            mep.Qtde = qtde;
-//            mep.ValorMovimentacao = valorMedio * qtde;
-//            mep.LoteProdutoID = loteProduto.ID;
-//
-//            if (qtde < 0)
-//                mep.ValorMovimentacao *= -1;
-//
-//            EstoqueProdutosController epc = new EstoqueProdutosController();
-//            epc.RegistrarEstoqueProduto(mep);
-//
-//            db.MovimentacoesEstoqueProdutos.Add(mep);
-//            db.SaveChanges();
-//        }
     }
 }

@@ -51,31 +51,125 @@ namespace WebApplication1.Controllers
 
                 bool insumosDisponiveis = true;
 
-                foreach (InsumoComposicaoProduto item in loteProduto._Produto._ComposicaoProduto)
+                Produto produto = db.Produtos.Find(loteProduto.ProdutoID);
+
+                foreach (InsumoComposicaoProduto item in produto._ComposicaoProduto)
                 {
-                    
+                    double qtdeInsumo = item.QtdeInsumo * loteProduto.QtdeInicial;
+                    double qtdeEstoqueInsumo = db.EstoqueInsumos.Where(m => m.InsumoID.Equals(item.InsumoID)).Sum(m => m.QtdeTotalEstoque);
+
+                    if (qtdeInsumo > qtdeEstoqueInsumo)
+                        insumosDisponiveis = false;
                 }
 
+                if (insumosDisponiveis)
+                {
+                    // Cria loteProduto no banco, depois vai ser alterado para incluir atributos faltantes sobre o custo
 
+                    loteProduto.QtdeDisponivel = loteProduto.QtdeInicial;
+                    db.LotesProdutos.Add(loteProduto);
+                    db.SaveChanges();
 
-                loteProduto.QtdeDisponivel = loteProduto.QtdeInicial;
+                    double custoTotalLoteProduto = 0;
 
+                    List<LoteInsumoProducao> lotesComposicaoProduto = new List<LoteInsumoProducao>();
 
-                
+                    // Percorre composição de Produto para encontrar os insumos necessário
+                    foreach (InsumoComposicaoProduto item in loteProduto._Produto._ComposicaoProduto)
+                    {
+                        EstoqueInsumo estoqueInsumo = db.EstoqueInsumos.Where(e => e.InsumoID == item.InsumoID).FirstOrDefault();
 
+                        double qtdeInsumo = item.QtdeInsumo * loteProduto.QtdeInicial;
 
+                        while (qtdeInsumo > 0)
+                        {
+                            // Procura o Lote de Insumo que tenha estoque para e que esteja com a validade mais próxima 
+                            LoteInsumo loteDisponivel = db.LotesInsumos.
+                                Where(l => l.InsumoID == item.InsumoID && l.QtdeDisponivel > 0).
+                                OrderBy(l => l.Validade).FirstOrDefault();
 
+                            if ((loteDisponivel.QtdeDisponivel - qtdeInsumo) >= 0)
+                            {
+                                loteDisponivel.QtdeDisponivel -= qtdeInsumo;
+                                LotesInsumosController lic = new LotesInsumosController();
+                                lic.Edit(loteDisponivel);
 
+                                LoteInsumoProducao loteInsumoProducao = new LoteInsumoProducao()
+                                {
+                                    QtdeInsumo = qtdeInsumo,
+                                    CustoTotalInsumo = qtdeInsumo * loteDisponivel.CustoMedio,
+                                    LoteInsumoID = loteDisponivel.ID,
+                                    LoteProdutoID = loteProduto.ID
+                                };
 
+                                MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = new MovimentacaoEstoqueInsumo()
+                                {
+                                    DataMovimentacao = loteProduto.DataProducao,
+                                    Qtde = -qtdeInsumo,
+                                    ValorMovimentacao = loteDisponivel.CustoMedio * qtdeInsumo,
+                                    LoteInsumoID = loteDisponivel.ID
+                                };
 
+                                MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
+                                meic.Create(movimentacaoEstoqueInsumo);
 
+                                estoqueInsumo.QtdeTotalEstoque -= loteInsumoProducao.QtdeInsumo;
+                                estoqueInsumo.CustoTotalEstoque -= loteInsumoProducao.CustoTotalInsumo;
 
+                                EstoqueInsumosController eic = new EstoqueInsumosController();
+                                eic.Edit(estoqueInsumo);
 
+                                lotesComposicaoProduto.Add(loteInsumoProducao);
+                                qtdeInsumo = 0;
+                                custoTotalLoteProduto += loteInsumoProducao.CustoTotalInsumo;
+                            }
+                            else
+                            {
+                                LoteInsumoProducao loteInsumoProducao = new LoteInsumoProducao()
+                                {
+                                    QtdeInsumo = loteDisponivel.QtdeDisponivel,
+                                    CustoTotalInsumo = loteDisponivel.QtdeDisponivel * loteDisponivel.CustoMedio,
+                                    LoteInsumoID = loteDisponivel.ID,
+                                    LoteProdutoID = loteProduto.ID
+                                };
 
+                                MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = new MovimentacaoEstoqueInsumo()
+                                {
+                                    DataMovimentacao = loteProduto.DataProducao,
+                                    Qtde = -loteDisponivel.QtdeDisponivel,
+                                    ValorMovimentacao = loteDisponivel.CustoMedio * loteDisponivel.QtdeDisponivel,
+                                    LoteInsumoID = loteDisponivel.ID
+                                };
 
+                                MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
+                                meic.Create(movimentacaoEstoqueInsumo);
 
+                                estoqueInsumo.QtdeTotalEstoque -= loteInsumoProducao.QtdeInsumo;
+                                estoqueInsumo.CustoTotalEstoque -= loteInsumoProducao.CustoTotalInsumo;
 
-                return RedirectToAction("Index");
+                                EstoqueInsumosController eic = new EstoqueInsumosController();
+                                eic.Edit(estoqueInsumo);
+
+                                lotesComposicaoProduto.Add(loteInsumoProducao);
+                                qtdeInsumo -= loteDisponivel.QtdeDisponivel;
+                                custoTotalLoteProduto += loteInsumoProducao.CustoTotalInsumo;
+
+                                loteDisponivel.QtdeDisponivel = 0;
+                                LotesInsumosController lic = new LotesInsumosController();
+                                lic.Edit(loteDisponivel);
+                            }
+                        }
+                    }
+
+                    loteProduto.CustoTotalInicial = custoTotalLoteProduto;
+                    loteProduto.CustoMedio = custoTotalLoteProduto / loteProduto.QtdeInicial;
+                    db.Entry(loteProduto).State = EntityState.Modified;
+
+                    db.LotesInsumosProducao.AddRange(lotesComposicaoProduto);
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
             }
 
             ViewBag.ProdutoID = new SelectList(db.Produtos, "ProdutoID", "Nome", loteProduto.ProdutoID);

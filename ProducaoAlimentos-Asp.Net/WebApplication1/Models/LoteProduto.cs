@@ -8,6 +8,8 @@ namespace WebApplication1.Models
     [Table("LotesProdutos")]
     public class LoteProduto : Lote
     {
+        [DataType(DataType.Date)]
+        [Display(Name = "Data produção")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataProducao { get; set; }
 

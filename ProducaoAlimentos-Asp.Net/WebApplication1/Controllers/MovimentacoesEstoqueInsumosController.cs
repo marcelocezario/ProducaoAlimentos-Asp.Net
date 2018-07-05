@@ -50,17 +50,50 @@ namespace WebApplication1.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,LoteInsumoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo)
+        public bool Edit([Bind(Include = "ID,LoteInsumoID,DataMovimentacao,Qtde,ValorMovimentacao")] MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo)
         {
+            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumoEditar = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(movimentacaoEstoqueInsumo.LoteInsumoID)).FirstOrDefault();
+
+            movimentacaoEstoqueInsumoEditar.DataMovimentacao = movimentacaoEstoqueInsumo.DataMovimentacao;
+            movimentacaoEstoqueInsumoEditar.Qtde = movimentacaoEstoqueInsumo.Qtde;
+            movimentacaoEstoqueInsumoEditar.ValorMovimentacao = movimentacaoEstoqueInsumo.ValorMovimentacao;
+            movimentacaoEstoqueInsumoEditar.LoteInsumoID = movimentacaoEstoqueInsumo.LoteInsumoID;
+
             if (ModelState.IsValid)
             {
-                db.Entry(movimentacaoEstoqueInsumo).State = EntityState.Modified;
+                db.Entry(movimentacaoEstoqueInsumoEditar).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                foreach (MovimentacaoEstoqueInsumo mei in db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(movimentacaoEstoqueInsumo.LoteInsumoID)).ToList())
+                {
+                    if(mei.Qtde < 0)
+                    {
+                        mei.ValorMovimentacao = -mei.Qtde * mei._LoteInsumo.CustoMedio;
+                    }
+                    else
+                    {
+                        mei.ValorMovimentacao = mei.Qtde * mei._LoteInsumo.CustoMedio;
+                    }
+                     
+                    db.Entry(mei).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                return true;
             }
-            ViewBag.LoteInsumoID = new SelectList(db.LotesInsumos, "ID", "ID", movimentacaoEstoqueInsumo.LoteInsumoID);
-            return View(movimentacaoEstoqueInsumo);
+            return false;
         }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Find(id);
+            db.MovimentacoesEstoqueInsumos.Remove(movimentacaoEstoqueInsumo);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         protected override void Dispose(bool disposing)
         {

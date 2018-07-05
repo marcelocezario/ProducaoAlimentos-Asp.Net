@@ -71,7 +71,7 @@ namespace WebApplication1.Controllers
                 {
                     // Incluir / Alterar Estoque Insumos
                     EstoqueInsumosController eic = new EstoqueInsumosController();
-                    
+
                     var x = db.EstoqueInsumos.Where(ei => ei._Insumo.Nome.Equals(loteInsumo._Insumo.Nome)).FirstOrDefault();
 
                     if (x != null)
@@ -130,11 +130,65 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,DataCompra,InsumoID,MarcaID,FornecedorID,QtdeInicial,QtdeDisponivel,CustoMedio,CustoTotalInicial,Validade")] LoteInsumo loteInsumo)
         {
-            if (ModelState.IsValid)
+            LoteInsumo loteInsumoEditar = db.LotesInsumos.Find(loteInsumo.ID);
+
+            double diferencaQuantidade = loteInsumo.QtdeInicial - loteInsumoEditar.QtdeInicial;
+            double diferencaValorTotal = loteInsumo.CustoTotalInicial - loteInsumoEditar.CustoTotalInicial;
+
+            loteInsumo.QtdeDisponivel += diferencaQuantidade;
+            loteInsumo.CustoMedio = loteInsumo.CustoTotalInicial / loteInsumo.QtdeInicial;
+
+            if (loteInsumo.QtdeDisponivel >= 0)
             {
-                db.Entry(loteInsumo).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                loteInsumoEditar.DataCompra = loteInsumo.DataCompra;
+                loteInsumoEditar.InsumoID = loteInsumo.InsumoID;
+                loteInsumoEditar.MarcaID = loteInsumo.MarcaID;
+                loteInsumoEditar.FornecedorID = loteInsumo.FornecedorID;
+                loteInsumoEditar.QtdeInicial = loteInsumo.QtdeInicial;
+                loteInsumoEditar.QtdeDisponivel = loteInsumo.QtdeDisponivel;
+                loteInsumoEditar.CustoMedio = loteInsumo.CustoMedio;
+                loteInsumoEditar.CustoTotalInicial = loteInsumo.CustoTotalInicial;
+                loteInsumoEditar.Validade = loteInsumo.Validade;
+
+                if (ModelState.IsValid)
+                {
+                    db.Entry(loteInsumoEditar).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    loteInsumo = db.LotesInsumos.Include(li => li._Insumo).Where(li => li.ID == loteInsumo.ID).FirstOrDefault();
+
+                    // Alterando Movimentação Estoque Insumos
+                    MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = new MovimentacaoEstoqueInsumo()
+                    {
+                        DataMovimentacao = loteInsumo.DataCompra,
+                        Qtde = loteInsumo.QtdeInicial,
+                        ValorMovimentacao = loteInsumo.CustoTotalInicial,
+                        LoteInsumoID = loteInsumo.ID
+                    };
+
+                    MovimentacoesEstoqueInsumosController meic = new MovimentacoesEstoqueInsumosController();
+
+                    if (meic.Edit(movimentacaoEstoqueInsumo))
+                    {
+
+                        // Incluir / Alterar Estoque Insumos
+                        EstoqueInsumosController eic = new EstoqueInsumosController();
+
+                        var x = db.EstoqueInsumos.Where(ei => ei._Insumo.Nome.Equals(loteInsumo._Insumo.Nome)).FirstOrDefault();
+
+                        if (x != null)
+                        {
+                            EstoqueInsumo estoqueInsumo = x;
+
+                            estoqueInsumo.QtdeTotalEstoque += diferencaQuantidade;
+                            estoqueInsumo.CustoTotalEstoque = loteInsumo.CustoMedio * loteInsumo.QtdeDisponivel;
+
+                            if (!eic.Edit(estoqueInsumo))
+                                return View();
+                            return RedirectToAction("Index");
+                        }
+                    }
+                }
             }
             ViewBag.FornecedorID = new SelectList(db.Fornecedores, "ID", "Nome", loteInsumo.FornecedorID);
             ViewBag.InsumoID = new SelectList(db.Insumos, "InsumoID", "Nome", loteInsumo.InsumoID);
@@ -161,9 +215,30 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             LoteInsumo loteInsumo = db.LotesInsumos.Find(id);
-            db.LotesInsumos.Remove(loteInsumo);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            if (loteInsumo.QtdeDisponivel == loteInsumo.QtdeInicial)
+            {
+                db.LotesInsumos.Remove(loteInsumo);
+                db.SaveChanges();
+
+                // Alterando Movimentação Estoque Insumos
+                MovimentacaoEstoqueInsumo movimentacaoEstoqueInsumo = db.MovimentacoesEstoqueInsumos.Where(m => m.LoteInsumoID.Equals(loteInsumo.ID)).FirstOrDefault();
+                if (movimentacaoEstoqueInsumo == null)
+                {
+                    return HttpNotFound();
+                }
+                db.MovimentacoesEstoqueInsumos.Remove(movimentacaoEstoqueInsumo);
+                db.SaveChanges();
+
+                // Incluir / Alterar Estoque Insumos
+
+
+
+
+                return RedirectToAction("Index");
+            }
+
+            return view
         }
 
         protected override void Dispose(bool disposing)

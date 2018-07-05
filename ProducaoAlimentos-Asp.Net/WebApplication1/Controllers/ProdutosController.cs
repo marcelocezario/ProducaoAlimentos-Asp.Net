@@ -106,6 +106,8 @@ namespace WebApplication1.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Produto produto = db.Produtos.Find(id);
+
+            db.InsumosComposicaoProdutos.RemoveRange(produto._ComposicaoProduto);
             db.Produtos.Remove(produto);
             db.SaveChanges();
             return RedirectToAction("Index");
